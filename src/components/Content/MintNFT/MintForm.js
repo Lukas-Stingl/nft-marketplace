@@ -1,18 +1,24 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import HelloWorld from '../../../abis/HelloWorld.json';
 import web3 from '../../../connection/web3';
-import Web3Context from '../../../store/web3-context';
 
 
 
 const MintForm = () => {
-  useEffect(() => {
-    const web3Ctx = useContext(Web3Context);
-    const networkId = web3Ctx.loadNetworkId(web3);
+
+  useEffect(async () => {
+    // const accounts = await web3.eth.getAccounts();
+    // const account = accounts[0];
+    const networkId = await web3.eth.net.getId();
     const helloWorldDeployedNetwork = HelloWorld.networks[networkId];
-    const helloWorldContract = new web3.eth.Contract(HelloWorld, helloWorldDeployedNetwork);
-    const helloWorld = helloWorldContract.methods.renderHelloWorld().send();
-    console.log(helloWorld);
+    const helloWorldContract = new web3.eth.Contract(HelloWorld.abi, helloWorldDeployedNetwork);
+    helloWorldContract.options.address = "0x512B84BEAe1d67cE82EbcAeddE336f0F78Da2ac0"
+    helloWorldContract.methods.renderHelloWorld().call().then((res) => {
+      console.log(res);
+    }
+
+    );
+    ;
   }, []);
 
   return (
