@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 
 import web3 from './connection/web3';
@@ -156,8 +155,6 @@ const App = () => {
 
 
 };
-
-
 
 
 export default App;
