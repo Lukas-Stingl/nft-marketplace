@@ -1,8 +1,8 @@
 {
   "name": "nft-gallery",
   "version": "0.1.0",
-  "description": "NFT Gallery",
-  "author": "miqueltrallero.c@gmail.com",
+  "description": "NFT marketplace",
+  "author": "Topic 4 Team",
   "homepage": ".",
   "engines": {
     "node": "16.13.1"
