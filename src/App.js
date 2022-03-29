@@ -1,4 +1,10 @@
 import React, { useContext, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 import web3 from './connection/web3';
 import Navbar from './components/Layout/Navbar';
@@ -133,10 +139,35 @@ const App = () => {
 
   return (
     <React.Fragment>
-      {showNavbar && <Navbar />}
+      <Router>
+        {showNavbar && <Navbar />}
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/collection" element={<Collection />} />
+
+
+        </Routes>
+      </Router>
       {showContent && <Main />}
     </React.Fragment>
   );
+
+
 };
 
+function Home() {
+  return <h2>Home</h2>;
+}
+
+function Create() {
+  return <h2>About</h2>;
+}
+
+function Collection() {
+  return <h2>Users</h2>;
+}
+
 export default App;
+
