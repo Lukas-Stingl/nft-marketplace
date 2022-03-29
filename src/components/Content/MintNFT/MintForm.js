@@ -1,8 +1,14 @@
 import React from 'react';
 
+const helloWorld = () => {
+
+}
+
 const MintForm = () => {
+
+
   return (
-    <p title="Free Web tutorials">W3Schools.com</p>
+    <div title="Free Web tutorials"><button onClick={helloWorld()} type="button">Hello World!</button></div>
   );
 };
 
