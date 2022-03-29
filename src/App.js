@@ -9,6 +9,9 @@ import {
 import web3 from './connection/web3';
 import Navbar from './components/Layout/Navbar';
 import Main from './components/Content/Main';
+import Home from './components/Content/Home';
+import Collection from './components/Content/NFTCollection/Collection';
+import Create from './components/Content/MintNFT/CreateNFT';
 import Web3Context from './store/web3-context';
 import CollectionContext from './store/collection-context';
 import MarketplaceContext from './store/marketplace-context';
@@ -141,13 +144,10 @@ const App = () => {
     <React.Fragment>
       <Router>
         {showNavbar && <Navbar />}
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />
           <Route path="/collection" element={<Collection />} />
-
-
         </Routes>
       </Router>
       {showContent && <Main />}
@@ -157,17 +157,8 @@ const App = () => {
 
 };
 
-function Home() {
-  return <h2>Home</h2>;
-}
 
-function Create() {
-  return <h2>About</h2>;
-}
 
-function Collection() {
-  return <h2>Users</h2>;
-}
 
 export default App;
 
