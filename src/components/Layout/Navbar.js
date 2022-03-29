@@ -3,7 +3,13 @@ import React, { useContext, useState } from 'react';
 import Web3Context from '../../store/web3-context';
 import MarketplaceContext from '../../store/marketplace-context';
 import web3 from '../../connection/web3';
-import { formatPrice } from '../../helpers/utils';
+// import { formatPrice } from '../../helpers/utils';
+import {
+  // BrowserRouter as Router,
+  // Switch,
+  // Route,
+  Link
+} from "react-router-dom";
 
 const Navbar = () => {
   const [fundsLoading, setFundsLoading] = useState(false);
@@ -59,7 +65,23 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-white p-0">
       <ul className="navbar-nav ms-auto">
-        <li className="nav-item">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/create">Create</Link>
+        </li>
+        <li>
+          <Link to="/collection">Explore</Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+
+export default Navbar;
+
+/* <li className="nav-item">
           {marketplaceCtx.userFunds > 0 && !fundsLoading &&
             <button
               type="button"
@@ -93,10 +115,4 @@ const Navbar = () => {
             >
               Connect your wallet
             </button>}
-        </li>
-      </ul>
-    </nav>
-  );
-};
-
-export default Navbar;
+        </li> */
