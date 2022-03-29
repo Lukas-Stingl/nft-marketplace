@@ -16,12 +16,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### The repository
 
-First, you will need to `clone` or `fork` the repository into your Github account:
+First, you will need to `clone` the repository into your Github account:
 
-<img src="https://docs.github.com/assets/images/help/repository/fork_button.jpg" alt="Fork on GitHub" width='450'>
 
 ```
-https://github.com/todaycodemaster/NFTProject.git
+https://git.scc.kit.edu/uflgi/nft-marketplace/
 ```
 
 ### Installing
