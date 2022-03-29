@@ -36,7 +36,7 @@ const App = () => {
       // Load Network ID
       const networkId = await web3Ctx.loadNetworkId(web3);
 
-      // Load Contracts      
+      // Load Contracts   
       const nftDeployedNetwork = NFTCollection.networks[networkId];
       const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
 
