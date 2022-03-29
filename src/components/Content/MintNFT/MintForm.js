@@ -1,7 +1,8 @@
 import React from 'react';
 
 const helloWorld = () => {
-
+  // const contract = drizzle.contracts.HelloWorld;
+  // return contract.methods["renderHelloWorld"];
 }
 
 const MintForm = () => {
