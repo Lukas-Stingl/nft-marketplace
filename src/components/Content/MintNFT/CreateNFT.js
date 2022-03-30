@@ -8,15 +8,12 @@ function Create() {
                     placeholder="Asset Name"
                     className="mt-8 border rounded p-4"
                     onChange={e => {
-
-
                     }}
                 />
                 <textarea
                     placeholder="Asset description"
                     className="mt-2 border rounded p-4"
                     onChange={e => {
-
                     }}
                 />
                 <input
@@ -24,7 +21,6 @@ function Create() {
                     className="mt-8 border rounded p-4"
                     type="number"
                     onChange={e => {
-
                     }}
                 />
                 <input
@@ -32,7 +28,6 @@ function Create() {
                     name="Asset"
                     className="my-4"
                     onChange={e => {
-
                     }}
                 />
                 {/* {
@@ -50,7 +45,6 @@ function Create() {
               )
             } */}
                 <button onClick={e => {
-
                 }}
                     className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg"
                 >Create NFT</button>

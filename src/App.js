@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import web3 from './connection/web3';
-import Navbar from './components/Layout/Navbar';
+import Navigation from './components/Layout/Navigation';
 import Main from './components/Content/Main';
 import Home from './components/Content/Home';
 import Collection from './components/Content/NFTCollection/Collection';
@@ -136,13 +136,15 @@ const App = () => {
     loadBlockchainData();
   }, []);
 
-  const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
+  // const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
   const showContent = web3 && collectionCtx.contract && marketplaceCtx.contract && web3Ctx.account;
 
   return (
     <React.Fragment>
       <Router>
-        {showNavbar && <Navbar />}
+        {//{showNavbar && }
+        }
+        <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />

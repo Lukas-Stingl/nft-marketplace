@@ -5,7 +5,7 @@ import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
 import { formatPrice } from '../../../helpers/utils';
-import eth from '../../../img/eth.png';
+import eth from '../../../img/ethereum.svg';
 
 const NFTCollection = () => {
   const web3Ctx = useContext(Web3Context);
