@@ -1,0 +1,45 @@
+
+section.heading h2 {
+  font-size: 50px;
+  text-align:center;
+  color:#102C4E;
+  margin-top: 150px;
+  margin-bottom:70px;
+}
+
+section.heading p {
+  font-size: 30px;
+  color:rgba(29, 15, 48, 0.699)
+}
+
+.cms-boxes-items {
+  float: left;
+  width: 25%;
+  padding: 10px;
+  margin:50px;
+  height: 300px;
+}
+
+  section.cms-boxes .cms-boxes-items h2 {
+    font-size: 35px;
+    color: rgb(253, 253, 253);
+    font-weight: 600;
+    line-height: 37px;
+    text-align: center;
+    margin: 20px 0 10px;
+    text-transform: uppercase;
+  }
+
+  section.cms-boxes .cms-boxes-items p {
+    margin: 100px 0 10px;
+    color:rgb(253, 253, 253);
+    text-align: center;
+  }
+
+  section.cms-boxes .one, section.cms-boxes .two, section.cms-boxes .three,  section.cms-boxes .four,  section.cms-boxes .five, section.cms-boxes .six, section.cms-boxes .seven, section.cms-boxes .eight {
+    background-color: rgb(66, 16, 88);
+  }
+  section.cms-boxes .cms-boxes-items:hover {
+    opacity: .5;
+    cursor: pointer;
+  }
