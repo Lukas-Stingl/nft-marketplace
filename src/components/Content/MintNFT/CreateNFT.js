@@ -7,7 +7,42 @@ import "./mint.css"
 import NFTCollection from '../../../abis/NFTCollection.json';
 
 const ipfsClient = require('ipfs-http-client');
+const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 const fs = require("fs");
+
+async function uploadFile() {
+    return new Promise(async function(resolve, reject) {    
+    var capturedFileBuffer = this.state.buffer;
+    const fileAdded = await ipfs.add(capturedFileBuffer);
+
+    const metadata = {
+        title: "Asset Metadata",
+        type: "object",
+        properties: {
+            name: {
+                type: "string",
+                description: this.state.nftName
+            },
+            description: {
+                type: "string",
+                description: this.state.nftDescription
+            },
+            image: {
+                type: "string",
+                description: fileAdded.path
+            }
+        }
+    };
+
+    const metadataAdded = await ipfs.add(JSON.stringify(metadata));
+    if (!metadataAdded) {
+        reject('Something went wrong when updloading the file');
+        
+    }
+    resolve(metadataAdded);
+    
+    })
+}
 
 class Create extends React.Component {
     constructor(props) {
@@ -18,41 +53,6 @@ class Create extends React.Component {
 
     }
 
-    async uploadFile() {
-        return new Promise(async function(resolve, reject) {
-        const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
-    
-        var capturedFileBuffer = this.state.buffer;
-        const fileAdded = await ipfs.add(capturedFileBuffer);
-    
-        const metadata = {
-            title: "Asset Metadata",
-            type: "object",
-            properties: {
-                name: {
-                    type: "string",
-                    description: this.state.nftName
-                },
-                description: {
-                    type: "string",
-                    description: this.state.nftDescription
-                },
-                image: {
-                    type: "string",
-                    description: fileAdded.path
-                }
-            }
-        };
-    
-        const metadataAdded = await ipfs.add(JSON.stringify(metadata));
-        if (!metadataAdded) {
-            reject('Something went wrong when updloading the file');
-            
-        }
-        resolve(metadataAdded);
-        
-        })
-    }
 
     async getFile(path) {
         var aBuffer = [];
@@ -69,7 +69,7 @@ class Create extends React.Component {
         event.preventDefault();
         alert(JSON.stringify(this.state))
 
-        const metadataAdded = await this.uploadFile();
+        const metadataAdded = await uploadFile();
 
         //new from MintForm.js
         const accounts = await web3.eth.getAccounts();
