@@ -69,7 +69,7 @@ const App = () => {
           });
 
       } else {
-        window.alert('NFTCollection contract not deployed to detected network.')
+       // window.alert('NFTCollection contract not deployed to detected network.')
       }
 
       if (mktContract) {
@@ -115,7 +115,7 @@ const App = () => {
           });
 
       } else {
-        window.alert('NFTMarketplace contract not deployed to detected network.')
+       // window.alert('NFTMarketplace contract not deployed to detected network.')
       }
 
       collectionCtx.setNftIsLoading(false);

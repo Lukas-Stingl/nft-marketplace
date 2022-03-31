@@ -10,44 +10,52 @@ const ipfsClient = require('ipfs-http-client');
 const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 const fs = require("fs");
 
-async function uploadFile() {
-    return new Promise(async function(resolve, reject) {    
-    var capturedFileBuffer = this.state.buffer;
-    const fileAdded = await ipfs.add(capturedFileBuffer);
+async function uploadFile(file) {
 
-    const metadata = {
-        title: "Asset Metadata",
-        type: "object",
-        properties: {
-            name: {
-                type: "string",
-                description: this.state.nftName
-            },
-            description: {
-                type: "string",
-                description: this.state.nftDescription
-            },
-            image: {
-                type: "string",
-                description: fileAdded.path
-            }
-        }
-    };
-
-    const metadataAdded = await ipfs.add(JSON.stringify(metadata));
-    if (!metadataAdded) {
-        reject('Something went wrong when updloading the file');
-        
+    const reader = new window.FileReader();
+    reader.readAsArrayBuffer(file);
+    let buffer;
+    reader.onloadend = () => {
+        buffer = Buffer(reader.result).buffer
     }
-    resolve(metadataAdded);
+       // setCapturedFileBuffer();
     
-    })
+        const fileAdded = await ipfs.add(buffer);
+
+        const metadata = {
+            title: "Asset Metadata",
+            type: "object",
+            properties: {
+                name: {
+                    type: "string",
+                    description: this.state.nftName
+                },
+                description: {
+                    type: "string",
+                    description: this.state.nftDescription
+                },
+                image: {
+                    type: "string",
+                    description: fileAdded.path
+                }
+            }
+        };
+
+        const metadataAdded = await ipfs.add(JSON.stringify(metadata));
+        if (!metadataAdded) {
+            return ('Something went wrong when updloading the file');
+
+        }
+        return (metadataAdded);
+
+    
+    
 }
 
 class Create extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH' };
+        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH', nftImage: {}};
         // this.uploadFile = this.uploadFile.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
@@ -62,14 +70,14 @@ class Create extends React.Component {
             //fs.writeFile('downloaded.jpg', picture[1], err => {console.log(err) });
         }
         var picture = Buffer.concat(aBuffer)
-        fs.writeFile('downloaded.jpg', picture, err => {console.log(err) });
+        fs.writeFile('downloaded.jpg', picture, err => { console.log(err) });
     }
 
     async onSubmit(event) {
         event.preventDefault();
         alert(JSON.stringify(this.state))
 
-        const metadataAdded = await uploadFile();
+        const metadataAdded = await uploadFile(this.state.nftImage);
 
         //new from MintForm.js
         const accounts = await web3.eth.getAccounts();
@@ -81,13 +89,13 @@ class Create extends React.Component {
         const NFTCollectionContract = new web3.eth.Contract(NFTCollection.abi, NFTCollectionNetwork);
         NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
         NFTCollectionContract.methods.safeMint(metadataAdded.path).send({ from: account })
-        .on('transactionHash', (hash) => {
-            NFTCollectionContract.setNftIsLoading(true);
-        })
-        .on('error', (e) =>{
-          window.alert('Something went wrong when pushing to the blockchain');
-          NFTCollectionContract.setNftIsLoading(false);  
-        })  
+            .on('transactionHash', (hash) => {
+                NFTCollectionContract.setNftIsLoading(true);
+            })
+            .on('error', (e) => {
+                window.alert('Something went wrong when pushing to the blockchain');
+                NFTCollectionContract.setNftIsLoading(false);
+            })
     }
 
     render() {
@@ -125,10 +133,20 @@ class Create extends React.Component {
                 <div>
                     <input
                         type="file"
-                        name="Asset"
-                        className="my-4"
-                        onChange={e => {
-                        }}
+                        // name="Asset"
+                        // className="my-4"
+                        accept="image/png, image/jpeg"
+                        onChange=
+                        {
+                            e => {
+                                e.preventDefault();
+                                this.setState({nftImage : e.target.files[0]})
+                                const file = e.target.files[0];
+
+   
+                            }
+                        }
+
                     />
                 </div>
                 {/* {
