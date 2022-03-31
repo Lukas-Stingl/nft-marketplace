@@ -1,30 +1,42 @@
+
+import { Alert } from 'react-alert'
 import React from 'react';
 import "./mint.css"
 
 class Create extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH' };
+
+        this.onSubmit = this.onSubmit.bind(this);
+
+    }
 
 
+
+    onSubmit(event) {
+        event.preventDefault();
+        alert(JSON.stringify(this.state))
+    }
 
     render() {
         return (
-            <section class="createform">
+            <form class="createform" onSubmit={this.onSubmit}>
                 <h1>Create new Item</h1>
                 <h3>Name</h3>
                 <div>
                     <input
                         placeholder="Asset Name"
-                        onChange={e => {
-                            this.nftName = e;
-                        }} />
+                        // value={this.state.value}
+                        onChange={e => { this.setState({ nftName: e.target.value }) }}
+                    />
                 </div>
                 <h3>NFT Description</h3>
                 <h4>The description will be included on the item's detail page underneath its image. </h4>
                 <div>
                     <textarea
                         placeholder="Provide a detailed description of your Item"
-
-                        onChange={e => {
-                        }}
+                        onChange={e => { this.setState({ nftDescription: e.target.value }) }}
                     />
                 </div>
                 <h3>NFT Price</h3>
@@ -33,8 +45,8 @@ class Create extends React.Component {
                     <input
                         placeholder="Asset Price in Eth"
                         type="number"
-                        onChange={e => {
-                        }}
+                        // value={this.state.value}
+                        onChange={e => { this.setState({ nftPrice: e.target.value }) }}
                     />
                 </div>
                 <h3>Title</h3>
@@ -64,13 +76,9 @@ class Create extends React.Component {
                 } */}
 
                 <div>
-                    <button onClick={e => {
-
-                    }}
-                    >Create NFT
-                    </button>
+                    <button>Create NFT</button>
                 </div>
-            </section>
+            </form >
         );
     }
 }
