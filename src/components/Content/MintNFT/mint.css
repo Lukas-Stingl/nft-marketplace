@@ -1,5 +1,12 @@
-.createform {
+section.createform {
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    margin-top: 66px;
+    margin-left: 20%;
+  }
 
-    background-color: #323232;
-   
+.p {
+    color: black;
+    margin-bottom: 10px;
   }
