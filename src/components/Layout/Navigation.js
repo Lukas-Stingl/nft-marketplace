@@ -9,7 +9,6 @@ import React//  { useContext, useState }
 import {
   Navbar,
   Nav,
-  InputGroupText,
   InputGroup,
   Input,
   Form,
@@ -17,7 +16,7 @@ import {
   NavLink,
 } from "reactstrap";
 
-import s from "./Navigation.css";
+import "./Navigation.css";
 import logo from "../../img/logo.svg";
 
 class Navigation extends React.Component {
@@ -72,60 +71,34 @@ class Navigation extends React.Component {
   // }
 
   render() {
-    return (<Navbar
-      className={`${s.root} d-print-none`}
-      style={{ zIndex: 100, backgroundColor: '#323232' }}
-    >
-      <NavItem className={`${s.toggleSidebarNav} d-md-none d-flex mr-2`}>
-        <NavLink
-          className={s.logo}
-          id="toggleSidebar"
-          onClick={e => {
-          }}
-        >
-          <img src={logo} height="66px" alt="logo" className="mb-2" />
-        </NavLink>
-      </NavItem>
-      {/* <NavItem className={"d-md-down-block d-md-none ml-auto"}>
-        <img
-          src={search}
-          alt="search"
-          width="24px"
-          height="23px"
-          style={{ marginRight: 12 }}
-        />
-      </NavItem> */}
-      <Form className={`d-md-down-none`} inline>
-        <InputGroup
-          // onFocus={this.toggleFocus}
-          // onBlur={this.toggleFocus}
-          className="input-group-no-border"
-        >
-          <Input
-            id="search-input"
-            placeholder="Search"
-            className={s.headerSearchInput}
-            style={{ borderBottomLeftRadius: 4, borderTopLeftRadius: 4 }}
-          />
-          <InputGroupText addonType={"prepend"}>
-            Search
-          </InputGroupText>
-        </InputGroup>
-      </Form>
-      <Nav>
-        <NavItem>
-          <NavLink href="/create">Link</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/collection">Link</NavLink>
-        </NavItem>
-      </Nav>
+    return (
+      <Navbar class="navbar">
+        <a href="/"><img class="logo" src={logo} alt="logo" /></a>
+        <Nav>
+          <Form class="search" inline style={{ marginRight: "100px" }}>
+            <InputGroup
+              // onFocus={this.toggleFocus}
+              // onBlur={this.toggleFocus}
+              className="input-group-no-border"
+            >
+              <Input
+                id="search-input"
+                placeholder="Search"
+                style={{ borderBottomLeftRadius: 4, borderTopLeftRadius: 4 }}
+              />
+            </InputGroup>
+          </Form>
+          <NavItem >
+            <NavLink href="/create" style={{ color: '#fff' }}>Mint</NavLink>
+          </NavItem>
+          <NavItem class="navlink">
+            <NavLink class="navlink" href="/collection" style={{ color: '#fff' }}>Collection</NavLink>
+          </NavItem>
+        </Nav>
 
-    </Navbar>
-
+      </Navbar>
     );
   }
-
 };
 
 /* <nav className="navbar navbar-expand-sm navbar-light bg-white p-0">
