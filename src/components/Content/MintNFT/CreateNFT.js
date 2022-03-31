@@ -4,9 +4,8 @@ import "./mint.css"
 function Create() {
     return (
         <section class="createform">
-            <h1>FIOEZGBCOEIUZGBFOUI</h1>
-            <h3>Title</h3>
-            <h4>Subtitle</h4>
+            <h1>Create new Item</h1>
+            <h3>Name</h3>
             <div>
                 <input
                     placeholder="Asset Name"
@@ -14,29 +13,29 @@ function Create() {
                     onChange={e => {
                     }} />
             </div>
-            <h3>Title</h3>
-            <h4>Subtitle</h4>
+            <h3>NFT Description</h3>
+            <h4>The description will be included on the item's detail page underneath its image. </h4>
             <div>
                 <textarea
-                    placeholder="Asset description"
+                    placeholder="Provide a detailed description of your Item"
                     className="mt-2 border rounded p-4"
                     onChange={e => {
                     }}
                 />
             </div>
-            <h3>Title</h3>
-            <h4>Subtitle</h4>
+            <h3>NFT Price</h3>
+            <h4>Here you can input a price for your NFT</h4>
             <div>
                 <input
                     placeholder="Asset Price in Eth"
-                    className="mt-8 border rounded p-4"
+                    className="mt-8 border rounded p-4 "
                     type="number"
                     onChange={e => {
                     }}
                 />
             </div>
             <h3>Title</h3>
-            <h4>Subtitle</h4>
+            <h4>Here you can upload a picture of your NFT</h4>
             <div>
                 <input
                     type="file"
