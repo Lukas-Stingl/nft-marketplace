@@ -1,8 +1,9 @@
 import React from 'react';
+import "./mint.css"
 
 function Create() {
     return (
-        <div className="flex justify-center">
+        <div class="createform">
             <div className="w-1/2 flex flex-col pb-12">
                 <input
                     placeholder="Asset Name"
