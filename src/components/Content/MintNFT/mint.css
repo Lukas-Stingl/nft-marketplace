@@ -4,6 +4,7 @@ section.createform {
     height: inherit;
     margin-top: 66px;
     margin-left: 20%;
+    width: 800;
   }
 
   h1{
@@ -31,6 +32,16 @@ section.createform {
     width: 120px;
     border-color: blue;
   }
+
+  textarea {
+      width: 500px;
+
+  }
+  input {
+    display: flex;
+    width: 500px;
+    
+}
 
 
   

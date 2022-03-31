@@ -151,7 +151,7 @@ const App = () => {
           <Route path="/collection" element={<Collection />} />
         </Routes>
       </Router>
-      {showContent && <Main />}
+      {/* {showContent && <Main />} */}
     </React.Fragment>
   );
 

@@ -1,51 +1,54 @@
 import React from 'react';
 import "./mint.css"
 
-function Create() {
-    return (
-        <section class="createform">
-            <h1>Create new Item</h1>
-            <h3>Name</h3>
-            <div>
-                <input
-                    placeholder="Asset Name"
-                    className="mt-8 border rounded p-4"
-                    onChange={e => {
-                    }} />
-            </div>
-            <h3>NFT Description</h3>
-            <h4>The description will be included on the item's detail page underneath its image. </h4>
-            <div>
-                <textarea
-                    placeholder="Provide a detailed description of your Item"
-                    className="mt-2 border rounded p-4"
-                    onChange={e => {
-                    }}
-                />
-            </div>
-            <h3>NFT Price</h3>
-            <h4>Here you can input a price for your NFT</h4>
-            <div>
-                <input
-                    placeholder="Asset Price in Eth"
-                    className="mt-8 border rounded p-4 "
-                    type="number"
-                    onChange={e => {
-                    }}
-                />
-            </div>
-            <h3>Title</h3>
-            <h4>Here you can upload a picture of your NFT</h4>
-            <div>
-                <input
-                    type="file"
-                    name="Asset"
-                    className="my-4"
-                    onChange={e => {
-                    }}
-                />
-            </div>
-            {/* {
+class Create extends React.Component {
+
+
+
+    render() {
+        return (
+            <section class="createform">
+                <h1>Create new Item</h1>
+                <h3>Name</h3>
+                <div>
+                    <input
+                        placeholder="Asset Name"
+                        onChange={e => {
+                            this.nftName = e;
+                        }} />
+                </div>
+                <h3>NFT Description</h3>
+                <h4>The description will be included on the item's detail page underneath its image. </h4>
+                <div>
+                    <textarea
+                        placeholder="Provide a detailed description of your Item"
+
+                        onChange={e => {
+                        }}
+                    />
+                </div>
+                <h3>NFT Price</h3>
+                <h4>Here you can input a price for your NFT</h4>
+                <div>
+                    <input
+                        placeholder="Asset Price in Eth"
+                        type="number"
+                        onChange={e => {
+                        }}
+                    />
+                </div>
+                <h3>Title</h3>
+                <h4>Here you can upload a picture of your NFT</h4>
+                <div>
+                    <input
+                        type="file"
+                        name="Asset"
+                        className="my-4"
+                        onChange={e => {
+                        }}
+                    />
+                </div>
+                {/* {
                     fileUrl && (
 
                     <Image
@@ -60,15 +63,16 @@ function Create() {
                     )
                 } */}
 
-            <div>
-                <button onClick={e => {
-                }}
+                <div>
+                    <button onClick={e => {
 
-                >Create NFT
-                </button>
-            </div>
-        </section>
-    );
+                    }}
+                    >Create NFT
+                    </button>
+                </div>
+            </section>
+        );
+    }
 }
 
 export default Create;
