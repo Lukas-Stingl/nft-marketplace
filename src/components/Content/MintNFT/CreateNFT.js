@@ -1,22 +1,93 @@
+//toDo: Diese Seite nur anzeigen, wenn Nutzer sein Wallet verbunden hat!!! 
 
+import web3 from '../../../connection/web3';
 import { Alert } from 'react-alert'
 import React from 'react';
 import "./mint.css"
+import NFTCollection from '../../../abis/NFTCollection.json';
+
+const ipfsClient = require('ipfs-http-client');
+const fs = require("fs");
 
 class Create extends React.Component {
     constructor(props) {
         super(props);
         this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH' };
-
+        // this.uploadFile = this.uploadFile.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
     }
 
+    async uploadFile() {
+        return new Promise(async function(resolve, reject) {
+        const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+    
+        var capturedFileBuffer = this.state.buffer;
+        const fileAdded = await ipfs.add(capturedFileBuffer);
+    
+        const metadata = {
+            title: "Asset Metadata",
+            type: "object",
+            properties: {
+                name: {
+                    type: "string",
+                    description: this.state.nftName
+                },
+                description: {
+                    type: "string",
+                    description: this.state.nftDescription
+                },
+                image: {
+                    type: "string",
+                    description: fileAdded.path
+                }
+            }
+        };
+    
+        const metadataAdded = await ipfs.add(JSON.stringify(metadata));
+        if (!metadataAdded) {
+            reject('Something went wrong when updloading the file');
+            
+        }
+        resolve(metadataAdded);
+        
+        })
+    }
 
+    async getFile(path) {
+        var aBuffer = [];
+        const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+        for await (const chunk of ipfs.cat(path)) {
+            aBuffer.push(chunk);
+            //fs.writeFile('downloaded.jpg', picture[1], err => {console.log(err) });
+        }
+        var picture = Buffer.concat(aBuffer)
+        fs.writeFile('downloaded.jpg', picture, err => {console.log(err) });
+    }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
         alert(JSON.stringify(this.state))
+
+        const metadataAdded = await this.uploadFile();
+
+        //new from MintForm.js
+        const accounts = await web3.eth.getAccounts();
+        const account = accounts[0];
+
+        // get contract from kovan
+        const networkId = await web3.eth.net.getId();
+        const NFTCollectionNetwork = NFTCollection.networks[networkId];
+        const NFTCollectionContract = new web3.eth.Contract(NFTCollection.abi, NFTCollectionNetwork);
+        NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
+        NFTCollectionContract.methods.safeMint(metadataAdded.path).send({ from: account })
+        .on('transactionHash', (hash) => {
+            NFTCollectionContract.setNftIsLoading(true);
+        })
+        .on('error', (e) =>{
+          window.alert('Something went wrong when pushing to the blockchain');
+          NFTCollectionContract.setNftIsLoading(false);  
+        })  
     }
 
     render() {
