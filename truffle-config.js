@@ -6,7 +6,7 @@ var privateKey = "82d78d423df5d65b41d3b14549628f0d4d0bb1943a9a48ec5f601d5e05c112
 
 module.exports = {
   mocha: {
-    enableTimeouts: 120000 
+    enableTimeouts: 120000
   },
 
   networks: {
@@ -15,10 +15,10 @@ module.exports = {
       port: 7545,
       network_id: "*" //match any network id
     },
-    kovan: 
-      {
-        // must be a thunk, otherwise truffle commands may hang in CI
-        provider: () =>
+    kovan:
+    {
+      // must be a thunk, otherwise truffle commands may hang in CI
+      provider: () =>
         new HDWalletProvider({
           // mnemonic: {
           //   phrase: mnemonicPhrase
@@ -34,22 +34,7 @@ module.exports = {
       tconfirmations: 10,
       timeoutBlocks: 200,
       skipDryRun: true
-      },
-    rinkeby: {
-      provider: function() {
-        return new HDWalletProvider(
-          privateKeys.split(','), // array of private keys
-          `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}` // Url to an Ethereum node
-        )
-      },
-      gas:      6500000,
-      gasPrice: 10000000000,
-      network_id: 4,
-      networkCheckTimeout: 120000,
-      timeoutBlocks: 200,
-      confirmations: 5,
-      skipDryRun: true
-    }
+    },
   },
   contracts_directory: './src/contracts',
   contracts_build_directory: './src/abis',
@@ -61,7 +46,7 @@ module.exports = {
         enabled: true,
         runs: 200
       },
-      version: "^0.8.0" 
+      version: "^0.8.0"
     }
   },
   plugins: [

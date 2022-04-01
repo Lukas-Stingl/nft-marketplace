@@ -1,8 +1,12 @@
 //toDo: Diese Seite nur anzeigen, wenn Nutzer sein Wallet verbunden hat!!! 
 
+
+import Web3Context from '../../../store/web3-context';
+import CollectionContext from '../../../store/collection-context';
+
 import web3 from '../../../connection/web3';
 import { Alert } from 'react-alert'
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import "./mint.css"
 import NFTCollection from '../../../abis/NFTCollection.json';
 
@@ -16,9 +20,9 @@ async function makeBuffer(file, name, description) {
         reader.readAsArrayBuffer(file);
         let buffer;
         reader.onloadend = async () => {
-            buffer = Buffer(reader.result).buffer
-            const metadataAdded = await uploadFile(buffer, name, description)
-            resolve(metadataAdded)
+            buffer = Buffer(reader.result).buffer;
+            const metadataAdded = await uploadFile(buffer, name, description);
+            resolve(metadataAdded);
         }
     });
 }
@@ -51,16 +55,18 @@ async function uploadFile(buffer, name, description) {
     return (metadataAdded);
 }
 
-class Create extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH', nftImage: {} };
-        // this.uploadFile = this.uploadFile.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+const Create = () => {
+    const [nftName, setNftName] = useState('');
+    const [nftDescription, setNftDescription] = useState('');
+    const [nftPrice, setNftPrice] = useState(0);
+    const [currency, setCurrency] = useState('ETH');
+    const [nftImage, setNftImage] = useState(null);
 
 
-    async getFile(path) {
+    const web3Ctx = useContext(Web3Context);
+    const collectionCtx = useContext(CollectionContext);
+
+    const getFile = async (path) => {
         var aBuffer = [];
         const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
         for await (const chunk of ipfs.cat(path)) {
@@ -71,22 +77,12 @@ class Create extends React.Component {
         fs.writeFile('downloaded.jpg', picture, err => { console.log(err) });
     }
 
-    async onSubmit(event) {
+    const onSubmit = async (event) => {
         event.preventDefault();
-        //alert(JSON.stringify(this.state))
 
-        const metadataAdded = await makeBuffer(this.state.nftImage, this.state.nftName, this.state.nftDescription);
+        const metadataAdded = await makeBuffer(nftImage, nftName, nftDescription);
 
-        //new from MintForm.js
-        const accounts = await web3.eth.getAccounts();
-        const account = accounts[0];
-
-        // get contract from kovan
-        const networkId = await web3.eth.net.getId();
-        const NFTCollectionNetwork = NFTCollection.networks[networkId];
-        const NFTCollectionContract = new web3.eth.Contract(NFTCollection.abi, NFTCollectionNetwork);
-        NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
-        NFTCollectionContract.methods.safeMint(metadataAdded.path).send({ from: account })
+        collectionCtx.contract.methods.safeMint(metadataAdded.path).send({ from: web3Ctx.account })
             .on('transactionHash', (hash) => {
                 //NFTCollectionContract.setNftIsLoading(true);
                 alert("Your NFT has been created!")
@@ -103,67 +99,67 @@ class Create extends React.Component {
             })
     }
 
-    render() {
-        return (
-            <form class="createform" onSubmit={this.onSubmit}>
-                <h1>Create new Item</h1>
-                <h3>Name</h3>
-                <div>
-                    <input
-                        placeholder="Asset Name"
-                        // value={this.state.value}
-                        onChange={e => {
+
+    return (
+        <form class="createform" onSubmit={onSubmit}>
+            <h1>Create new Item</h1>
+            <h3>Name</h3>
+            <div>
+                <input
+                    placeholder="Asset Name"
+                    // value={this.state.value}
+                    onChange={e => {
+                        e.preventDefault();
+                        setNftName(e.target.value);
+                    }}
+                />
+            </div>
+            <h3>NFT Description</h3>
+            <h4>The description will be included on the item's detail page underneath its image. </h4>
+            <div>
+                <textarea
+                    placeholder="Provide a detailed description of your Item"
+                    onChange={e => {
+                        e.preventDefault();
+                        setNftDescription(e.target.value);
+                    }}
+                />
+            </div>
+            <h3>NFT Price</h3>
+            <h4>Here you can input a price for your NFT</h4>
+            <div>
+                <input
+                    placeholder="Asset Price in Eth"
+                    type="number"
+                    // value={this.state.value}
+                    onChange={e => {
+                        e.preventDefault();
+                        setNftPrice(e.target.value);
+                    }}
+                />
+            </div>
+            <h3>Title</h3>
+            <h4>Here you can upload a picture of your NFT</h4>
+            <div>
+                <input
+                    type="file"
+                    // name="Asset"
+                    // className="my-4"
+                    accept="image/png, image/jpeg"
+                    onChange=
+                    {
+                        e => {
                             e.preventDefault();
-                            this.setState({ nftName: e.target.value });
-                        }}
-                    />
-                </div>
-                <h3>NFT Description</h3>
-                <h4>The description will be included on the item's detail page underneath its image. </h4>
-                <div>
-                    <textarea
-                        placeholder="Provide a detailed description of your Item"
-                        onChange={e => {
-                            e.preventDefault();
-                            this.setState({ nftDescription: e.target.value });
-                        }}
-                    />
-                </div>
-                <h3>NFT Price</h3>
-                <h4>Here you can input a price for your NFT</h4>
-                <div>
-                    <input
-                        placeholder="Asset Price in Eth"
-                        type="number"
-                        // value={this.state.value}
-                        onChange={e => {
-                            e.preventDefault();
-                            this.setState({ nftPrice: e.target.value });
-                        }}
-                    />
-                </div>
-                <h3>Title</h3>
-                <h4>Here you can upload a picture of your NFT</h4>
-                <div>
-                    <input
-                        type="file"
-                        // name="Asset"
-                        // className="my-4"
-                        accept="image/png, image/jpeg"
-                        onChange=
-                        {
-                            e => {
-                                e.preventDefault();
-                                this.setState({ nftImage: e.target.files[0] })
-                                const file = e.target.files[0];
+                            setNftImage(e.target.files[0])
 
 
-                            }
+
                         }
+                    }
 
-                    />
-                </div>
-                {/* {
+                />
+            </div>
+            {/* {
                     fileUrl && (
 
                     <Image
@@ -178,12 +174,12 @@ class Create extends React.Component {
                     )
                 } */}
 
-                <div>
-                    <button>Create NFT</button>
-                </div>
-            </form >
-        );
-    }
+            <div>
+                <button>Create NFT</button>
+            </div>
+        </form >
+    );
+
 }
 
 export default Create;
