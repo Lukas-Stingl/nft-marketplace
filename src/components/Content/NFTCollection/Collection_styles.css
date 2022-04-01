@@ -22,17 +22,17 @@ section.heading p {
   color:rgba(29, 15, 48, 0.699)
 }
 /*layout of boxes*/
-.cms-boxes-items {
+.boxes-items {
   border-radius: 15px;
 
   float: left;
   width: 25%;
   padding: 10px;
   margin: 3.9%;
-  height: 300px;
+  height: 500px;
 }
 /*Heading of each box*/
-  section.cms-boxes .cms-boxes-items h2 {
+  section.boxes .boxes-items h2 {
     font-size: 35px;
     color: rgb(253, 253, 253);
     font-weight: 600;
@@ -41,21 +41,36 @@ section.heading p {
     margin: 20px 0 10px;
     text-transform: uppercase;
   }
-/*description of each box*/
-  section.cms-boxes .cms-boxes-items .name {
+/*title of each box*/
+  section.boxes .boxes-items .name {
     color: rgb(253, 253, 253);
-    font-weight: 400;
-    line-height: 37px;
+    font-weight: 600;
+    font-size: 200%;
+    line-height: 50px;
+    float: left;
     text-align: center;
-    margin: 100px 0 10px;
+    margin: 300px 0 50px;
+    padding-left: 10%;
+    padding-right: 20px;
   }
 
+/* price of the NFT*/
+section.boxes .boxes-items .price {
+  color: rgb(253, 253, 253);
+  font-weight: 400;
+  font-size: 200%;
+  line-height: 50px;
+  margin: 300px 0 50px;
+  margin-left: 180px;
+  float: left;
+}
 
-  section.cms-boxes .one, section.cms-boxes .two, section.cms-boxes .three,  section.cms-boxes .four,  section.cms-boxes .five, section.cms-boxes .six, section.cms-boxes .seven, section.cms-boxes .eight, section.cms-boxes .four,  section.cms-boxes .five, section.cms-boxes .six, section.cms-boxes .seven, section.cms-boxes .nine {
+
+  section.boxes .one, section.boxes .two, section.boxes .three,  section.boxes .four,  section.boxes .five, section.boxes .six, section.boxes .seven, section.boxes .eight, section.boxes .four,  section.boxes .five, section.boxes .six, section.boxes .seven, section.boxes .nine {
     background-color: rgba(66, 130, 104, 0.39);
   }
   /* NFTs should get the hove function*/
-  section.cms-boxes .nft :hover {
+  section.boxes .nft :hover {
     opacity: .5;
     cursor: pointer;
   }
