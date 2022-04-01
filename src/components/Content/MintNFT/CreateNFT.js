@@ -11,59 +11,52 @@ const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: '
 const fs = require("fs");
 
 async function makeBuffer(file, name, description) {
-    return new Promise(async(resolve, reject) => {   
-    const reader = new window.FileReader();
-    reader.readAsArrayBuffer(file);
-    let buffer;
-    reader.onloadend = async() => {
-        buffer = Buffer(reader.result).buffer
-        const metadataAdded = await uploadFile(buffer, name, description)
-        resolve(metadataAdded)
-    }
- });
+    return new Promise(async (resolve, reject) => {
+        const reader = new window.FileReader();
+        reader.readAsArrayBuffer(file);
+        let buffer;
+        reader.onloadend = async () => {
+            buffer = Buffer(reader.result).buffer
+            const metadataAdded = await uploadFile(buffer, name, description)
+            resolve(metadataAdded)
+        }
+    });
 }
 
 async function uploadFile(buffer, name, description) {
-
-         
-        const fileAdded = await ipfs.add(Buffer.from(buffer));
-        const metadata = {
-            title: "Asset Metadata",
-            type: "object",
-            properties: {
-                name: {
-                    type: "string",
-                    description: name
-                },
-                description: {
-                    type: "string",
-                    description: description
-                },
-                image: {
-                    type: "string",
-                    description: fileAdded.path
-                }
+    const fileAdded = await ipfs.add(Buffer.from(buffer));
+    const metadata = {
+        title: "Asset Metadata",
+        type: "object",
+        properties: {
+            name: {
+                type: "string",
+                description: name
+            },
+            description: {
+                type: "string",
+                description: description
+            },
+            image: {
+                type: "string",
+                description: fileAdded.path
             }
-        };
-
-        const metadataAdded = await ipfs.add(JSON.stringify(metadata));
-        if (!metadataAdded) {
-            return('Something went wrong when updloading the file');
-
         }
-        return(metadataAdded);
+    };
 
- 
-    
+    const metadataAdded = await ipfs.add(JSON.stringify(metadata));
+    if (!metadataAdded) {
+        return ('Something went wrong when updloading the file');
+    }
+    return (metadataAdded);
 }
 
 class Create extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH', nftImage: {}};
+        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH', nftImage: {} };
         // this.uploadFile = this.uploadFile.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
     }
 
 
@@ -96,12 +89,17 @@ class Create extends React.Component {
         NFTCollectionContract.methods.safeMint(metadataAdded.path).send({ from: account })
             .on('transactionHash', (hash) => {
                 //NFTCollectionContract.setNftIsLoading(true);
+                alert("Your NFT has been created!")
                 console.log("success")
+
+                // Route to detail page of NFT
             })
             .on('error', (e) => {
                 window.alert('Something went wrong when pushing to the blockchain');
                 //NFTCollectionContract.setNftIsLoading(false);
                 console.log("failure")
+
+                // Show in UI that createion was unsuccessful
             })
     }
 
@@ -114,7 +112,10 @@ class Create extends React.Component {
                     <input
                         placeholder="Asset Name"
                         // value={this.state.value}
-                        onChange={e => { this.setState({ nftName: e.target.value }) }}
+                        onChange={e => {
+                            e.preventDefault();
+                            this.setState({ nftName: e.target.value });
+                        }}
                     />
                 </div>
                 <h3>NFT Description</h3>
@@ -122,7 +123,10 @@ class Create extends React.Component {
                 <div>
                     <textarea
                         placeholder="Provide a detailed description of your Item"
-                        onChange={e => { this.setState({ nftDescription: e.target.value }) }}
+                        onChange={e => {
+                            e.preventDefault();
+                            this.setState({ nftDescription: e.target.value });
+                        }}
                     />
                 </div>
                 <h3>NFT Price</h3>
@@ -132,7 +136,10 @@ class Create extends React.Component {
                         placeholder="Asset Price in Eth"
                         type="number"
                         // value={this.state.value}
-                        onChange={e => { this.setState({ nftPrice: e.target.value }) }}
+                        onChange={e => {
+                            e.preventDefault();
+                            this.setState({ nftPrice: e.target.value });
+                        }}
                     />
                 </div>
                 <h3>Title</h3>
@@ -147,10 +154,10 @@ class Create extends React.Component {
                         {
                             e => {
                                 e.preventDefault();
-                                this.setState({nftImage : e.target.files[0]})
+                                this.setState({ nftImage: e.target.files[0] })
                                 const file = e.target.files[0];
 
-   
+
                             }
                         }
 
