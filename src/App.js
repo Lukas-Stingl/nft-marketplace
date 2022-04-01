@@ -10,12 +10,15 @@ import Navigation from './components/Layout/Navigation';
 import Main from './components/Content/Main';
 import Home from './components/Content/Home';
 import Collection from './components/Content/NFTCollection/Collection';
+import NFTCollectionPage from './components/Content/NFTCollection/NFTCollection';
 import Create from './components/Content/MintNFT/CreateNFT';
 import Web3Context from './store/web3-context';
 import CollectionContext from './store/collection-context';
 import MarketplaceContext from './store/marketplace-context';
 import NFTCollection from './abis/NFTCollection.json';
 import NFTMarketplace from './abis/NFTMarketplace.json';
+import Web3Provider from './store/Web3Provider';
+import MarketplaceProvider from './store/MarketplaceProvider';
 
 const App = () => {
   const web3Ctx = useContext(Web3Context);
@@ -43,15 +46,18 @@ const App = () => {
 
       // Load Network ID
       const networkId = await web3Ctx.loadNetworkId(web3);
+      console.log(`network id = ${networkId}`);
 
       // Load Contracts   
       const nftDeployedNetwork = NFTCollection.networks[networkId];
+      console.log(`deployed network = ${nftDeployedNetwork}`);
       const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
 
       const mktDeployedNetwork = NFTMarketplace.networks[networkId];
       const mktContract = marketplaceCtx.loadContract(web3, NFTMarketplace, mktDeployedNetwork);
 
       if (nftContract) {
+        console.log(`reached if nftContract block`);
         // Load total Supply
         const totalSupply = await collectionCtx.loadTotalSupply(nftContract);
 
@@ -69,7 +75,7 @@ const App = () => {
           });
 
       } else {
-       // window.alert('NFTCollection contract not deployed to detected network.')
+        // window.alert('NFTCollection contract not deployed to detected network.')
       }
 
       if (mktContract) {
@@ -115,7 +121,7 @@ const App = () => {
           });
 
       } else {
-       // window.alert('NFTMarketplace contract not deployed to detected network.')
+        // window.alert('NFTMarketplace contract not deployed to detected network.')
       }
 
       collectionCtx.setNftIsLoading(false);
@@ -140,20 +146,21 @@ const App = () => {
   const showContent = web3 && collectionCtx.contract && marketplaceCtx.contract && web3Ctx.account;
 
   return (
-    <React.Fragment>
-      <Router>
-        {//{showNavbar && }
-        }
-        {//<Navigation />
-        }
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/collection" element={<Collection />} />
-        </Routes>
-      </Router>
-      {/* {showContent && <Main />} */}
-    </React.Fragment>
+
+    <Router>
+      {//{showNavbar && }
+      }
+      {//<Navigation />
+      }
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/collection" element={<NFTCollectionPage />} />
+      </Routes>
+    </Router>
+
+    // {/* {showContent && <Main />} */}
+
   );
 
 

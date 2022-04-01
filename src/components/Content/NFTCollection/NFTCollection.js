@@ -7,7 +7,7 @@ import MarketplaceContext from '../../../store/marketplace-context';
 import { formatPrice } from '../../../helpers/utils';
 import eth from '../../../img/ethereum.svg';
 
-const NFTCollection = () => {
+const NFTCollectionPage = () => {
   const web3Ctx = useContext(Web3Context);
   const collectionCtx = useContext(CollectionContext);
   const marketplaceCtx = useContext(MarketplaceContext);
@@ -116,4 +116,4 @@ const NFTCollection = () => {
   );
 };
 
-export default NFTCollection;
+export default NFTCollectionPage;

@@ -85,7 +85,7 @@ class Create extends React.Component {
         const networkId = await web3.eth.net.getId();
         const NFTCollectionNetwork = NFTCollection.networks[networkId];
         const NFTCollectionContract = new web3.eth.Contract(NFTCollection.abi, NFTCollectionNetwork);
-        NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
+        NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06";
         NFTCollectionContract.methods.safeMint(metadataAdded.path).send({ from: account })
             .on('transactionHash', (hash) => {
                 //NFTCollectionContract.setNftIsLoading(true);
