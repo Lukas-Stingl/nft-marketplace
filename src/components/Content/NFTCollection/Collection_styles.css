@@ -1,0 +1,61 @@
+/* use this .css to create the styles of the HTML bricks*/
+
+/* declaring the functionality of centering an image */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+/*Heading*/
+section.heading h2 {
+  font-size: 50px;
+  text-align:center;
+  color:#102C4E;
+  margin-top: 150px;
+  margin-bottom:70px;
+}
+/*Sub-Heading*/
+section.heading p {
+  font-size: 30px;
+  color:rgba(29, 15, 48, 0.699)
+}
+/*layout of boxes*/
+.cms-boxes-items {
+  border-radius: 15px;
+
+  float: left;
+  width: 25%;
+  padding: 10px;
+  margin: 3.9%;
+  height: 300px;
+}
+/*Heading of each box*/
+  section.cms-boxes .cms-boxes-items h2 {
+    font-size: 35px;
+    color: rgb(253, 253, 253);
+    font-weight: 600;
+    line-height: 37px;
+    text-align: center;
+    margin: 20px 0 10px;
+    text-transform: uppercase;
+  }
+/*description of each box*/
+  section.cms-boxes .cms-boxes-items .name {
+    color: rgb(253, 253, 253);
+    font-weight: 400;
+    line-height: 37px;
+    text-align: center;
+    margin: 100px 0 10px;
+  }
+
+
+  section.cms-boxes .one, section.cms-boxes .two, section.cms-boxes .three,  section.cms-boxes .four,  section.cms-boxes .five, section.cms-boxes .six, section.cms-boxes .seven, section.cms-boxes .eight, section.cms-boxes .four,  section.cms-boxes .five, section.cms-boxes .six, section.cms-boxes .seven, section.cms-boxes .nine {
+    background-color: rgba(66, 130, 104, 0.39);
+  }
+  /* NFTs should get the hove function*/
+  section.cms-boxes .nft :hover {
+    opacity: .5;
+    cursor: pointer;
+  }

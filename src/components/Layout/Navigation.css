@@ -1,0 +1,23 @@
+.navbar {
+  position: fixed;
+  top: 0px;
+  background-color: #323232;
+  height: 66px;
+  width: 100%;
+  flex-wrap: nowrap;
+  box-shadow: 4px 4px 25px rgba(109, 105, 105, 0.15);
+}
+
+.logo {
+  height: 66px;
+  background-color: white;
+}
+
+.navlink {
+  color: '#fff';
+  background: '#7600dc';
+}
+
+.search {
+  margin-right: 100px;
+}

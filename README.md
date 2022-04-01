@@ -1,92 +1,165 @@
-# nft marketplace
+`#Ethereum`
 
+# NFT Marketplace
 
+This is an open decentralized NFT Marketplace built with smart contracts powered by Ethereum. It basically consists in an open platform where each user can mint his own NFT and expose it on a marketplace.
 
-## Getting started
+## Table of Contents
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- [Getting Started](#getting-started)
+- [The Project](#the-project)
+- [Resources](#resources)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Getting Started
 
-## Add your files
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### The repository
+
+First, you will need to `clone` the repository into your Github account:
+
 
 ```
-cd existing_repo
-git remote add origin https://git.scc.kit.edu/uflgi/nft-marketplace.git
-git branch -M main
-git push -uf origin main
+https://git.scc.kit.edu/uflgi/nft-marketplace/
 ```
 
-## Integrate with your tools
+### Installing
 
-- [ ] [Set up project integrations](https://git.scc.kit.edu/uflgi/nft-marketplace/-/settings/integrations)
+First, you will need to install the dependencies with: `npm install`.
 
-## Collaborate with your team
+Run the following command in your terminal after cloning the main repo:
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```
+$ npm install
+```
 
-## Test and Deploy
+Then, you will need to install Truffle globally by running the following command int your terminal:
 
-Use the built-in continuous integration in GitLab.
+```
+$ npm install -g truffle
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### Running the Tests
 
-***
+First, you will have to compile the smart contracts by running the following command in your terminal:
 
-# Editing this README
+```
+$ truffle compile
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Then you will have to install and run Ganache to run your blockchain locally:
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+https://www.trufflesuite.com/ganache
 
-## Name
-Choose a self-explaining name for your project.
+Then, the tests that validate your solution can be executed by runing the following
+command:
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+```
+$ truffle test
+```
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Deployment on Local Blockchain
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Deploy the contracts on your Ganache local blockchain by running the following command:
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+$ truffle migrate
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Opening the User Interface
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+First of all, it is required to install Metamask wallet as a browser extension: https://metamask.io/
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Then you should configure Metamask to connect to your local blockchain run by Ganache. This requires the following:
+- Open Metamask
+- Open the Network Configuration panel
+- Open Custom RPC
+- Configure your private network by adding `HTTP://127.0.0.1:7545` on the URL and `1337` as a chain ID.
+- Import the first Ganache Account to Metamask by copying the Account Private Key from Ganache and pasting it on Metamask
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Finally you just need to run the following command in your terminal to open the User Interface:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```
+$ npm start
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Deployment on Public Network
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+In order to deploy your smart contract, you must create your .env file and specify:
 
-## License
-For open source projects, say how it is licensed.
+- `PRIVATE_KEYS` --> Private Key of the account you are using to deploy (typically the first one in the list of Ganache)
+- `INFURA_API_KEY` --> API key provided by Infura: https://infura.io
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Then, you will need to run the following command (let's use the testnet Ropsten in this example, remember to request some Ether for your account using a faucet):
+
+```
+$ truffle migrate --network ropsten
+```
+
+Finally you can run the following command to generate the build artifacts of your User Interface and then deploy to your favourite host:
+
+```
+npm run build
+```
+
+
+### Technology stack
+
+- `Solidity`
+- `React.js`
+- `Truffle`
+- `Web3.js`
+- `Ganache`
+- `Node.js`
+- `Metamask`
+- `IPFS`
+
+## The Project
+
+This project consists in an open platform where each user can mint his own NFT and expose it on a marketplace by making an offer or buying NFT from others. It includes:
+
+- A smart contract which represents a collection of NFTs by following the ERC-721 standard
+- A smart contract which represents the NFT Marketplace and contains all the logic to make offers, fill offers...
+- Tests built with JavaScripts to ensure smart contracts are accomplishing the expected functionalities
+- A React.js front-end application as a user interface
+
+### Project architecture
+
+<img src="./img/architecture.PNG" alt="architecture">
+
+The user can access the application via web-browser, and he must have the Metamask wallet installed. This interface, built with React.js, relies on the web3.js library to communicate with the smart contracts through Metamask. This means that the data reflected on the front-end application is fetched from the Ethereum blockchain. Each action performed by the user (mint a NFT, offer NFT, buy NFT...) creates a transaction on Ethereum, which will require Metamask confirmation and pay a small fee, and this transaction will permanently modify the state of the NFTCollection and NFTMarketplace smart contracts. On top of it, the user will upload the NFT Metadata to the IPFS, creating a permanent hash which will be permanently recorded on the blockchain itself to prove ownership.
+
+### NFT Marketplace features
+
+<img src="./img/layout.PNG" alt="layout">
+
+The user can perform the following actions on this NFT Marketplace:
+
+#### Mint
+
+The user must input a name, description and upload a file (image) to mint his own NFT. Once minted, a representation of this NFT will be displayed in the marketplace and initially it will be owned by its creator. This is open for everyone, meaning everyone can participate in this NFT creation within this collection. 
+
+#### Make Offer
+
+The user can offer his NFT by specifying its price (in Ether). If someone fulfills this offer, then the ownership is transferred to a new owner. 
+
+#### Cancel Offer
+
+The user can cancel an offer he did in the past if in the end he does not want to sell his NFT or wants to adjust the price.
+
+#### Buy
+
+A user can buy those NFT which someone else offered. This will require paying the requested price (the Ether will be transferred to the smart contract to be claimed later on).
+
+#### Claim Funds
+
+If a user sold an NFT, he can claim his funds by clicking the button in the top-right.
+
+## Resources
+
+- [ethereum.org](https://ethereum.org/)
+- [truffle suit](https://www.trufflesuite.com/)
+- [node.js](https://nodejs.org/)
+- [web3.js](https://web3js.readthedocs.io/)
+- [react.js](https://reactjs.org/)
+- [IPFS](https://ipfs.io/)
