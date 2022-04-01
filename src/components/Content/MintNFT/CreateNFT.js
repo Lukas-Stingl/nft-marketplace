@@ -10,29 +10,34 @@ const ipfsClient = require('ipfs-http-client');
 const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 const fs = require("fs");
 
-async function uploadFile(file) {
-
+async function makeBuffer(file, name, description) {
+    return new Promise(async(resolve, reject) => {   
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(file);
     let buffer;
-    reader.onloadend = () => {
+    reader.onloadend = async() => {
         buffer = Buffer(reader.result).buffer
+        const metadataAdded = await uploadFile(buffer, name, description)
+        resolve(metadataAdded)
     }
-       // setCapturedFileBuffer();
-    
-        const fileAdded = await ipfs.add(buffer);
+ });
+}
 
+async function uploadFile(buffer, name, description) {
+
+         
+        const fileAdded = await ipfs.add(Buffer.from(buffer));
         const metadata = {
             title: "Asset Metadata",
             type: "object",
             properties: {
                 name: {
                     type: "string",
-                    description: this.state.nftName
+                    description: name
                 },
                 description: {
                     type: "string",
-                    description: this.state.nftDescription
+                    description: description
                 },
                 image: {
                     type: "string",
@@ -43,12 +48,12 @@ async function uploadFile(file) {
 
         const metadataAdded = await ipfs.add(JSON.stringify(metadata));
         if (!metadataAdded) {
-            return ('Something went wrong when updloading the file');
+            return('Something went wrong when updloading the file');
 
         }
-        return (metadataAdded);
+        return(metadataAdded);
 
-    
+ 
     
 }
 
@@ -75,9 +80,9 @@ class Create extends React.Component {
 
     async onSubmit(event) {
         event.preventDefault();
-        alert(JSON.stringify(this.state))
+        //alert(JSON.stringify(this.state))
 
-        const metadataAdded = await uploadFile(this.state.nftImage);
+        const metadataAdded = await makeBuffer(this.state.nftImage, this.state.nftName, this.state.nftDescription);
 
         //new from MintForm.js
         const accounts = await web3.eth.getAccounts();
@@ -90,11 +95,13 @@ class Create extends React.Component {
         NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
         NFTCollectionContract.methods.safeMint(metadataAdded.path).send({ from: account })
             .on('transactionHash', (hash) => {
-                NFTCollectionContract.setNftIsLoading(true);
+                //NFTCollectionContract.setNftIsLoading(true);
+                console.log("success")
             })
             .on('error', (e) => {
                 window.alert('Something went wrong when pushing to the blockchain');
-                NFTCollectionContract.setNftIsLoading(false);
+                //NFTCollectionContract.setNftIsLoading(false);
+                console.log("failure")
             })
     }
 
