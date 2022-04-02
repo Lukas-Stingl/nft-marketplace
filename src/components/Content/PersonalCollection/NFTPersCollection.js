@@ -1,3 +1,4 @@
+import './Profile_style.css'; //tell this .js to use the Stylessheet
 import React, { useContext, useRef, createRef } from 'react';
 
 import web3 from '../../../connection/web3';
@@ -60,9 +61,44 @@ const NFTPersCollectionPage = () => {
       });
   };
 
+  function countItems(collection) {
+    var count = 0;
+    for (const element of collection){
+        console.log(count)
+        if (element.owner === web3Ctx.account){
+            count = count + 1
+        }       
+    }
+    return count
+  }
+
   return (
-    
+   <html>
+        <section class="profile">
+        <header class="header">
+            <div class="details">
+            <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b38c22a46932485790a3f52c61fcbe5a" alt="John Doe" class="profile-pic"/>
+            <h1 class="heading">{web3Ctx.account}</h1>
+            <div class="stats">
+                <div class="col-4"> 
+                              
+                <h4>{countItems(collectionCtx.collection)}</h4>
+                <p>Owned Currently</p>
+                </div>
+                <div class="col-4">
+                <h4>10</h4>
+                <p>Bought</p>
+                </div>
+                <div class="col-4">
+                <h4>100</h4>
+                <p>Total</p>
+                </div>
+            </div>
+            </div>
+        </header>
+        </section>
     <div className="row text-center">
+       
       {collectionCtx.collection.map((NFT, key) => {
         const index = marketplaceCtx.offers ? marketplaceCtx.offers.findIndex(offer => offer.id === NFT.id) : -1;
         const owner = index === -1 ? NFT.owner : marketplaceCtx.offers[index].user;
@@ -115,6 +151,7 @@ const NFTPersCollectionPage = () => {
         );
       })}
     </div>
+    </html>
   );
 };
 
