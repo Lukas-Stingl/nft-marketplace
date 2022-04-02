@@ -1,10 +1,12 @@
-import React//  { useContext, useState } 
-  from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 
-// import Web3Context from '../../store/web3-context';
-// import MarketplaceContext from '../../store/marketplace-context';
-// import web3 from '../../connection/web3';
-// import { formatPrice } from '../../helpers/utils';
+import Web3Context from '../../store/web3-context';
+import MarketplaceContext from '../../store/marketplace-context';
+import web3 from '../../connection/web3';
+import userAvatar from "../../img/icon.svg";
+import ethereum from "../../img/ethereum.svg";
+import collectionIcon from "../../img/collection.png";
+import { formatPrice } from '../../helpers/utils';
 
 import {
   Navbar,
@@ -14,91 +16,126 @@ import {
   Form,
   NavItem,
   NavLink,
+  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
+  ListGroup,
+  ListGroupItem,
 } from "reactstrap";
 
 import "./Navigation.css";
 import logo from "../../img/logo.svg";
 
-class Navigation extends React.Component {
-  // const [fundsLoading, setFundsLoading] = useState(false);
+const Navigation = () => {
+  const [fundsLoading, setFundsLoading] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
 
-  // const web3Ctx = useContext(Web3Context);
-  // const marketplaceCtx = useContext(MarketplaceContext);
-
-  // const connectWalletHandler = async () => {
-  //   try {
-  //     // Request account access
-  //     await window.ethereum.request({ method: 'eth_requestAccounts' });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-
-  //   // Load accounts
-  //   web3Ctx.loadAccount(web3);
-  // };
-
-  // const claimFundsHandler = () => {
-  //   marketplaceCtx.contract.methods.claimFunds().send({ from: web3Ctx.account })
-  //     .on('transactionHash', (hash) => {
-  //       setFundsLoading(true);
-  //     })
-  //     .on('error', (error) => {
-  //       window.alert('Something went wrong when pushing to the blockchain');
-  //       setFundsLoading(false);
-  //     });
-  // };
-
-  // // Event ClaimFunds subscription 
-  // marketplaceCtx.contract.events.ClaimFunds()
-  //   .on('data', (event) => {
-  //     marketplaceCtx.loadUserFunds(marketplaceCtx.contract, web3Ctx.account);
-  //     setFundsLoading(false);
-  //   })
-  //   .on('error', (error) => {
-  //     console.log(error);
-  //   });
-
-  // let etherscanUrl;
-
-  // if (web3Ctx.networkId === 3) {
-  //   etherscanUrl = 'https://ropsten.etherscan.io'
-  // } else if (web3Ctx.networkId === 4) {
-  //   etherscanUrl = 'https://rinkeby.etherscan.io'
-  // } else if (web3Ctx.networkId === 5) {
-  //   etherscanUrl = 'https://goerli.etherscan.io'
-  // } else {
-  //   etherscanUrl = 'https://etherscan.io'
-  // }
-
-  render() {
-    return (
-      <Navbar class="navbar">
-        <a href="/"><img class="logo" src={logo} alt="logo" /></a>
-        <Nav>
-          <Form class="search" inline style={{ marginRight: "100px" }}>
-            <InputGroup
-              // onFocus={this.toggleFocus}
-              // onBlur={this.toggleFocus}
-              className="input-group-no-border"
-            >
-              <Input
-                id="search-input"
-                placeholder="Search"
-                style={{ borderBottomLeftRadius: 4, borderTopLeftRadius: 4 }}
-              />
-            </InputGroup>
-          </Form>
-          <NavItem >
-            <NavLink href="/create" style={{ color: '#fff' }}>Mint</NavLink>
-          </NavItem>
-          <NavItem class="navlink">
-            <NavLink class="navlink" href="/collection" style={{ color: '#fff' }}>Collection</NavLink>
-          </NavItem>
-        </Nav>
-
-      </Navbar>
-    );
+  const accountIconHandler = () => {
+    setAccountOpen(current => !current)
   }
+
+  const web3Ctx = useContext(Web3Context);
+  const marketplaceCtx = useContext(MarketplaceContext);
+
+
+  const connectWalletHandler = async () => {
+    try {
+      // Request account access
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+    } catch (error) {
+      console.error(error);
+    }
+
+    // Load accounts
+    web3Ctx.loadAccount(web3);
+  };
+
+  const claimFundsHandler = () => {
+    marketplaceCtx.contract.methods.claimFunds().send({ from: web3Ctx.account })
+      .on('transactionHash', (hash) => {
+        setFundsLoading(true);
+      })
+      .on('error', (error) => {
+        window.alert('Something went wrong when pushing to the blockchain');
+        setFundsLoading(false);
+      });
+  }
+
+  // Event ClaimFunds subscription 
+  if (marketplaceCtx.contract && marketplaceCtx.account) {
+    marketplaceCtx.contract.events.ClaimFunds()
+      .on('data', (event) => {
+        marketplaceCtx.loadUserFunds(marketplaceCtx.contract, web3Ctx.account);
+        setFundsLoading(false);
+      })
+      .on('error', (error) => {
+        console.log(error);
+      });
+  }
+
+
+
+  console.log("marketplaceCtx:")
+  console.log(marketplaceCtx.userFunds)
+
+
+
+  const etherscanUrl = "https://kovan.etherscan.io/";
+
+
+  return (
+    <Navbar>
+      <a href="/"><img className="logo" src={logo} alt="logo" /></a>
+      <Nav>
+        <InputGroup className="search">
+          <Input
+            id="search-input"
+            placeholder="Search"
+            style={{ borderBottomLeftRadius: 4, borderTopLeftRadius: 4 }}
+          />
+        </InputGroup>
+        <NavItem >
+          <NavLink href="/collection" style={{ color: '#fff' }}>Collection</NavLink>
+        </NavItem>
+        <NavItem >
+          <NavLink href="/create" style={{ color: '#fff' }}>Mint</NavLink>
+        </NavItem>
+        <Dropdown isOpen={accountOpen} toggle={accountIconHandler}>
+          <DropdownToggle className="avatar rounded-circle">
+            <img src={userAvatar} alt="Profile Icon" />
+
+          </DropdownToggle>
+          <DropdownMenu style={{ marginTop: 13, paddingTop: 0 }}>
+            <ListGroup style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0, alignItems: "center" }}>
+
+              <DropdownItem href="/collection" style={{ height: 52, display: 'flex', alignItems: "center" }}>
+                My Collection
+              </DropdownItem>
+              <hr class="solid" style={{ marginTop: 0, marginBottom: 0, width: "100%" }} />
+              <DropdownItem href={`${etherscanUrl}/address/${web3Ctx.account}`} style={{ height: 52, display: 'flex', alignItems: "center" }}>
+                Transactions
+              </DropdownItem>
+              <hr class="solid" style={{ marginTop: 0, width: "100%" }} />
+              {marketplaceCtx.userFunds && !fundsLoading &&
+                <div style={{}}>
+                  <div style={{ display: "flex" }}>
+                    <img src={ethereum} alt="Ether Logo" style={{ height: "2em" }} />
+                    <p style={{ textAlign: "center" }}>{formatPrice(marketplaceCtx.userFunds)}</p>
+                  </div>
+                  {marketplaceCtx.userFunds > 0 && <button onClick={claimFundsHandler} style={{ height: "2em", backgroundColor: "#f44336", border: "none" }}>Withdraw</button>}
+                </div>
+              }
+              {fundsLoading && <div class="d-flex justify-content-center text-info">
+                <div class="spinner-border" role="status">
+                  <span class="sr-only"></span>
+                </div>
+              </div>}
+
+            </ListGroup>
+          </DropdownMenu>
+        </Dropdown>
+      </Nav>
+    </Navbar>
+  );
+
 };
 
 /* <nav className="navbar navbar-expand-sm navbar-light bg-white p-0">
