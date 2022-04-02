@@ -104,7 +104,7 @@ class Create extends React.Component {
                     .then(results => {
                         let nfts = results.length - 1
                         console.log(results[nfts].returnValues.tokenId)
-                        alert("Your NFT has been created!");
+                        alert("Your NFT will be created shortly and published to the blockchain!");
                         console.log("success");
                         window.location.replace("../details?value="+results[nfts].returnValues.tokenId);
 

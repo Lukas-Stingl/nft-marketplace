@@ -11,8 +11,7 @@ body {
   background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg') no-repeat center center fixed;
   background-size: cover;
   font: 14px/20px "Lato", Arial, sans-serif;
-  color: #00000;
-  margin-top: 30px;
+
 }
 
 .slide-container {
@@ -24,10 +23,6 @@ body {
 .wrapper {
   padding-top: 40px;
   padding-bottom: 40px;
-  
-  &:focus {
-    outline: 0;
-  }
 }
 
 
@@ -37,7 +32,6 @@ body {
   width: 400px;
   display: inline-block;
   margin: auto;
-  border-radius: $border-radius-size + 5;
   position: relative;
   text-align: center;
   box-shadow: -1px 15px 30px -12px black;
@@ -48,17 +42,13 @@ body {
   position: relative;
   height: 350px;
   margin-bottom: 35px;
-  border-top-left-radius: $border-radius-size;
-  border-top-right-radius: $border-radius-size;
 }
 
 .clash-card__image--barbarian {
-  background: url('cat.jpg');
+  background: 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
-
 }
 
 

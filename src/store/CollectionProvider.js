@@ -96,21 +96,31 @@ const CollectionProvider = props => {
     return totalSupply;
   };
 
-  const loadSingleTokenHandler = async (tokenId, contract) =>  {
-    const hash = await contract.methods.tokenURIs(tokenId).call();
-    console.log(hash);
-    try {
-      const response = await fetch(`https://ipfs.infura.io/ipfs/${hash}?clear`);
-      if (!response.ok) {
-        throw new Error('Something went wrong');
+  const loadSingleTokenHandler = (tokenId, contract) =>  {
+    return new Promise(async function(resolve, reject) { 
+    const hash = await contract.methods.tokenURIs(tokenId).call().then(async(result) => {
+      console.log("Success! Got result: " + result);
+      try {
+        const response = await fetch(`https://ipfs.infura.io/ipfs/${result}?clear`);
+        if (!response.ok) {
+          throw new Error('Something went wrong');
+        }
+  
+        const metadata = await response.json();
+        resolve(metadata)
+        
+      } catch {
+        console.error('Something went wrong');
       }
-
-      const metadata = await response.json();
-      return metadata
+    }).catch((err) => {
+      console.log("Failed with error: " + err);
+    setTimeout(function() {
+        window.location.reload();
+      }, 1000)
       
-    } catch {
-      console.error('Something went wrong');
-    }
+    });
+
+  })
   
   };
 
