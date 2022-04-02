@@ -1,0 +1,97 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
+
+
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to bottom, rgba(140,122,122,1) 0%, rgba(175,135,124,1) 65%, rgba(175,135,124,1) 100%) fixed;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font: 14px/20px "Lato", Arial, sans-serif;
+  color: #00000;
+  margin-top: 30px;
+}
+
+.slide-container {
+  margin: auto;
+  width: 600px;
+  text-align: center;
+}
+
+.wrapper {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  
+  &:focus {
+    outline: 0;
+  }
+}
+
+
+
+.clash-card {
+  background: #D0AB66;
+  width: 400px;
+  display: inline-block;
+  margin: auto;
+  border-radius: $border-radius-size + 5;
+  position: relative;
+  text-align: center;
+  box-shadow: -1px 15px 30px -12px black;
+  z-index: 9999;
+}
+
+.clash-card__image {
+  position: relative;
+  height: 350px;
+  margin-bottom: 35px;
+  border-top-left-radius: $border-radius-size;
+  border-top-right-radius: $border-radius-size;
+}
+
+.clash-card__image--barbarian {
+  background: url('cat.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+}
+
+
+
+.detailButton {
+background-color: #BD7C2F;
+border-left: solid 1px #000;
+border-bottom: solid 1px #000;
+border-right: solid 1px #000;
+border-top: solid 1px #000;
+margin: 10px;
+display: inline-block;
+box-shadow: 0  17px 10px -10px rgba(0, 0, 0, 0.4);
+cursor: pointer;
+transition: all ease-in-out 300ms;
+}
+.nft-price {
+    margin:10px
+}
+
+
+.clash-card__unit-name {
+  font-size: 26px;
+  color: black;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.clash-card__unit-description {
+  padding: 20px;
+  margin-bottom: 10px;  
+}
+
+
+
+

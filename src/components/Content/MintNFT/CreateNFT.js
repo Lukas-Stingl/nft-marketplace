@@ -5,10 +5,14 @@ import { Alert } from 'react-alert'
 import React from 'react';
 import "./mint.css"
 import NFTCollection from '../../../abis/NFTCollection.json';
+import { useNavigate } from "react-router-dom";
+
 
 const ipfsClient = require('ipfs-http-client');
 const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 const fs = require("fs");
+
+
 
 async function makeBuffer(file, name, description) {
     return new Promise(async (resolve, reject) => {
@@ -54,7 +58,7 @@ async function uploadFile(buffer, name, description) {
 class Create extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH', nftImage: {} };
+        this.state = { nftName: '', nftDescription: '', nftPrice: 0, currency: 'ETH', nftImage: {}};
         // this.uploadFile = this.uploadFile.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -89,9 +93,23 @@ class Create extends React.Component {
         NFTCollectionContract.methods.safeMint(metadataAdded.path).send({ from: account })
             .on('transactionHash', (hash) => {
                 //NFTCollectionContract.setNftIsLoading(true);
-                alert("Your NFT has been created!")
-                console.log("success")
+                let options = {
+                    filter: {
+                        address: accounts[0]
+                    },
+                    fromBlock: 0,                  //Number || "earliest" || "pending" || "latest"
+                    toBlock: 'latest'
+                };
+                NFTCollectionContract.getPastEvents('Transfer', options)
+                    .then(results => {
+                        let nfts = results.length - 1
+                        console.log(results[nfts].returnValues.tokenId)
+                        alert("Your NFT has been created!");
+                        console.log("success");
+                        window.location.replace("../details?value="+results[nfts].returnValues.tokenId);
 
+                    })
+                    .catch(err => alert(err));
                 // Route to detail page of NFT
             })
             .on('error', (e) => {
@@ -146,6 +164,7 @@ class Create extends React.Component {
                 <h4>Here you can upload a picture of your NFT</h4>
                 <div>
                     <input
+                        class="custom-file-input"
                         type="file"
                         // name="Asset"
                         // className="my-4"

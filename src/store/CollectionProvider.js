@@ -96,9 +96,26 @@ const CollectionProvider = props => {
     return totalSupply;
   };
 
+  const loadSingleTokenHandler = async (tokenId, contract) =>  {
+    const hash = await contract.methods.tokenURIs(tokenId).call();
+    console.log(hash);
+    try {
+      const response = await fetch(`https://ipfs.infura.io/ipfs/${hash}?clear`);
+      if (!response.ok) {
+        throw new Error('Something went wrong');
+      }
+
+      const metadata = await response.json();
+      return metadata
+      
+    } catch {
+      console.error('Something went wrong');
+    }
+  
+  };
+
   const loadCollectionHandler = async (contract, totalSupply) => {
     let collection = [];
-
     for (let i = 0; i < totalSupply; i++) {
       const hash = await contract.methods.tokenURIs(i).call();
       console.log(hash);
@@ -165,7 +182,8 @@ const CollectionProvider = props => {
     loadCollection: loadCollectionHandler,
     updateCollection: updateCollectionHandler,
     updateOwner: updateOwnerHandler,
-    setNftIsLoading: setNftIsLoadingHandler
+    setNftIsLoading: setNftIsLoadingHandler,
+    loadSingleToken: loadSingleTokenHandler
   };
 
   return (

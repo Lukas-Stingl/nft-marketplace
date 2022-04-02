@@ -10,6 +10,7 @@ import Navigation from './components/Layout/Navigation';
 import Main from './components/Content/Main';
 import Home from './components/Content/Home';
 import Collection from './components/Content/NFTCollection/Collection';
+import Details from './components/Content/NFTCollection/DetailPage';
 import Create from './components/Content/MintNFT/CreateNFT';
 import Web3Context from './store/web3-context';
 import CollectionContext from './store/collection-context';
@@ -150,6 +151,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />
           <Route path="/collection" element={<Collection />} />
+          <Route path="/details" element={<Details />} />
         </Routes>
       </Router>
       {/* {showContent && <Main />} */}
