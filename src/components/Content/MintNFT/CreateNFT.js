@@ -10,6 +10,7 @@ import React, { useState, useContext } from 'react';
 import "./mint.css"
 import NFTCollection from '../../../abis/NFTCollection.json';
 import { useNavigate } from "react-router-dom";
+import eth from '../../../img/ethereum.svg';
 
 
 const ipfsClient = require('ipfs-http-client');
@@ -58,6 +59,15 @@ async function uploadFile(buffer, name, description) {
     }
     return (metadataAdded);
 }
+//Preview of the uploaded image
+function showPreview(event){
+    if(event.target.files.length > 0){
+      var src = URL.createObjectURL(event.target.files[0]);
+      var preview = document.getElementById("file-ip-1-preview");
+      preview.src = src;
+      preview.style.display = "block";
+    }
+  }
 
 const Create = () => {
     const [nftName, setNftName] = useState('');
@@ -121,6 +131,7 @@ const Create = () => {
     return (
         <form className="createform" onSubmit={onSubmit}>
             <h1>Create new Item</h1>
+            <h4>File types supported: JPG and PNG</h4>
             <h3>Name</h3>
             <div>
                 <input
@@ -145,18 +156,20 @@ const Create = () => {
             </div>
             <h3>NFT Price</h3>
             <h4>Here you can input a price for your NFT</h4>
-            <div>
+            <section>
                 <input
                     placeholder="Asset Price in Eth"
                     type="number"
+                    step="0.1"
+                    min="0" //not allowed to set a negative price
                     // value={this.state.value}
                     onChange={e => {
                         e.preventDefault();
                         setNftPrice(e.target.value);
                     }}
                 />
-            </div>
-            <h3>Title</h3>
+            </section>
+            <h3>Image</h3>
             <h4>Here you can upload a picture of your NFT</h4>
             <div>
                 <input
@@ -164,15 +177,19 @@ const Create = () => {
                     // name="Asset"
                     // className="my-4"
                     accept="image/png, image/jpeg"
-                    onChange=
-                    {
+                    onChange=                   
+                     {
                         e => {
                             e.preventDefault();
-                            setNftImage(e.target.files[0])
-                        }
-                    }
-
+                            setNftImage(e.target.files[0]);
+                            showPreview(e)   //allows to show a preview of the uploaded img 
+                    }   
+                }
                 />
+            </div>
+            <div class="preview">
+            <h4>Preview:</h4>
+                <img id="file-ip-1-preview" ></img>
             </div>
             <div>
                 <button>Create NFT</button>

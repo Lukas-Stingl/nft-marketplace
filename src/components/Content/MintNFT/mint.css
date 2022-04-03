@@ -3,9 +3,7 @@ form {
     justify-content: center;
     align-items: center;
     height: inherit;
-    margin-top: 66px;
     margin-left: 20%;
-    background-color: wheat;
     padding:20px;
     border-radius:10px;
     width: fit-content;
@@ -16,7 +14,9 @@ form {
   h1{
     
     font-size: 2.5em;
-    margin-bottom: 10px;
+    font-weight: 1000;
+    margin-top: 100px;
+    margin-bottom: 50px;
    
 
   }
@@ -35,8 +35,10 @@ form {
   }
 
   button {
-    color: black;
-    background-color: #c2b280;
+    color: white;
+    background-color: #177eae;
+    font-weight: 600;
+    font-size: large;
     border-radius: 15px;
     height: 50px;
     width: 120px;
@@ -51,10 +53,22 @@ form {
   }
   input {
     display: flex;
+    padding-bottom: 20px;
     width: 500px;
-    border-radius: 5px
+    border-radius: 5px;  
     
 }
+
+section input {
+    display: flex;
+    padding-bottom: 10px;
+    width: 500px;
+    border-radius: 5px;    
+    background: url(../../../img/ethereum.svg) no-repeat scroll 7px 2px;
+    background-size: 12px;
+    padding-left:30px;
+}
+
 
 .custom-file-input {
   color: transparent;
@@ -87,4 +101,9 @@ form {
 }
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+}
+
+.preview img {
+  width:500px;
+  margin-bottom:30px;
 }
