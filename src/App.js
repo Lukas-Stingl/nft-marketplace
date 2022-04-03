@@ -152,13 +152,11 @@ const App = () => {
 
     <Router>
       <Navigation />
-
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
         <Route path="/collection" element={<NFTCollectionPage />} />
-        <Route path="/personalcollection" element={<NFTPersCollectionPage/>}></Route>
+        <Route path="/personalcollection" element={<NFTPersCollectionPage />}></Route>
         <Route path="/details" element={<Details />} />
       </Routes>
     </Router>

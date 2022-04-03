@@ -100,7 +100,7 @@ const Navigation = () => {
           <DropdownMenu style={{ marginTop: 13, paddingTop: 0 }}>
             <ListGroup style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0, alignItems: "center" }}>
 
-              <DropdownItem href="/collection" style={{ height: 52, display: 'flex', alignItems: "center" }}>
+              <DropdownItem href="/personalcollection" style={{ height: 52, display: 'flex', alignItems: "center" }}>
                 My Collection
               </DropdownItem>
               <hr class="solid" style={{ marginTop: 0, marginBottom: 0, width: "100%" }} />
