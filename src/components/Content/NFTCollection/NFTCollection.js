@@ -60,8 +60,8 @@ const NFTCollectionPage = () => {
   };
 
   return (
-  //Creating the layout of the ./collection page
-  <><section class="heading">
+    //Creating the layout of the ./collection page
+    <><section class="heading">
       <h2 align="center">
         NFT Collection
       </h2>
@@ -74,18 +74,19 @@ const NFTCollectionPage = () => {
           const owner = index === -1 ? NFT.owner : marketplaceCtx.offers[index].user;
           const price = index !== -1 ? formatPrice(marketplaceCtx.offers[index].price).toFixed(2) : null;
 
+
           return (
             <div key={key} className="col-md-2 m-3 pb-3 card border-info">
               <div className={"card-body"}>
                 <h5 className="card-title">{NFT.title}</h5>
               </div>
-              <img src={`https://ipfs.infura.io/ipfs/${NFT.img}`} className="card-img-bottom" alt={`NFT ${key}`} /> 
+              <img src={`https://ipfs.infura.io/ipfs/${NFT.img}`} className="card-img-bottom" alt={`NFT ${key}`} />
               {owner !== web3Ctx.account ?
                 //Displays the owner of the NFT
-                <p className="fw-light fs-6">Owner: {`${owner.substr(0, 7)}...${owner.substr(owner.length - 7)}`} </p>:
-              owner === web3Ctx.account ?
-                <p className="fw-light fs-6">Owner: You </p>:
-                <p></p> }
+                <p className="fw-light fs-6">Owner: {`${owner.substr(0, 7)}...${owner.substr(owner.length - 7)}`} </p> :
+                owner === web3Ctx.account ?
+                  <p className="fw-light fs-6">Owner: You </p> :
+                  <p></p>}
               {index !== -1 ?
                 owner !== web3Ctx.account ?
                   <div className="row">

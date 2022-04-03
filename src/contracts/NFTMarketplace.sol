@@ -39,7 +39,6 @@ contract NFTMarketplace {
     /// @notice Sets the price at which the NFT can be bought from other users.
     /// @param _id The token id of the NFT.
     /// @param _price The price at which the NFT can be bought.
-    /// @return void Only emits an Event.
     function makeOffer(uint256 _id, uint256 _price) public {
         nftCollection.transferFrom(msg.sender, address(this), _id);
         offerCount++;
@@ -56,7 +55,6 @@ contract NFTMarketplace {
 
     /// @notice The sender buys a NFT from the offers list.
     /// @param _offerId The id of the offer which the user wants to buy.
-    /// @return void Only emits an Event
     function fillOffer(uint256 _offerId) public payable {
         _Offer storage _offer = offers[_offerId];
         require(_offer.offerId == _offerId, "The offer must exist");
@@ -78,7 +76,6 @@ contract NFTMarketplace {
 
     /// @notice Cancel an offer from the offers list. Only available to the owner of the offer.
     /// @param _offerId The id of the offer which the user wants to cancel.
-    /// @return void Only emits an Event
     function cancelOffer(uint256 _offerId) public {
         _Offer storage _offer = offers[_offerId];
         require(_offer.offerId == _offerId, "The offer must exist");
@@ -100,7 +97,6 @@ contract NFTMarketplace {
     }
 
     /// @notice The user can withdraw their funds made by selling NFT.
-    /// @return void Only emits an Event.
     /// @dev Not implemented in UI yet.
     function claimFunds() public {
         require(
