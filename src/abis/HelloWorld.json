@@ -16,9 +16,9 @@
       "constant": true
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"renderHelloWorld\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/src/contracts/HelloWorld.sol\":\"HelloWorld\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/src/contracts/HelloWorld.sol\":{\"keccak256\":\"0x686d0bbd532bb6d3cc7909bee86eb13f85f31e4e2c04cbaec19f16ecf798f12f\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://ae0acdf123f6f49be3fbf99c15f04324d486a9395200c34249b927664880c200\",\"dweb:/ipfs/QmfXgaTrRGh3The1UamifRXn9aSH7JZSXt8j28z3ammjuW\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5061017c806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063942ae0a714610030575b600080fd5b61003861004e565b6040516100459190610124565b60405180910390f35b60606040518060400160405280600c81526020017f48656c6c6f20576f726c64210000000000000000000000000000000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b838111156100d4576000848401525b50505050565b6000601f19601f8301169050919050565b60006100f68261008b565b6101008185610096565b93506101108185602086016100a7565b610119816100da565b840191505092915050565b6000602082019050818103600083015261013e81846100eb565b90509291505056fea264697066735822122073001d95e0595ae3a5c4f938493c43ce23752e9bce8b48ddc3e2ff243b1e28e064736f6c634300080d0033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c8063942ae0a714610030575b600080fd5b61003861004e565b6040516100459190610124565b60405180910390f35b60606040518060400160405280600c81526020017f48656c6c6f20576f726c64210000000000000000000000000000000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b838111156100d4576000848401525b50505050565b6000601f19601f8301169050919050565b60006100f68261008b565b6101008185610096565b93506101108185602086016100a7565b610119816100da565b840191505092915050565b6000602082019050818103600083015261013e81846100eb565b90509291505056fea264697066735822122073001d95e0595ae3a5c4f938493c43ce23752e9bce8b48ddc3e2ff243b1e28e064736f6c634300080d0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"renderHelloWorld\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/src/contracts/HelloWorld.sol\":\"HelloWorld\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/src/contracts/HelloWorld.sol\":{\"keccak256\":\"0x647e20aed73619b54f1e41b1cc9a841f4f11a793c566ceb9cfd9c1efa3f0cb37\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://ad5a6d32a4d861d16b5a51d98dd791e2a0fa350864b2dab36bdfeed8ab181875\",\"dweb:/ipfs/QmQvzoadH5dmyGUuDZhJqFQoaLwUsHbMq1je7vtvfijVcS\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061017c806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063942ae0a714610030575b600080fd5b61003861004e565b6040516100459190610124565b60405180910390f35b60606040518060400160405280600c81526020017f48656c6c6f20576f726c64210000000000000000000000000000000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b838111156100d4576000848401525b50505050565b6000601f19601f8301169050919050565b60006100f68261008b565b6101008185610096565b93506101108185602086016100a7565b610119816100da565b840191505092915050565b6000602082019050818103600083015261013e81846100eb565b90509291505056fea2646970667358221220ae7b451d1e99a1c1f89472b3d494915e791b77363fcfc55bc0819246d78f3db464736f6c634300080d0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061002b5760003560e01c8063942ae0a714610030575b600080fd5b61003861004e565b6040516100459190610124565b60405180910390f35b60606040518060400160405280600c81526020017f48656c6c6f20576f726c64210000000000000000000000000000000000000000815250905090565b600081519050919050565b600082825260208201905092915050565b60005b838110156100c55780820151818401526020810190506100aa565b838111156100d4576000848401525b50505050565b6000601f19601f8301169050919050565b60006100f68261008b565b6101008185610096565b93506101108185602086016100a7565b610119816100da565b840191505092915050565b6000602082019050818103600083015261013e81846100eb565b90509291505056fea2646970667358221220ae7b451d1e99a1c1f89472b3d494915e791b77363fcfc55bc0819246d78f3db464736f6c634300080d0033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [
@@ -881,10 +881,10 @@
       "name": "#utility.yul"
     }
   ],
-  "sourceMap": "76:134:11:-:0;;;;;;;;;;;;;;;;;;;",
-  "deployedSourceMap": "76:134:11:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;103:104;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;152:13;178:21;;;;;;;;;;;;;;;;;;;103:104;:::o;7:99:15:-;59:6;93:5;87:12;77:22;;7:99;;;:::o;112:169::-;196:11;230:6;225:3;218:19;270:4;265:3;261:14;246:29;;112:169;;;;:::o;287:307::-;355:1;365:113;379:6;376:1;373:13;365:113;;;464:1;459:3;455:11;449:18;445:1;440:3;436:11;429:39;401:2;398:1;394:10;389:15;;365:113;;;496:6;493:1;490:13;487:101;;;576:1;567:6;562:3;558:16;551:27;487:101;336:258;287:307;;;:::o;600:102::-;641:6;692:2;688:7;683:2;676:5;672:14;668:28;658:38;;600:102;;;:::o;708:364::-;796:3;824:39;857:5;824:39;:::i;:::-;879:71;943:6;938:3;879:71;:::i;:::-;872:78;;959:52;1004:6;999:3;992:4;985:5;981:16;959:52;:::i;:::-;1036:29;1058:6;1036:29;:::i;:::-;1031:3;1027:39;1020:46;;800:272;708:364;;;;:::o;1078:313::-;1191:4;1229:2;1218:9;1214:18;1206:26;;1278:9;1272:4;1268:20;1264:1;1253:9;1249:17;1242:47;1306:78;1379:4;1370:6;1306:78;:::i;:::-;1298:86;;1078:313;;;;:::o",
-  "source": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract HelloWorld {\r\n    function renderHelloWorld() public pure returns (string memory) {\r\n        return \"Hello World!\";\r\n    }\r\n}\r\n",
-  "sourcePath": "C:\\Users\\alwin\\Development\\web_projects\\nft-marketplace\\src\\contracts\\HelloWorld.sol",
+  "sourceMap": "73:130:11:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "73:130:11:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;99:102;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;148:13;173:21;;;;;;;;;;;;;;;;;;;99:102;:::o;7:99:15:-;59:6;93:5;87:12;77:22;;7:99;;;:::o;112:169::-;196:11;230:6;225:3;218:19;270:4;265:3;261:14;246:29;;112:169;;;;:::o;287:307::-;355:1;365:113;379:6;376:1;373:13;365:113;;;464:1;459:3;455:11;449:18;445:1;440:3;436:11;429:39;401:2;398:1;394:10;389:15;;365:113;;;496:6;493:1;490:13;487:101;;;576:1;567:6;562:3;558:16;551:27;487:101;336:258;287:307;;;:::o;600:102::-;641:6;692:2;688:7;683:2;676:5;672:14;668:28;658:38;;600:102;;;:::o;708:364::-;796:3;824:39;857:5;824:39;:::i;:::-;879:71;943:6;938:3;879:71;:::i;:::-;872:78;;959:52;1004:6;999:3;992:4;985:5;981:16;959:52;:::i;:::-;1036:29;1058:6;1036:29;:::i;:::-;1031:3;1027:39;1020:46;;800:272;708:364;;;;:::o;1078:313::-;1191:4;1229:2;1218:9;1214:18;1206:26;;1278:9;1272:4;1268:20;1264:1;1253:9;1249:17;1242:47;1306:78;1379:4;1370:6;1306:78;:::i;:::-;1298:86;;1078:313;;;;:::o",
+  "source": "// SPDX-License-Identifier: UNLICENSED\npragma solidity >=0.4.22 <0.9.0;\n\ncontract HelloWorld {\n    function renderHelloWorld() public pure returns (string memory) {\n        return \"Hello World!\";\n    }\n}\n",
+  "sourcePath": "D:\\Softwareprojekte Uni\\hackathon\\nft-marketplace\\src\\contracts\\HelloWorld.sol",
   "ast": {
     "absolutePath": "project:/src/contracts/HelloWorld.sol",
     "exportedSymbols": {
@@ -908,7 +908,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "40:32:11"
+        "src": "39:32:11"
       },
       {
         "abstract": false,
@@ -922,14 +922,14 @@
           1962
         ],
         "name": "HelloWorld",
-        "nameLocation": "85:10:11",
+        "nameLocation": "82:10:11",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
               "id": 1960,
               "nodeType": "Block",
-              "src": "167:40:11",
+              "src": "163:38:11",
               "statements": [
                 {
                   "expression": {
@@ -941,7 +941,7 @@
                     "kind": "string",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "185:14:11",
+                    "src": "180:14:11",
                     "typeDescriptions": {
                       "typeIdentifier": "t_stringliteral_3ea2f1d0abf3fc66cf29eebb70cbd4e7fe762ef8a09bcc06c8edf641230afec0",
                       "typeString": "literal_string \"Hello World!\""
@@ -951,7 +951,7 @@
                   "functionReturnParameters": 1957,
                   "id": 1959,
                   "nodeType": "Return",
-                  "src": "178:21:11"
+                  "src": "173:21:11"
                 }
               ]
             },
@@ -961,13 +961,13 @@
             "kind": "function",
             "modifiers": [],
             "name": "renderHelloWorld",
-            "nameLocation": "112:16:11",
+            "nameLocation": "108:16:11",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 1954,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "128:2:11"
+              "src": "124:2:11"
             },
             "returnParameters": {
               "id": 1957,
@@ -981,7 +981,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 1961,
-                  "src": "152:13:11",
+                  "src": "148:13:11",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -992,7 +992,7 @@
                     "id": 1955,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "152:6:11",
+                    "src": "148:6:11",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -1001,21 +1001,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "151:15:11"
+              "src": "147:15:11"
             },
             "scope": 1962,
-            "src": "103:104:11",
+            "src": "99:102:11",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
         "scope": 1963,
-        "src": "76:134:11",
+        "src": "73:130:11",
         "usedErrors": []
       }
     ],
-    "src": "40:172:11"
+    "src": "39:165:11"
   },
   "legacyAST": {
     "absolutePath": "project:/src/contracts/HelloWorld.sol",
@@ -1040,7 +1040,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "40:32:11"
+        "src": "39:32:11"
       },
       {
         "abstract": false,
@@ -1054,14 +1054,14 @@
           1962
         ],
         "name": "HelloWorld",
-        "nameLocation": "85:10:11",
+        "nameLocation": "82:10:11",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
               "id": 1960,
               "nodeType": "Block",
-              "src": "167:40:11",
+              "src": "163:38:11",
               "statements": [
                 {
                   "expression": {
@@ -1073,7 +1073,7 @@
                     "kind": "string",
                     "lValueRequested": false,
                     "nodeType": "Literal",
-                    "src": "185:14:11",
+                    "src": "180:14:11",
                     "typeDescriptions": {
                       "typeIdentifier": "t_stringliteral_3ea2f1d0abf3fc66cf29eebb70cbd4e7fe762ef8a09bcc06c8edf641230afec0",
                       "typeString": "literal_string \"Hello World!\""
@@ -1083,7 +1083,7 @@
                   "functionReturnParameters": 1957,
                   "id": 1959,
                   "nodeType": "Return",
-                  "src": "178:21:11"
+                  "src": "173:21:11"
                 }
               ]
             },
@@ -1093,13 +1093,13 @@
             "kind": "function",
             "modifiers": [],
             "name": "renderHelloWorld",
-            "nameLocation": "112:16:11",
+            "nameLocation": "108:16:11",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 1954,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "128:2:11"
+              "src": "124:2:11"
             },
             "returnParameters": {
               "id": 1957,
@@ -1113,7 +1113,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 1961,
-                  "src": "152:13:11",
+                  "src": "148:13:11",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -1124,7 +1124,7 @@
                     "id": 1955,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
-                    "src": "152:6:11",
+                    "src": "148:6:11",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
                       "typeString": "string"
@@ -1133,21 +1133,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "151:15:11"
+              "src": "147:15:11"
             },
             "scope": 1962,
-            "src": "103:104:11",
+            "src": "99:102:11",
             "stateMutability": "pure",
             "virtual": false,
             "visibility": "public"
           }
         ],
         "scope": 1963,
-        "src": "76:134:11",
+        "src": "73:130:11",
         "usedErrors": []
       }
     ],
-    "src": "40:172:11"
+    "src": "39:165:11"
   },
   "compiler": {
     "name": "solc",
