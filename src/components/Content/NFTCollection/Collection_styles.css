@@ -14,12 +14,13 @@ section.heading h2 {
   text-align:center;
   color:#102C4E;
   margin-top: 150px;
-  margin-bottom:70px;
+  margin-bottom:80px;
 }
 /*Sub-Heading*/
-section.heading p {
+section.heading h3 {
   font-size: 30px;
-  color:rgba(29, 15, 48, 0.699)
+  color:rgba(29, 15, 48, 0.699);
+  margin-bottom: 70px;
 }
 /*layout of boxes*/
 .boxes-items {

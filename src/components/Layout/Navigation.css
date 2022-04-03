@@ -13,11 +13,46 @@
   background-color: white;
 }
 
-.navlink {
-  color: '#fff';
-  background: '#7600dc';
-}
 
 .search {
-  margin-right: 100px;
+  margin-right: 60px;
+}
+
+.nav {
+  flex-wrap: nowrap;
+  float: left;
+  margin-left: 50%;
+}
+
+.img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+}
+
+.dropdown {
+  margin-left: 40px;
+  margin-right: 10px;
+}
+
+.button {
+  background-color: #f44336;
+  /* Red */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }

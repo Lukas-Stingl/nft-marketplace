@@ -57,6 +57,8 @@ const App = () => {
       const mktDeployedNetwork = NFTMarketplace.networks[networkId];
       const mktContract = marketplaceCtx.loadContract(web3, NFTMarketplace, mktDeployedNetwork);
 
+
+
       if (nftContract) {
         console.log(`reached if nftContract block`);
         // Load total Supply
@@ -76,7 +78,7 @@ const App = () => {
           });
 
       } else {
-        // window.alert('NFTCollection contract not deployed to detected network.')
+        window.alert('NFTCollection contract not deployed to detected network.')
       }
 
       if (mktContract) {
@@ -122,7 +124,7 @@ const App = () => {
           });
 
       } else {
-        // window.alert('NFTMarketplace contract not deployed to detected network.')
+        window.alert('NFTMarketplace contract not deployed to detected network.')
       }
 
       collectionCtx.setNftIsLoading(false);
@@ -143,16 +145,14 @@ const App = () => {
     loadBlockchainData();
   }, []);
 
-  // const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
+  const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
   const showContent = web3 && collectionCtx.contract && marketplaceCtx.contract && web3Ctx.account;
-
   return (
 
     <Router>
-      {//{showNavbar && }
-      }
-      {//<Navigation />
-      }
+      <Navigation />
+
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />

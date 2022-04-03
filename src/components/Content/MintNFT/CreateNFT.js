@@ -119,7 +119,7 @@ const Create = () => {
 
 
     return (
-        <form class="createform" onSubmit={onSubmit}>
+        <form className="createform" onSubmit={onSubmit}>
             <h1>Create new Item</h1>
             <h3>Name</h3>
             <div>
@@ -169,29 +169,11 @@ const Create = () => {
                         e => {
                             e.preventDefault();
                             setNftImage(e.target.files[0])
-
-
-
                         }
                     }
 
                 />
             </div>
-            {/* {
-                    fileUrl && (
-
-                    <Image
-                        src={fileUrl}
-                        alt="Picture of the author"
-                        className="rounded mt-4"
-                        width={350}
-                        height={500}
-                    // blurDataURL="data:..." automatically provided
-                    // placeholder="blur" // Optional blur-up while loading
-                    />
-                    )
-                } */}
-
             <div>
                 <button>Create NFT</button>
             </div>
