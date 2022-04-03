@@ -63,7 +63,7 @@ $ truffle test
 Deploy the contracts on your Ganache local blockchain by running the following command:
 
 ```
-$ truffle migrate
+$ truffle migrate 
 ```
 
 ### Opening the User Interface
@@ -90,10 +90,10 @@ In order to deploy your smart contract, you must create your .env file and speci
 - `PRIVATE_KEYS` --> Private Key of the account you are using to deploy (typically the first one in the list of Ganache)
 - `INFURA_API_KEY` --> API key provided by Infura: https://infura.io
 
-Then, you will need to run the following command (let's use the testnet Ropsten in this example, remember to request some Ether for your account using a faucet):
+Then, you will need to run the following command (let's use the testnet Kovan in this example, remember to request some Ether for your account using a faucet):
 
 ```
-$ truffle migrate --network ropsten
+$ truffle migrate --network kovan
 ```
 
 Finally you can run the following command to generate the build artifacts of your User Interface and then deploy to your favourite host:
