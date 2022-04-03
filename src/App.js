@@ -12,6 +12,7 @@ import Home from './components/Content/Home';
 import Collection from './components/Content/NFTCollection/Collection';
 import NFTCollectionPage from './components/Content/NFTCollection/NFTCollection';
 import NFTPersCollectionPage from './components/Content/PersonalCollection/NFTPersCollection';
+import Details from './components/Content/NFTCollection/DetailPage';
 import Create from './components/Content/MintNFT/CreateNFT';
 import Web3Context from './store/web3-context';
 import CollectionContext from './store/collection-context';
@@ -57,6 +58,8 @@ const App = () => {
       const mktDeployedNetwork = NFTMarketplace.networks[networkId];
       const mktContract = marketplaceCtx.loadContract(web3, NFTMarketplace, mktDeployedNetwork);
 
+
+
       if (nftContract) {
         console.log(`reached if nftContract block`);
         // Load total Supply
@@ -76,12 +79,12 @@ const App = () => {
           });
 
       } else {
-        // window.alert('NFTCollection contract not deployed to detected network.')
+        window.alert('NFTCollection contract not deployed to detected network.')
       }
 
       if (mktContract) {
         // Load offer count
-        const offerCount = marketplaceCtx.loadOfferCount(mktContract);
+        const offerCount = await marketplaceCtx.loadOfferCount(mktContract);
 
         // Load offers
         marketplaceCtx.loadOffers(mktContract, offerCount);
@@ -122,7 +125,7 @@ const App = () => {
           });
 
       } else {
-        // window.alert('NFTMarketplace contract not deployed to detected network.')
+        window.alert('NFTMarketplace contract not deployed to detected network.')
       }
 
       collectionCtx.setNftIsLoading(false);
@@ -143,21 +146,20 @@ const App = () => {
     loadBlockchainData();
   }, []);
 
-  // const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
+  const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
   const showContent = web3 && collectionCtx.contract && marketplaceCtx.contract && web3Ctx.account;
-
   return (
 
     <Router>
-      {//{showNavbar && }
-      }
-      {//<Navigation />
-      }
+      <Navigation />
+
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
         <Route path="/collection" element={<NFTCollectionPage />} />
         <Route path="/personalcollection" element={<NFTPersCollectionPage/>}></Route>
+        <Route path="/details" element={<Details />} />
       </Routes>
     </Router>
 

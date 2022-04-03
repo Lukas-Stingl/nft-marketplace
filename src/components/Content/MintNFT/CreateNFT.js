@@ -9,10 +9,14 @@ import { Alert } from 'react-alert'
 import React, { useState, useContext } from 'react';
 import "./mint.css"
 import NFTCollection from '../../../abis/NFTCollection.json';
+import { useNavigate } from "react-router-dom";
+
 
 const ipfsClient = require('ipfs-http-client');
 const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 const fs = require("fs");
+
+
 
 async function makeBuffer(file, name, description) {
     return new Promise(async (resolve, reject) => {
@@ -85,9 +89,23 @@ const Create = () => {
         collectionCtx.contract.methods.safeMint(metadataAdded.path).send({ from: web3Ctx.account })
             .on('transactionHash', (hash) => {
                 //NFTCollectionContract.setNftIsLoading(true);
-                alert("Your NFT has been created!")
-                console.log("success")
+                let options = {
+                    filter: {
+                        address: collectionCtx.address
+                    },
+                    fromBlock: 0,                  //Number || "earliest" || "pending" || "latest"
+                    toBlock: 'latest'
+                };
+                collectionCtx.contract.getPastEvents('Transfer', options)
+                    .then(results => {
+                        let nfts = results.length - 1
+                        console.log(results[nfts].returnValues.tokenId)
+                        alert("Your NFT will be created shortly and published to the blockchain!");
+                        console.log("success");
+                        window.location.replace("../details?value=" + results[nfts].returnValues.tokenId);
 
+                    })
+                    .catch(err => alert(err));
                 // Route to detail page of NFT
             })
             .on('error', (e) => {
@@ -101,7 +119,7 @@ const Create = () => {
 
 
     return (
-        <form class="createform" onSubmit={onSubmit}>
+        <form className="createform" onSubmit={onSubmit}>
             <h1>Create new Item</h1>
             <h3>Name</h3>
             <div>
@@ -151,29 +169,11 @@ const Create = () => {
                         e => {
                             e.preventDefault();
                             setNftImage(e.target.files[0])
-
-
-
                         }
                     }
 
                 />
             </div>
-            {/* {
-                    fileUrl && (
-
-                    <Image
-                        src={fileUrl}
-                        alt="Picture of the author"
-                        className="rounded mt-4"
-                        width={350}
-                        height={500}
-                    // blurDataURL="data:..." automatically provided
-                    // placeholder="blur" // Optional blur-up while loading
-                    />
-                    )
-                } */}
-
             <div>
                 <button>Create NFT</button>
             </div>
