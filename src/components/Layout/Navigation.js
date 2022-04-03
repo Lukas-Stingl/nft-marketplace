@@ -72,12 +72,6 @@ const Navigation = () => {
   }
 
 
-
-  console.log("marketplaceCtx:")
-  console.log(marketplaceCtx.userFunds)
-
-
-
   const etherscanUrl = "https://kovan.etherscan.io/";
 
 

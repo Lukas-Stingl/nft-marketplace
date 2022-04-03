@@ -83,7 +83,7 @@ const App = () => {
 
       if (mktContract) {
         // Load offer count
-        const offerCount = marketplaceCtx.loadOfferCount(mktContract);
+        const offerCount = await marketplaceCtx.loadOfferCount(mktContract);
 
         // Load offers
         marketplaceCtx.loadOffers(mktContract, offerCount);
