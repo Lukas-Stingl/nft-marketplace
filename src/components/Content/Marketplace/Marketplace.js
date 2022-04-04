@@ -95,7 +95,7 @@ const Marketplace = () => {
                     </div>
                     <Card.Body>
                       <Card.Title>{NFT.title}</Card.Title>
-                      <p style={{ whiteSpace: "nowrap", color: "#BABABA", fontWeight: 600, fontSize: "0.8em" }}>by <a href='/personalcollection' className="link" style={{}}>{`${owner}`}</a></p>
+                      <p style={{ whiteSpace: "nowrap", color: "#BABABA", fontWeight: 600, fontSize: "0.8em" }}>by <a href={`/collection?owner=${owner}`} className="link" style={{}}>{`${owner}`}</a></p>
                       <div style={{
                         display: "flex", flexWrap: "nowrap", justifyContent: "space-between"
                       }}>
