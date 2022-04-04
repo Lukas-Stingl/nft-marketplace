@@ -5,7 +5,7 @@ import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import { Alert } from 'react-alert'
 import React from 'react';
-import "./details.css"
+import "./Detail.css"
 import { useEffect, useState } from 'react';
 import NFTCollection from '../../../abis/NFTCollection.json';
 import $ from 'jquery';
@@ -99,14 +99,14 @@ const Details = () => {
     var [accountId, changedData1] = useState("");
     var [divStyle, changedData2] = useState({
         backgroundImage: "white"
-      })
+    })
 
     //set initial state
 
 
     useEffect(async () => {
         const updatedData = await getNFTs();
-        if(typeof updatedData === "undefined" ){
+        if (typeof updatedData === "undefined") {
             window.location.refresh();
         }
         const updatedAccountId = await web3Ctx.loadAccount(web3)
@@ -119,8 +119,8 @@ const Details = () => {
             accountId: updatedAccountId
         });
         changedData2({
-           ...divStyle, 
-        backgroundImage: 'url(https://ipfs.infura.io/ipfs/'+metadata.properties.image.description+')',
+            ...divStyle,
+            backgroundImage: 'url(https://ipfs.infura.io/ipfs/' + metadata.properties.image.description + ')',
         })
     }, [])
 
@@ -158,7 +158,7 @@ const Details = () => {
         //copied todo: anpassen
         // const NFTCollectionContract = new web3.eth.Contract(NFTCollection.abi, NFTCollectionNetwork);
         // NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
-    
+
     }
 
 
@@ -178,7 +178,7 @@ const Details = () => {
                         {metadata.properties.description.description}
                     </div>
                     <div class="nft-price">
-                        Price: not set 
+                        Price: not set
                     </div>
                     <button class="detailButton" type="button">Sell</button>
 

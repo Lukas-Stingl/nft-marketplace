@@ -7,7 +7,7 @@ import CollectionContext from '../../../store/collection-context';
 import web3 from '../../../connection/web3';
 import { Alert } from 'react-alert'
 import React, { useState, useContext } from 'react';
-import "./mint.css"
+import "./Create.css"
 import NFTCollection from '../../../abis/NFTCollection.json';
 import { useNavigate } from "react-router-dom";
 import eth from '../../../img/ethereum.svg';

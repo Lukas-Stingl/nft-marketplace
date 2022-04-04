@@ -7,7 +7,7 @@ import MarketplaceContext from '../../../store/marketplace-context';
 import { formatPrice } from '../../../helpers/utils';
 import eth from '../../../img/ethereum.svg';
 
-const NFTCollectionPage = () => {
+const Marketplace = () => {
   const web3Ctx = useContext(Web3Context);
   const collectionCtx = useContext(CollectionContext);
   const marketplaceCtx = useContext(MarketplaceContext);
@@ -75,7 +75,6 @@ const NFTCollectionPage = () => {
             const owner = index === -1 ? NFT.owner : marketplaceCtx.offers[index].user;
             const price = index !== -1 ? formatPrice(marketplaceCtx.offers[index].price).toFixed(2) : null;
 
-            console.log(`https://ipfs.infura.io/ipfs/${NFT.img}`);
             return (
               <div className="col-sm-4 col-md-3 col-lg-3 col-xl-2">
 
@@ -151,4 +150,4 @@ const NFTCollectionPage = () => {
   );
 };
 
-export default NFTCollectionPage;
+export default Marketplace;

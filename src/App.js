@@ -7,13 +7,12 @@ import {
 
 import web3 from './connection/web3';
 import Navigation from './components/Layout/Navigation';
-import Main from './components/Content/Main';
 import Home from './components/Content/Home';
-import Collection from './components/Content/NFTCollection/Collection';
-import NFTCollectionPage from './components/Content/NFTCollection/NFTCollection';
-import NFTPersCollectionPage from './components/Content/PersonalCollection/NFTPersCollection';
-import Details from './components/Content/NFTCollection/DetailPage';
-import Create from './components/Content/MintNFT/CreateNFT';
+import Marketplace from './components/Content/Marketplace/Marketplace';
+import Collection from './components/Content/Collection/Collection';
+import Details from './components/Content/Marketplace/DetailPage';
+import Create from './components/Content/Create/CreateNFT';
+import NotFound from './components/Content/NotFound/NotFound';
 import Web3Context from './store/web3-context';
 import CollectionContext from './store/collection-context';
 import MarketplaceContext from './store/marketplace-context';
@@ -159,9 +158,10 @@ const App = () => {
         <Routes >
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Create />} />
-          <Route className="pagecontent" path="/collection" element={<NFTCollectionPage />} />
-          <Route path="/personalcollection" element={<NFTPersCollectionPage />} />
+          <Route path="/marketplace" element={<Marketplace />} />
+          <Route path={`/collection`} element={<Collection />} />
           <Route path="/details" element={<Details />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>

@@ -133,7 +133,6 @@ const CollectionProvider = props => {
 
     for (let i = 0; i < totalSupply; i++) {
       const hash = await contract.methods.tokenURIs(i).call();
-      console.log(hash);
       try {
         const response = await fetch(`https://ipfs.infura.io/ipfs/${hash}?clear`);
         if (!response.ok) {
