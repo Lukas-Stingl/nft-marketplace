@@ -8,7 +8,7 @@ function Home() {
             <div class="Buttons">
                 <h1>Welcome to the world of NFTs! </h1>
                 <h2>Discover, collect, and sell extraordinary NFTs.</h2>
-                <a href="../collection" >
+                <a href="../marketplace" >
                     <button class="Discover">Discover </button>
                 </a>
                 <div class="divider" />
@@ -17,7 +17,8 @@ function Home() {
                 </a>
             </div>
 
-            <div class="NFT_Vorschau">
+            <div class="notableNFTs">
+                <h2>Notable drops</h2>
             </div>
         </div>
     );

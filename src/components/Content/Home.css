@@ -1,4 +1,4 @@
-.Startseite{
+.Buttons{
     margin-left: 40px;
 }
 
@@ -11,6 +11,7 @@
     height: 100px;
     width: 250px;
     border-color: blue;
+    margin-top: 50px;
 }
 
 .Discover:hover{
@@ -35,4 +36,11 @@
     width:5px;
     height:auto;
     display:inline-block;
+}
+
+.notableNFTs{
+    text-align:center;
+    margin-top: 100px;
+    font-size: .5em;
+    font-weight: 600;
 }
