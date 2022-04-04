@@ -29,7 +29,7 @@ section.heading p {
   width: 25%;
   padding: 10px;
   margin: 3.9%;
-  height: 500px;
+  height: 400px;
 }
 /*Heading of each box*/
   section.boxes .boxes-items h2 {
@@ -38,7 +38,7 @@ section.heading p {
     font-weight: 600;
     line-height: 37px;
     text-align: center;
-    margin: 20px 0 10px;
+    margin: 66px 0 10px;
     text-transform: uppercase;
   }
 /*title of each box*/
