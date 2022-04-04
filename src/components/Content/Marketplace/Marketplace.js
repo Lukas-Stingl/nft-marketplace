@@ -64,10 +64,10 @@ const Marketplace = () => {
     //Creating the layout of the ./collection page
     <div style={{ alignItems: "center" }} >
       <h2 align="center">
-        NFT Collection
+        NFT Marketplace
       </h2>
       <h3 align="center">
-        Explore the World of NFTs
+        Explore the world of NFTs
       </h3>
       <div className='container-fluid' >
         <div className="row gy-4" >
@@ -75,10 +75,11 @@ const Marketplace = () => {
             const index = marketplaceCtx.offers ? marketplaceCtx.offers.findIndex(offer => offer.id === NFT.id) : -1;
             const owner = index === -1 ? NFT.owner : marketplaceCtx.offers[index].user;
             const price = index !== -1 ? formatPrice(marketplaceCtx.offers[index].price).toFixed(2) : null;
+            const hasPrice = price > 0 ? true : false;
 
-            return (
+            //only the NFTs currently for sale (have stored an price above null) should be visible
+            if(hasPrice) return (
               <div className="col-sm-4 col-md-3 col-lg-3 col-xl-2">
-
                 <div onClick={() => { console.log("clicked!"); }} style={{}}>
                   <Card key={key} style={{ overflow: "hidden", cursor: 'pointer' }} >
                     <div style={{
