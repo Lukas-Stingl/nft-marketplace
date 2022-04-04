@@ -93,6 +93,9 @@ const Details = () => {
             },
             image: {
                 description: ""
+            },
+            price : {
+                description: ""
             }
         }
     });
@@ -139,7 +142,7 @@ const Details = () => {
         //does not load contract from context yet, use hard coded context and change when context is working
         //const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
         const nftContract = new web3.eth.Contract(NFTCollection.abi, nftDeployedNetwork);
-        nftContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
+        nftContract.options.address = "0xce8dCB7164590aAe74847D5BDe15251BE07E6eA3"
 
 
 
@@ -178,7 +181,7 @@ const Details = () => {
                         {metadata.properties.description.description}
                     </div>
                     <div class="nft-price">
-                        Price: not set
+                   { metadata.properties.price.description} ETH
                     </div>
                     <button class="detailButton" type="button">Sell</button>
 

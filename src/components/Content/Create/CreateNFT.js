@@ -19,20 +19,20 @@ const fs = require("fs");
 
 
 
-async function makeBuffer(file, name, description) {
+async function makeBuffer(file, name, description, nftPrice) {
     return new Promise(async (resolve, reject) => {
         const reader = new window.FileReader();
         reader.readAsArrayBuffer(file);
         let buffer;
         reader.onloadend = async () => {
             buffer = Buffer(reader.result).buffer;
-            const metadataAdded = await uploadFile(buffer, name, description);
+            const metadataAdded = await uploadFile(buffer, name, description, nftPrice);
             resolve(metadataAdded);
         }
     });
 }
 
-async function uploadFile(buffer, name, description) {
+async function uploadFile(buffer, name, description, nftPrice) {
     const fileAdded = await ipfs.add(Buffer.from(buffer));
     const metadata = {
         title: "Asset Metadata",
@@ -49,6 +49,10 @@ async function uploadFile(buffer, name, description) {
             image: {
                 type: "string",
                 description: fileAdded.path
+            },
+            price: {
+                type: "integer",
+                description: nftPrice
             }
         }
     };
@@ -80,29 +84,30 @@ const Create = () => {
     const web3Ctx = useContext(Web3Context);
     const collectionCtx = useContext(CollectionContext);
 
-    const getFile = async (path) => {
-        var aBuffer = [];
-        const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
-        for await (const chunk of ipfs.cat(path)) {
-            aBuffer.push(chunk);
-            //fs.writeFile('downloaded.jpg', picture[1], err => {console.log(err) });
-        }
-        var picture = Buffer.concat(aBuffer)
-        fs.writeFile('downloaded.jpg', picture, err => { console.log(err) });
-    }
+    // getFile is not used since we display the nft directly from ipfsCharlie12
+    // const getFile = async (path) => {
+    //     var aBuffer = [];
+    //     const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+    //     for await (const chunk of ipfs.cat(path)) {
+    //         aBuffer.push(chunk);
+    //         //fs.writeFile('downloaded.jpg', picture[1], err => {console.log(err) });
+    //     }
+    //     var picture = Buffer.concat(aBuffer)
+    //     fs.writeFile('downloaded.jpg', picture, err => { console.log(err) });
+    // }
 
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        const metadataAdded = await makeBuffer(nftImage, nftName, nftDescription);
+        const metadataAdded = await makeBuffer(nftImage, nftName, nftDescription, nftPrice);
 
         collectionCtx.contract.methods.safeMint(metadataAdded.path).send({ from: web3Ctx.account })
             .on('transactionHash', (hash) => {
                 //NFTCollectionContract.setNftIsLoading(true);
                 let options = {
-                    filter: {
-                        address: collectionCtx.address
-                    },
+                    // filter: {
+                    //     address: collectionCtx.address
+                    // },
                     fromBlock: 0,                  //Number || "earliest" || "pending" || "latest"
                     toBlock: 'latest'
                 };
