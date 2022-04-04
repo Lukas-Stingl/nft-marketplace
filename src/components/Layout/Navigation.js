@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Web3Context from '../../store/web3-context';
 import MarketplaceContext from '../../store/marketplace-context';
@@ -13,12 +13,10 @@ import {
   Nav,
   InputGroup,
   Input,
-  Form,
   NavItem,
   NavLink,
   Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
   ListGroup,
-  ListGroupItem,
 } from "reactstrap";
 
 import "./Navigation.css";
@@ -88,7 +86,7 @@ const Navigation = () => {
           />
         </InputGroup>
         <NavItem >
-          <NavLink href="/marketplace" style={{ color: '#fff' }}>Collection</NavLink>
+          <NavLink href="/marketplace" style={{ color: '#fff' }}>Marketplace</NavLink>
         </NavItem>
         <NavItem >
           <NavLink href="/create" style={{ color: '#fff' }}>Mint</NavLink>
@@ -100,7 +98,6 @@ const Navigation = () => {
           </DropdownToggle>
           <DropdownMenu style={{ marginTop: 13, paddingTop: 0 }}>
             <ListGroup style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0, alignItems: "center" }}>
-
               {collectionCtx.contract && <DropdownItem href={`/collection?owner=${web3Ctx.account}`} style={{ height: 52, display: 'flex', alignItems: "center" }}>
                 My Collection
               </DropdownItem>}
