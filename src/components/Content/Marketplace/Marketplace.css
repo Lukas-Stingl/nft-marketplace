@@ -47,13 +47,13 @@
 }
 
 .bbtn-2::before {
-  background-color: rgb(28, 31, 30);
+  background-color: #32a189;
   transition: 0.3s ease-out;
 }
 
 .bbtn-2 span {
   color: rgb(28, 31, 30);
-  border: 1px solid rgb(28, 31, 30);
+  border: 1px solid #00000052;
   transition: 0.2s;
 }
 
