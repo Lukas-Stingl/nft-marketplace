@@ -76,7 +76,7 @@ const Navigation = () => {
 
   return (
     <Navbar>
-      <a href="/"><img className="logo" src={logo} alt="logo" /></a>
+      <a href="/"><img className="logo" src={logo} alt="logo" style={{ backgroundColor: "#131313" }} /></a>
       <Nav>
         <InputGroup className="search">
           <Input
