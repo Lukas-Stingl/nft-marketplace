@@ -60,14 +60,14 @@ async function uploadFile(buffer, name, description) {
     return (metadataAdded);
 }
 //Preview of the uploaded image
-function showPreview(event){
-    if(event.target.files.length > 0){
-      var src = URL.createObjectURL(event.target.files[0]);
-      var preview = document.getElementById("file-ip-1-preview");
-      preview.src = src;
-      preview.style.display = "block";
+function showPreview(event) {
+    if (event.target.files.length > 0) {
+        var src = URL.createObjectURL(event.target.files[0]);
+        var preview = document.getElementById("file-ip-1-preview");
+        preview.src = src;
+        preview.style.display = "block";
     }
-  }
+}
 
 const Create = () => {
     const [nftName, setNftName] = useState('');
@@ -136,7 +136,6 @@ const Create = () => {
             <div>
                 <input
                     placeholder="Asset Name"
-                    // value={this.state.value}
                     onChange={e => {
                         e.preventDefault();
                         setNftName(e.target.value);
@@ -162,7 +161,6 @@ const Create = () => {
                     type="number"
                     step="0.1"
                     min="0" //not allowed to set a negative price
-                    // value={this.state.value}
                     onChange={e => {
                         e.preventDefault();
                         setNftPrice(e.target.value);
@@ -177,19 +175,19 @@ const Create = () => {
                     // name="Asset"
                     // className="my-4"
                     accept="image/png, image/jpeg"
-                    onChange=                   
-                     {
+                    onChange=
+                    {
                         e => {
                             e.preventDefault();
                             setNftImage(e.target.files[0]);
                             showPreview(e)   //allows to show a preview of the uploaded img 
-                    }   
-                }
+                        }
+                    }
                 />
             </div>
             <div class="preview">
-            <h4>Preview:</h4>
-                <img id="file-ip-1-preview" ></img>
+                <h4>Preview:</h4>
+                <img id="file-ip-1-preview" alt="Preview" ></img>
             </div>
             <div>
                 <button>Create NFT</button>

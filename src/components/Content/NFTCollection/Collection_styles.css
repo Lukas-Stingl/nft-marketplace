@@ -1,6 +1,98 @@
 /* use this .css to create the styles of the HTML bricks*/
 
 /* declaring the functionality of centering an image */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:active,
+:hover,
+:focus {
+  outline: 0 !important;
+  outline-offset: 0;
+}
+
+::before,
+::after {
+  position: absolute;
+  content: "";
+}
+
+.bbtn {
+  position: relative;
+  display: inline;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0px;
+  min-width: 30px;
+}
+
+.bbtn span {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  transition: 0.3s;
+}
+
+.bbtn-2::before {
+  background-color: rgb(28, 31, 30);
+  transition: 0.3s ease-out;
+}
+
+.bbtn-2 span {
+  color: rgb(28, 31, 30);
+  border: 1px solid rgb(28, 31, 30);
+  transition: 0.2s;
+}
+
+.bbtn-2 span:hover {
+  color: rgb(255, 255, 255);
+  transition: 0.2s 0.1s;
+}
+
+.bbtn.hover-slide-right::before {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+}
+
+.bbtn.hover-slide-right:hover::before {
+  width: 100%;
+}
+
+.gridview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  grid-auto-rows: 100px;
+}
+
+.link {
+  color: #BABABA;
+  text-decoration: none;
+}
+
+/* CSS link color (red) */
+.link:hover {
+  color: #474747;
+}
+
+/* CSS link hover (green) , */
+
 .center {
   display: block;
   margin-left: auto;
@@ -11,17 +103,19 @@
 /*Heading*/
 section.heading h2 {
   font-size: 50px;
-  text-align:center;
-  color:#102C4E;
+  text-align: center;
+  color: #102C4E;
   margin-top: 150px;
-  margin-bottom:80px;
+  margin-bottom: 80px;
 }
+
 /*Sub-Heading*/
 section.heading h3 {
   font-size: 30px;
-  color:rgba(29, 15, 48, 0.699);
+  color: rgba(29, 15, 48, 0.699);
   margin-bottom: 70px;
 }
+
 /*layout of boxes*/
 .boxes-items {
   border-radius: 15px;
@@ -32,28 +126,30 @@ section.heading h3 {
   margin: 3.9%;
   height: 500px;
 }
+
 /*Heading of each box*/
-  section.boxes .boxes-items h2 {
-    font-size: 35px;
-    color: rgb(253, 253, 253);
-    font-weight: 600;
-    line-height: 37px;
-    text-align: center;
-    margin: 20px 0 10px;
-    text-transform: uppercase;
-  }
+section.boxes .boxes-items h2 {
+  font-size: 35px;
+  color: rgb(253, 253, 253);
+  font-weight: 600;
+  line-height: 37px;
+  text-align: center;
+  margin: 20px 0 10px;
+  text-transform: uppercase;
+}
+
 /*title of each box*/
-  section.boxes .boxes-items .name {
-    color: rgb(253, 253, 253);
-    font-weight: 600;
-    font-size: 200%;
-    line-height: 50px;
-    float: left;
-    text-align: center;
-    margin: 300px 0 50px;
-    padding-left: 10%;
-    padding-right: 20px;
-  }
+section.boxes .boxes-items .name {
+  color: rgb(253, 253, 253);
+  font-weight: 600;
+  font-size: 200%;
+  line-height: 50px;
+  float: left;
+  text-align: center;
+  margin: 300px 0 50px;
+  padding-left: 10%;
+  padding-right: 20px;
+}
 
 /* price of the NFT*/
 section.boxes .boxes-items .price {
@@ -67,11 +163,24 @@ section.boxes .boxes-items .price {
 }
 
 
-  section.boxes .one, section.boxes .two, section.boxes .three,  section.boxes .four,  section.boxes .five, section.boxes .six, section.boxes .seven, section.boxes .eight, section.boxes .four,  section.boxes .five, section.boxes .six, section.boxes .seven, section.boxes .nine {
-    background-color: rgba(66, 130, 104, 0.39);
-  }
-  /* NFTs should get the hove function*/
-  section.boxes .nft :hover {
-    opacity: .5;
-    cursor: pointer;
-  }
+section.boxes .one,
+section.boxes .two,
+section.boxes .three,
+section.boxes .four,
+section.boxes .five,
+section.boxes .six,
+section.boxes .seven,
+section.boxes .eight,
+section.boxes .four,
+section.boxes .five,
+section.boxes .six,
+section.boxes .seven,
+section.boxes .nine {
+  background-color: rgba(66, 130, 104, 0.39);
+}
+
+/* NFTs should get the hove function*/
+section.boxes .nft :hover {
+  opacity: .5;
+  cursor: pointer;
+}

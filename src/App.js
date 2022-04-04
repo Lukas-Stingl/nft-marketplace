@@ -21,6 +21,7 @@ import NFTCollection from './abis/NFTCollection.json';
 import NFTMarketplace from './abis/NFTMarketplace.json';
 import Web3Provider from './store/Web3Provider';
 import MarketplaceProvider from './store/MarketplaceProvider';
+import "./app.css";
 
 const App = () => {
   const web3Ctx = useContext(Web3Context);
@@ -45,10 +46,10 @@ const App = () => {
 
       // Load account
       const account = await web3Ctx.loadAccount(web3);
+      console.log(`account address: ${account}`);
 
       // Load Network ID
       const networkId = await web3Ctx.loadNetworkId(web3);
-      console.log(`network id = ${networkId}`);
 
       // Load Contracts   
       const nftDeployedNetwork = NFTCollection.networks[networkId];
@@ -91,6 +92,8 @@ const App = () => {
 
         // Load User Funds
         account && marketplaceCtx.loadUserFunds(mktContract, account);
+
+
 
         // Event OfferFilled subscription 
         mktContract.events.OfferFilled()
@@ -152,13 +155,15 @@ const App = () => {
 
     <Router>
       <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/collection" element={<NFTCollectionPage />} />
-        <Route path="/personalcollection" element={<NFTPersCollectionPage />}></Route>
-        <Route path="/details" element={<Details />} />
-      </Routes>
+      <div style={{ marginTop: "66px" }}>
+        <Routes >
+          <Route path="/" element={<Home />} />
+          <Route path="/create" element={<Create />} />
+          <Route className="pagecontent" path="/collection" element={<NFTCollectionPage />} />
+          <Route path="/personalcollection" element={<NFTPersCollectionPage />} />
+          <Route path="/details" element={<Details />} />
+        </Routes>
+      </div>
     </Router>
 
     // {/* {showContent && <Main />} */}
