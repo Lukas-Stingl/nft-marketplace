@@ -23,6 +23,7 @@ import {
 
 import "./Navigation.css";
 import logo from "../../img/logo.svg";
+import CollectionContext from '../../store/collection-context';
 
 const Navigation = () => {
   const [fundsLoading, setFundsLoading] = useState(false);
@@ -34,7 +35,7 @@ const Navigation = () => {
 
   const web3Ctx = useContext(Web3Context);
   const marketplaceCtx = useContext(MarketplaceContext);
-
+  const collectionCtx = useContext(CollectionContext);
 
   const connectWalletHandler = async () => {
     try {
@@ -100,9 +101,9 @@ const Navigation = () => {
           <DropdownMenu style={{ marginTop: 13, paddingTop: 0 }}>
             <ListGroup style={{ paddingLeft: 0, paddingRight: 0, paddingBottom: 0, paddingTop: 0, alignItems: "center" }}>
 
-              <DropdownItem href="/collection" style={{ height: 52, display: 'flex', alignItems: "center" }}>
+              {collectionCtx.contract && <DropdownItem href={`/collection?owner=${web3Ctx.account}`} style={{ height: 52, display: 'flex', alignItems: "center" }}>
                 My Collection
-              </DropdownItem>
+              </DropdownItem>}
               <hr class="solid" style={{ marginTop: 0, marginBottom: 0, width: "100%" }} />
               <DropdownItem href={`${etherscanUrl}/address/${web3Ctx.account}`} style={{ height: 52, display: 'flex', alignItems: "center" }}>
                 Transactions
