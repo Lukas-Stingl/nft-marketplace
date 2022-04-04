@@ -6,6 +6,7 @@ import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
 import { formatPrice } from '../../../helpers/utils';
 import eth from '../../../img/ethereum.svg';
+import "./Marketplace.css";
 
 const Marketplace = () => {
   const web3Ctx = useContext(Web3Context);
