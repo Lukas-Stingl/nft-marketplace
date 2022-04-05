@@ -1,6 +1,3 @@
-/* use this .css to create the styles of the HTML bricks*/
-
-/* declaring the functionality of centering an image */
 .center {
   display: block;
   margin-left: auto;
@@ -11,16 +8,18 @@
 /*Heading*/
 section.heading h2 {
   font-size: 50px;
-  text-align:center;
-  color:#102C4E;
+  text-align: center;
+  color: #102C4E;
   margin-top: 150px;
-  margin-bottom:70px;
+  margin-bottom: 70px;
 }
+
 /*Sub-Heading*/
 section.heading p {
   font-size: 30px;
-  color:rgba(29, 15, 48, 0.699)
+  color: rgba(29, 15, 48, 0.699)
 }
+
 /*layout of boxes*/
 .boxes-items {
   border-radius: 15px;
@@ -31,28 +30,30 @@ section.heading p {
   margin: 3.9%;
   height: 400px;
 }
+
 /*Heading of each box*/
-  section.boxes .boxes-items h2 {
-    font-size: 35px;
-    color: rgb(253, 253, 253);
-    font-weight: 600;
-    line-height: 37px;
-    text-align: center;
-    margin: 66px 0 10px;
-    text-transform: uppercase;
-  }
+section.boxes .boxes-items h2 {
+  font-size: 35px;
+  color: rgb(253, 253, 253);
+  font-weight: 600;
+  line-height: 37px;
+  text-align: center;
+  margin: 66px 0 10px;
+  text-transform: uppercase;
+}
+
 /*title of each box*/
-  section.boxes .boxes-items .name {
-    color: rgb(253, 253, 253);
-    font-weight: 600;
-    font-size: 200%;
-    line-height: 50px;
-    float: left;
-    text-align: center;
-    margin: 300px 0 50px;
-    padding-left: 10%;
-    padding-right: 20px;
-  }
+section.boxes .boxes-items .name {
+  color: rgb(253, 253, 253);
+  font-weight: 600;
+  font-size: 200%;
+  line-height: 50px;
+  float: left;
+  text-align: center;
+  margin: 300px 0 50px;
+  padding-left: 10%;
+  padding-right: 20px;
+}
 
 /* price of the NFT*/
 section.boxes .boxes-items .price {
@@ -66,11 +67,24 @@ section.boxes .boxes-items .price {
 }
 
 
-  section.boxes .one, section.boxes .two, section.boxes .three,  section.boxes .four,  section.boxes .five, section.boxes .six, section.boxes .seven, section.boxes .eight, section.boxes .four,  section.boxes .five, section.boxes .six, section.boxes .seven, section.boxes .nine {
-    background-color: rgba(66, 130, 104, 0.39);
-  }
-  /* NFTs should get the hove function*/
-  section.boxes .nft :hover {
-    opacity: .5;
-    cursor: pointer;
-  }
+section.boxes .one,
+section.boxes .two,
+section.boxes .three,
+section.boxes .four,
+section.boxes .five,
+section.boxes .six,
+section.boxes .seven,
+section.boxes .eight,
+section.boxes .four,
+section.boxes .five,
+section.boxes .six,
+section.boxes .seven,
+section.boxes .nine {
+  background-color: rgba(66, 130, 104, 0.39);
+}
+
+/* NFTs should get the hove function*/
+section.boxes .nft :hover {
+  opacity: .5;
+  cursor: pointer;
+}

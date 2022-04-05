@@ -9,6 +9,7 @@ import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
 import { formatPrice } from '../../../helpers/utils';
 import eth from '../../../img/ethereum.svg';
+import NFTCard from '../../Layout/NftCard';
 
 const Collection = () => {
   const web3Ctx = useContext(Web3Context);
@@ -33,10 +34,8 @@ const Collection = () => {
 
 
 
-  const makeOfferHandler = (event, id, key) => {
-    event.preventDefault();
-
-    const enteredPrice = web3.utils.toWei(priceRefs.current[key].current.value, 'ether');
+  const makeOfferHandler = (price, id) => {
+    const enteredPrice = web3.utils.toWei(price, 'ether');
 
     collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
       .on('transactionHash', (hash) => {
@@ -68,63 +67,28 @@ const Collection = () => {
   const showHandles = owner === web3Ctx.account;
   console.log(showHandles);
   return (
-    <html>
-      <section className="profile">
-        <header className="header">
-          <div className="details">
-            <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b38c22a46932485790a3f52c61fcbe5a" alt="John Doe" className="profile-pic" />
-            <h1 className="heading">{web3Ctx.account}</h1>
-            <div className="stats">
-              <div className="col-4">
+    <div>
+      <div style={{ alignItems: "center", padding: "1rem 3rem 1rem 3rem" }} >
+        <h2 style={{ color: "#131313" }}>
+          Collection
+        </h2>
+        <div className='container-fluid' >
+          <div className="row gy-4" >
 
-                <h4>{collection.length}</h4>
-                <p>Owned Currently</p>
-              </div>
-              <div className="col-4">
-                <h4>10</h4>
-                <p>Bought</p>
-              </div>
-              <div className="col-4">
-                <h4>100</h4>
-                <p>Total</p>
-              </div>
-            </div>
+            {collection.map((NFT, key) => {
+              return (
+                // TODO: make offer go through
+                <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler}></NFTCard>
+              );
+
+              // TODO: show NFTs on sale from this person 
+            })}
+
+
           </div>
-        </header>
-      </section>
-      <div className="row text-center">
-
-        {collection.map((NFT, key) => {
-          return (
-            <div key={key} className="col-md-2 m-3 pb-3 card border-info">
-              <div className={"card-body"}>
-                <h5 className="card-title">{NFT.title}</h5>
-              </div>
-              <img src={`https://ipfs.infura.io/ipfs/${NFT.img}`} className="card-img-bottom" alt={`NFT ${key}`} />
-              <p className="fw-light fs-6">{`${owner}`}</p>
-
-
-
-              <form className="row g-2" onSubmit={(e) => makeOfferHandler(e, NFT.id, key)}>
-                <div className="col-5 d-grid gap-2">
-                  <button type="submit" className="btn btn-secondary">OFFER</button>
-                </div>
-                <div className="col-7">
-                  <input
-                    type="number"
-                    step="0.01"
-                    placeholder="ETH..."
-                    className="form-control"
-                    ref={priceRefs.current[key]}
-                  />
-                </div>
-              </form>
-              <p><br /></p>
-            </div>
-          );
-        })}
+        </div>
       </div>
-    </html>
+    </div>
   );
 };
 

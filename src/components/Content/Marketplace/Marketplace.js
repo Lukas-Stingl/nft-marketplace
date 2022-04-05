@@ -1,12 +1,10 @@
-import React, { useContext, useRef, createRef, useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
-import web3 from '../../../connection/web3';
+import React, { useContext, useRef, createRef } from 'react';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
-import { formatPrice, useToggle } from '../../../helpers/utils';
-import eth from '../../../img/ethereum.svg';
+import { formatPrice } from '../../../helpers/utils';
 import "./Marketplace.css";
+import NFTCard from '../../Layout/NftCard';
 
 
 const Marketplace = () => {
@@ -55,41 +53,6 @@ const Marketplace = () => {
     </div>
   );
 };
-
-const NFTCard = ({ NFT, owner, price, index, buyHandler }) => {
-  const [hovered, setHovered] = useToggle(false);
-
-  return (
-    <div className="col-sm-4 col-md-4 col-lg-3 col-xl-2">
-      <div onClick={() => { console.log("clicked!"); }} style={{}}>
-        <Card className="cl-card" style={{ overflow: "hidden", cursor: 'pointer' }} onMouseEnter={setHovered} onMouseLeave={setHovered} >
-          <div style={{
-            height: "20rem", display: "flex",
-            justifyContent: "center",
-
-            overflow: "hidden",
-          }}>
-            <Card.Img variant="top" src={`https://ipfs.infura.io/ipfs/${NFT.img}`} style={{
-              objectFit: "cover",
-              minWidth: "100%",
-              minHeight: "100%"
-            }} />
-          </div>
-          <Card.Body>
-            <Card.Title>{NFT.title}</Card.Title>
-            <p style={{ whiteSpace: "nowrap", color: "#BABABA", fontWeight: 600, fontSize: "0.8em" }}>by <a href={`/collection?owner=${owner}`} className="link" style={{}}>{`${owner}`}</a></p>
-            <div style={{ display: "flex", justifyContent: "space-between", alignContent: "center" }}>
-              <div style={{ display: "flex" }}><img alt="Ethereum Logo" src={eth} style={{ height: "1.5em" }}></img><p>{`${price}`}</p></div>
-              {hovered && <button className="bbtn bbtn-2 hover-slide-right" onClick={() => buyHandler(index)}>
-                <span>buy now</span>
-              </button>}
-            </div>
-          </Card.Body>
-        </Card>
-      </div>
-    </div>
-  );
-}
 
 
 export default Marketplace;
