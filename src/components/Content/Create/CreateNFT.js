@@ -70,7 +70,6 @@ const Create = () => {
     const [nftName, setNftName] = useState('');
     const [nftDescription, setNftDescription] = useState('');
     const [nftImage, setNftImage] = useState(null);
-    const [previewImg, setPreviewImg] = useState(null);
 
     const web3Ctx = useContext(Web3Context);
     const collectionCtx = useContext(CollectionContext);
@@ -104,13 +103,12 @@ const Create = () => {
                 collectionCtx.contract.getPastEvents('Transfer', options)
                     .then(results => {
                         let nfts = results.length - 1
-                        console.log(results[nfts].returnValues.tokenId) 
+                        console.log(results[nfts].returnValues.tokenId)
                         alert("Your NFT will be created shortly and published to the blockchain!");
                         console.log("success");
-                        setTimeout(function() {
+                        setTimeout(function () {
                             window.location.replace("../details?metadata=" + metadataAdded.path);
                         }, 1000);
-
                     })
                     .catch(err => alert(err));
                 // Route to detail page of NFT
