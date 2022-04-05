@@ -33,7 +33,10 @@ const NFTCard = ({ NFT, price, index, buyHandler, cancelHandler, makeOfferHandle
                                 e.preventDefault();
                                 setOfferPrice(e.target.value);
                             }} onClick={e => { e.stopPropagation(); }}></input>}
-                            {hovered && buyHandler && <button className="bbtn bbtn-2 hover-slide-right" onClick={() => buyHandler(index)}>
+                            {hovered && buyHandler && <button className="bbtn bbtn-2 hover-slide-right" onClick={(e) => {
+                                e.stopPropagation();
+                                buyHandler(index);
+                            }}>
                                 <span>buy now</span>
                             </button>}
                             {hovered && userIsOwner && cancelHandler && <button className="bbtn bbtn-2 hover-slide-right" onClick={() => cancelHandler(index)}>
