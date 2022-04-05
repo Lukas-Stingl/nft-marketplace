@@ -20,25 +20,26 @@ function Home() {
     return (
         <div>
             <div className="Buttons" align="center">
-                <h1>Welcome to the world of NFTs! </h1>
-                <h2>Discover, collect, and sell extraordinary NFTs.</h2>
+                <header>Welcome to the world of NFTs! </header>
+                <h5>Discover, create, collect, and sell extraordinary NFTs.</h5>
                 <a href="../marketplace" >
                     <button className="Discover">Discover </button>
                 </a>
-                <div className="divider" />
+                <div className="widthDivider" />
                 <a href="../create">
-                    <button type="button" className="Create">Create NFTs</button>
+                    <button className="Create">Create NFTs</button>
                 </a>
             </div>
-            <div className="divider" />
+            <div className="heightDivider" />
             <div className='container-fluid' >
                 <div className="row " style={{
                     justifyContent: "center",
                     alignItems: "center",
                     overflow: "hidden"
                 }}  >
-                    <h3>Latest Drops</h3>
-                    <div className="divider" />
+                    {/* section that the 3 newest NFT mints */}
+                    <h3>Latest NFT Drops</h3>
+                    <div className="heightDivider" />
                     {collectionCtx.collection.map((NFT, key) => {
                         var maxNFTId = collectionCtx.collection.length;
                         const index = marketplaceCtx.offers ? marketplaceCtx.offers.findIndex(offer => offer.id === NFT.id) : -1;
@@ -79,13 +80,10 @@ function Home() {
                     })}
                 </div>
             </div>
+            {/* Section that will provide information about the features of our marketplace*/}
             <div classname="infoGuide">
                 <h3>Create and sell your NFTs</h3>
-                <div className="infoCards" style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    overflow: "hidden"
-                }}  >
+                <div className="infoCards" >
                     <div class="Wallet">
                         <img src={wallet} height="50px" width="50px" alt="wallet"/>
                         <h4>Set up Wallet</h4>
@@ -100,8 +98,8 @@ function Home() {
                     <div class="Minting">
                         <img src={nft} height="50px" width="50px" alt="nft"/>
                         <h4>Add your NFTs</h4>
-                        <p>Upload your work (image), add a title and description,
-                            and customize your NFTs with properties, stats, and unlockable content.</p>
+                        <p> Create a new Iteam by clicking on "Mint" and upload your work. You can also 
+                            add a title and a description to your NFT.</p>
                     </div>
                     <div class="Sell">
                         <img src={sale} height="50px" width="50px" alt="sale"/>

@@ -1,51 +1,62 @@
-h1{
+header{
+    color: black;
+    font-weight: bold;
     font-size: 50px;
-    text-align: center;
-    color: #102C4E;
-    margin-top: 100px;
-    margin-bottom: 50px;
 }
 
-h2{
+h5{
+    margin-top: 5%;
+    color: grey;
     font-size: 40px;
-    color: rgba(29, 15, 48, 0.699);
-    margin-bottom: 100px;
-    text-align: center;
 }
-
+/* first button to get to the marketplace*/
 .Discover{
-    color: white;
-    background-color:#32a189;
-    font-weight: 600;
-    font-size: large;
-    border-radius: 15px;
-    height: 100px;
-    width: 250px;
-    border-color: #32a189;
-    margin-top: 50px;
-}
-
-.Discover:hover{
-    background-color: #2fbfa0;
-}
-
-.Create{
-    color: #32a189;
+    color: Black;
     background-color: white;
     font-weight: 600;
     font-size: large;
     border-radius: 15px;
     height: 100px;
     width: 250px;
-    border-color: #32a189;
-}
-.Create:hover{
-    background-color: rgba(225, 224, 224, 0.795);
+    border-color: black;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
 }
 
-.divider{
+.Discover:hover{
+    box-shadow: inset 400px 0 0 0 black;
+    color: white;
+}
+/*second button to get to the minting page*/
+.Create{
+    color: Black;
+    background-color: white;
+    font-weight: 600;
+    font-size: large;
+    border-radius: 15px;
+    height: 100px;
+    width: 250px;
+    border-color: black;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+}
+
+.Create:hover{
+    box-shadow: inset 400px 0 0 0 black;
+    color: white;
+}
+
+.widthDivider{
     width:5px;
     height:auto;
+    display:inline-block;
+}
+
+.heightDivider{
+    height:50px;
+    width:auto;
     display:inline-block;
 }
 
@@ -60,7 +71,7 @@ h3{
 h4{
     font-weight: 700;
 }
-
+/*description of different features of the marketplace*/
 .Wallet, .Collection, .Minting, .Sell{
     height: 300px;
     width: 300px;
