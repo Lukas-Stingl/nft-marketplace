@@ -104,10 +104,12 @@ const Create = () => {
                 collectionCtx.contract.getPastEvents('Transfer', options)
                     .then(results => {
                         let nfts = results.length - 1
-                        console.log(results[nfts].returnValues.tokenId)
+                        console.log(results[nfts].returnValues.tokenId) 
                         alert("Your NFT will be created shortly and published to the blockchain!");
                         console.log("success");
-                        window.location.replace("../details?metadata=" + metadataAdded.path);
+                        setTimeout(function() {
+                            window.location.replace("../details?metadata=" + metadataAdded.path);
+                        }, 1000);
 
                     })
                     .catch(err => alert(err));
