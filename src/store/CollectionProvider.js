@@ -101,7 +101,7 @@ const CollectionProvider = props => {
 
   const loadSingleTokenHandler = (tokenId, contract) => {
     return new Promise(async function (resolve, reject) {
-      const hash = await contract.methods.tokenURIs(tokenId).call().then(async (result) => {
+      await contract.methods.tokenURIs(tokenId - 1).call().then(async (result) => {
         console.log("Success! Got result: " + result);
         try {
           const response = await fetch(`https://ipfs.infura.io/ipfs/${result}?clear`);
