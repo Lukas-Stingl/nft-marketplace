@@ -69,7 +69,7 @@ const Details = () => {
         //does not load contract from context yet, use hard coded context and change when context is working
         //const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
         const nftContract = new web3.eth.Contract(NFTCollection.abi, nftDeployedNetwork);
-        nftContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
+        nftContract.options.address = "0x4A75Aa2e8bE709EA3dAB4f123eb5b98fd1526F65"
 
 
 
