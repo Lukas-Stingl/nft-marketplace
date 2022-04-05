@@ -115,7 +115,7 @@ const Details = () => {
                     <div class="clash-card__unit-description">
                         {metadata.properties.description.description}
                     </div>
-                    <button class="detailButton" type="button">Sell</button>
+                    {/* <button class="detailButton" type="button">Sell</button> */}
 
 
 
