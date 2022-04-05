@@ -147,9 +147,14 @@ const Details = () => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const tokenId = urlParams.get('value')
+        const metadataHash = urlParams.get('metadata')
 
-
-        metadata = await collectionCtx.loadSingleToken(tokenId, nftContract)
+        if(typeof tokenId !== "undefined") {
+            metadata = await collectionCtx.loadSingleToken(tokenId, nftContract)
+        }
+        if(typeof metadataHash !== "undefined") {
+            metadata = metadataHash
+        }
         console.log("name " + JSON.stringify(metadata.properties));
         return metadata
 
