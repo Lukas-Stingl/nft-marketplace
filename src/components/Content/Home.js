@@ -4,6 +4,11 @@ import Card from 'react-bootstrap/Card';
 import CollectionContext from '../../store/collection-context';
 import MarketplaceContext from '../../store/marketplace-context';
 import { formatPrice } from '../../helpers/utils';
+import wallet from '../../img/wallet.svg';
+import collection from '../../img/collection.svg';
+import nft from '../../img/nft.svg';
+import sale from '../../img/sale.svg';
+
 
 
 
@@ -62,7 +67,7 @@ function Home() {
                                             <div style={{
                                                 display: "flex", flexWrap: "nowrap", justifyContent: "space-between"
                                             }}>
-                                                <p>{`${price}`}</p>
+                                                
 
                                             </div>
 
@@ -72,6 +77,38 @@ function Home() {
                             </div>
                         );
                     })}
+                </div>
+            </div>
+            <div classname="infoGuide">
+                <h3>Create and sell your NFTs</h3>
+                <div className="infoCards" style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "hidden"
+                }}  >
+                    <div class="Wallet">
+                        <img src={wallet} height="50px" width="50px" alt="wallet"/>
+                        <h4>Set up Wallet</h4>
+                        <p>Once you have set up your Metamask wallet, connect it to our marketplace by clicking
+                            the Metamask icon in the top right corner of your browser.</p>
+                    </div>
+                    <div class="Collection">
+                        <img src={collection} height="50px" width="50px" alt="collection"/>
+                        <h4>Create Collection</h4>
+                        <p>Click My Collection and set up your collection to show all your NFTs to your friends. </p>
+                    </div>
+                    <div class="Minting">
+                        <img src={nft} height="50px" width="50px" alt="nft"/>
+                        <h4>Add your NFTs</h4>
+                        <p>Upload your work (image), add a title and description,
+                            and customize your NFTs with properties, stats, and unlockable content.</p>
+                    </div>
+                    <div class="Sell">
+                        <img src={sale} height="50px" width="50px" alt="sale"/>
+                        <h4>List them for Sale</h4>
+                        <p>Choose between auctions and fixed-price listing.
+                            You choose how you want to sell your NFTs, and we help you sell them!</p>
+                    </div>
                 </div>
             </div>
         </div>

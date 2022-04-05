@@ -57,3 +57,21 @@ h3{
     color: black;
 }
 
+h4{
+    font-weight: 700;
+}
+
+.Wallet, .Collection, .Minting, .Sell{
+    height: 300px;
+    width: 300px;
+    float: left;
+    text-align: center;
+    font-weight: 500;
+    margin-left: 7%;
+}
+
+p{
+    color: grey;
+
+}
+
