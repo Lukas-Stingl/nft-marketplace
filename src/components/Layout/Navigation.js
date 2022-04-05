@@ -6,7 +6,7 @@ import web3 from '../../connection/web3';
 import userAvatar from "../../img/icon.svg";
 import ethereum from "../../img/ethereum.svg";
 import collectionIcon from "../../img/collection.png";
-import { formatPrice } from '../../helpers/utils';
+import { useToggle, formatPrice } from '../../helpers/utils';
 
 import {
   Navbar,
@@ -25,11 +25,8 @@ import CollectionContext from '../../store/collection-context';
 
 const Navigation = () => {
   const [fundsLoading, setFundsLoading] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useToggle(false);
 
-  const accountIconHandler = () => {
-    setAccountOpen(current => !current)
-  }
 
   const web3Ctx = useContext(Web3Context);
   const marketplaceCtx = useContext(MarketplaceContext);
@@ -91,7 +88,7 @@ const Navigation = () => {
         <NavItem >
           <NavLink href="/create" style={{ color: '#fff' }}>Mint</NavLink>
         </NavItem>
-        <Dropdown isOpen={accountOpen} toggle={accountIconHandler}>
+        <Dropdown isOpen={accountOpen} toggle={setAccountOpen}>
           <DropdownToggle className="avatar rounded-circle">
             <img src={userAvatar} alt="Profile Icon" />
 
@@ -101,11 +98,11 @@ const Navigation = () => {
               {collectionCtx.contract && <DropdownItem href={`/collection?owner=${web3Ctx.account}`} style={{ height: 52, display: 'flex', alignItems: "center" }}>
                 My Collection
               </DropdownItem>}
-              <hr class="solid" style={{ marginTop: 0, marginBottom: 0, width: "100%" }} />
+              <hr className="solid" style={{ marginTop: 0, marginBottom: 0, width: "100%" }} />
               <DropdownItem href={`${etherscanUrl}/address/${web3Ctx.account}`} style={{ height: 52, display: 'flex', alignItems: "center" }}>
                 Transactions
               </DropdownItem>
-              <hr class="solid" style={{ marginTop: 0, width: "100%" }} />
+              <hr className="solid" style={{ marginTop: 0, width: "100%" }} />
               {marketplaceCtx.userFunds && !fundsLoading &&
                 <div style={{}}>
                   <div style={{ display: "flex" }}>
@@ -115,9 +112,9 @@ const Navigation = () => {
                   {marketplaceCtx.userFunds > 0 && <button onClick={claimFundsHandler} style={{ height: "2em", backgroundColor: "#32a189", border: "none" }}>Withdraw</button>}
                 </div>
               }
-              {fundsLoading && <div class="d-flex justify-content-center text-info">
-                <div class="spinner-border" role="status">
-                  <span class="sr-only"></span>
+              {fundsLoading && <div className="d-flex justify-content-center text-info">
+                <div className="spinner-border" role="status">
+                  <span className="sr-only"></span>
                 </div>
               </div>}
 

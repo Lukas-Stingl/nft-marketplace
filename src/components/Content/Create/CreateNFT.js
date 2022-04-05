@@ -4,13 +4,10 @@
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 
-import web3 from '../../../connection/web3';
-import { Alert } from 'react-alert'
+
 import React, { useState, useContext } from 'react';
 import "./Create.css"
-import NFTCollection from '../../../abis/NFTCollection.json';
-import { useNavigate } from "react-router-dom";
-import eth from '../../../img/ethereum.svg';
+
 
 
 const ipfsClient = require('ipfs-http-client');
@@ -185,7 +182,7 @@ const Create = () => {
                     }
                 />
             </div>
-            <div class="preview">
+            <div className="preview">
                 <h4>Preview:</h4>
                 <img id="file-ip-1-preview" alt="Preview" ></img>
             </div>

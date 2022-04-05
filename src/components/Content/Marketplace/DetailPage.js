@@ -167,20 +167,20 @@ const Details = () => {
     //{this.nftMetadata.description}
 
     return (
-        <div class="slide-container">
-            <div class="wrapper">
-                <div class="clash-card barbarian">
-                    <div class="clash-card__image clash-card__image--barbarian" src={`https://ipfs.infura.io/ipfs/${metadata.properties.image.description}`} style={divStyle}>
+        <div className="slide-container">
+            <div className="wrapper">
+                <div className="clash-card barbarian">
+                    <div className="clash-card__image clash-card__image--barbarian" src={`https://ipfs.infura.io/ipfs/${metadata.properties.image.description}`} style={divStyle}>
                     </div>
-                    <div class="clash-card__level clash-card__level--barbarian">{accountId.accountId}</div>
-                    <div class="clash-card__unit-name">{metadata.properties.name.description}</div>
-                    <div class="clash-card__unit-description">
+                    <div className="clash-card__level clash-card__level--barbarian">{accountId.accountId}</div>
+                    <div className="clash-card__unit-name">{metadata.properties.name.description}</div>
+                    <div className="clash-card__unit-description">
                         {metadata.properties.description.description}
                     </div>
-                    <div class="nft-price">
+                    <div className="nft-price">
                         Price: not set
                     </div>
-                    <button class="detailButton" type="button">Sell</button>
+                    <button className="detailButton" type="button">Sell</button>
 
 
 

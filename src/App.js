@@ -18,8 +18,6 @@ import CollectionContext from './store/collection-context';
 import MarketplaceContext from './store/marketplace-context';
 import NFTCollection from './abis/NFTCollection.json';
 import NFTMarketplace from './abis/NFTMarketplace.json';
-import Web3Provider from './store/Web3Provider';
-import MarketplaceProvider from './store/MarketplaceProvider';
 import "./app.css";
 
 const App = () => {

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const DECIMALS = (10 ** 18);
 
 export const ether = wei => wei / DECIMALS;
@@ -10,3 +12,11 @@ export const formatPrice = (price) => {
 
   return price;
 };
+
+export function useToggle(initialValue = false) {
+  const [value, setValue] = React.useState(initialValue);
+  const toggle = React.useCallback(() => {
+    setValue(v => !v);
+  }, []);
+  return [value, toggle];
+}

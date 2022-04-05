@@ -65,26 +65,26 @@ const Collection = () => {
       });
   };
 
-
-
+  const showHandles = owner === web3Ctx.account;
+  console.log(showHandles);
   return (
     <html>
-      <section class="profile">
-        <header class="header">
-          <div class="details">
-            <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b38c22a46932485790a3f52c61fcbe5a" alt="John Doe" class="profile-pic" />
-            <h1 class="heading">{web3Ctx.account}</h1>
-            <div class="stats">
-              <div class="col-4">
+      <section className="profile">
+        <header className="header">
+          <div className="details">
+            <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b38c22a46932485790a3f52c61fcbe5a" alt="John Doe" className="profile-pic" />
+            <h1 className="heading">{web3Ctx.account}</h1>
+            <div className="stats">
+              <div className="col-4">
 
                 <h4>{collection.length}</h4>
                 <p>Owned Currently</p>
               </div>
-              <div class="col-4">
+              <div className="col-4">
                 <h4>10</h4>
                 <p>Bought</p>
               </div>
-              <div class="col-4">
+              <div className="col-4">
                 <h4>100</h4>
                 <p>Total</p>
               </div>
