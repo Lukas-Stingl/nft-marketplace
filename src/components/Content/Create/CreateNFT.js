@@ -19,20 +19,20 @@ const fs = require("fs");
 
 
 
-async function makeBuffer(file, name, description) {
+async function makeBuffer(file, name, description, nftPrice) {
     return new Promise(async (resolve, reject) => {
         const reader = new window.FileReader();
         reader.readAsArrayBuffer(file);
         let buffer;
         reader.onloadend = async () => {
             buffer = Buffer(reader.result).buffer;
-            const metadataAdded = await uploadFile(buffer, name, description);
+            const metadataAdded = await uploadFile(buffer, name, description, nftPrice);
             resolve(metadataAdded);
         }
     });
 }
 
-async function uploadFile(buffer, name, description) {
+async function uploadFile(buffer, name, description, nftPrice) {
     const fileAdded = await ipfs.add(Buffer.from(buffer));
     const metadata = {
         title: "Asset Metadata",
@@ -49,6 +49,10 @@ async function uploadFile(buffer, name, description) {
             image: {
                 type: "string",
                 description: fileAdded.path
+            },
+            price: {
+                type: "string",
+                description: nftPrice
             }
         }
     };
@@ -94,7 +98,7 @@ const Create = () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        const metadataAdded = await makeBuffer(nftImage, nftName, nftDescription);
+        const metadataAdded = await makeBuffer(nftImage, nftName, nftDescription, nftPrice);
 
         collectionCtx.contract.methods.safeMint(metadataAdded.path).send({ from: web3Ctx.account })
             .on('transactionHash', (hash) => {

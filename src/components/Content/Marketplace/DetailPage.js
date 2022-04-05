@@ -93,6 +93,9 @@ const Details = () => {
             },
             image: {
                 description: ""
+            },
+            price: {
+                description: ""
             }
         }
     });
@@ -148,12 +151,15 @@ const Details = () => {
         const urlParams = new URLSearchParams(queryString);
         const tokenId = urlParams.get('value')
         const metadataHash = urlParams.get('metadata')
-
-        if(typeof tokenId !== "undefined") {
+        console.log("token " +tokenId)
+        console.log("metadata hash: " + metadataHash)
+        if( tokenId !== null) {
             metadata = await collectionCtx.loadSingleToken(tokenId, nftContract)
         }
-        if(typeof metadataHash !== "undefined") {
-            metadata = metadataHash
+        if( metadataHash !== null) {
+            console.log(metadataHash)
+            const response = await fetch(`https://ipfs.infura.io/ipfs/${metadataHash}?clear`);
+            metadata = await response.json();
         }
         console.log("name " + JSON.stringify(metadata.properties));
         return metadata
@@ -183,7 +189,7 @@ const Details = () => {
                         {metadata.properties.description.description}
                     </div>
                     <div class="nft-price">
-                        Price: not set
+                    {metadata.properties.price.description}
                     </div>
                     <button class="detailButton" type="button">Sell</button>
 
