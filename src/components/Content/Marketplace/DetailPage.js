@@ -23,9 +23,7 @@ const Details = () => {
             image: {
                 description: ""
             },
-            price: {
-                description: ""
-            }
+
         }
     });
     var [accountId, changedData1] = useState("");
@@ -116,9 +114,6 @@ const Details = () => {
                     <div class="clash-card__unit-name">{metadata.properties.name.description}</div>
                     <div class="clash-card__unit-description">
                         {metadata.properties.description.description}
-                    </div>
-                    <div class="nft-price">
-                        {metadata.properties.price.description}
                     </div>
                     <button class="detailButton" type="button">Sell</button>
 
