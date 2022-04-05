@@ -106,7 +106,7 @@ const Navigation = () => {
               {marketplaceCtx.userFunds && !fundsLoading &&
                 <div style={{}}>
                   <div style={{ display: "flex" }}>
-                    <img src={ethereum} alt="Ether Logo" style={{ height: "2em" }} />
+                    <img src={ethereum} alt="Ether Logo" style={{ height: "24px", paddingRight: "10px"  }} />
                     <p style={{ textAlign: "center" }}>{formatPrice(marketplaceCtx.userFunds)}</p>
                   </div>
                   {marketplaceCtx.userFunds > 0 && <button onClick={claimFundsHandler} style={{ height: "2em", backgroundColor: "#32a189", border: "none" }}>Withdraw</button>}
