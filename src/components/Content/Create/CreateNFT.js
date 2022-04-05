@@ -112,7 +112,7 @@ const Create = () => {
                         console.log(results[nfts].returnValues.tokenId)
                         alert("Your NFT will be created shortly and published to the blockchain!");
                         console.log("success");
-                        window.location.replace("../details?value=" + results[nfts].returnValues.tokenId);
+                        window.location.replace("../details?metadata=" + metadataAdded.path);
 
                     })
                     .catch(err => alert(err));
