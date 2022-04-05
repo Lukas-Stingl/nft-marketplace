@@ -1,83 +1,12 @@
-//toDo: Diese Seite nur anzeigen, wenn Nutzer sein Wallet verbunden hat!!! 
 import { useContext } from 'react';
 import web3 from '../../../connection/web3';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
-import { Alert } from 'react-alert'
+
 import React from 'react';
 import "./Detail.css"
 import { useEffect, useState } from 'react';
 import NFTCollection from '../../../abis/NFTCollection.json';
-import $ from 'jquery';
-
-
-
-// class Create extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {};
-//         // this.uploadFile = this.uploadFile.bind(this);
-//         this.onSubmit = this.onSubmit.bind(this);
-//     }
-
-//     async getTokenIds() {
-//         const accounts = await web3.eth.getAccounts();
-//         const account = accounts[0];
-//         const networkId = await web3.eth.net.getId();
-
-//         const NFTCollectionNetwork = NFTCollection.networks[networkId];
-
-
-//         //copied todo: anpassen
-//         const NFTCollectionContract = new web3.eth.Contract(NFTCollection.abi, NFTCollectionNetwork);
-//         NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
-
-
-
-//     }
-
-
-//     async onSubmit(event) {
-
-//     }
-
-//     render() {
-
-
-
-//         return (
-//             <div class="slide-container">
-//                 <div class="wrapper">
-//                     <div class="clash-card barbarian">
-//                         <div class="clash-card__image clash-card__image--barbarian">
-//                         </div>
-//                         <div class="clash-card__level clash-card__level--barbarian">John Doe</div>
-//                         <div class="clash-card__unit-name">Cat</div>
-//                         <div class="clash-card__unit-description">
-//                             It is a picture from a cat, which looks very nice.
-//                         </div>
-//                         <div class="nft-price">
-//                             0.1 ETH
-//                         </div>
-//                         <button class="detailButton" type="button">Sell</button>
-
-
-
-//                     </div>
-
-//                 </div>
-//             </div>
-
-
-
-
-
-
-
-//         );
-//     }
-// }
-
 
 
 const Details = () => {
@@ -92,6 +21,9 @@ const Details = () => {
                 description: ""
             },
             image: {
+                description: ""
+            },
+            price: {
                 description: ""
             }
         }
@@ -147,9 +79,17 @@ const Details = () => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const tokenId = urlParams.get('value')
-
-
-        metadata = await collectionCtx.loadSingleToken(tokenId, nftContract)
+        const metadataHash = urlParams.get('metadata')
+        console.log("token " + tokenId)
+        console.log("metadata hash: " + metadataHash)
+        if (tokenId !== null) {
+            metadata = await collectionCtx.loadSingleToken(tokenId, nftContract)
+        }
+        if (metadataHash !== null) {
+            console.log(metadataHash)
+            const response = await fetch(`https://ipfs.infura.io/ipfs/${metadataHash}?clear`);
+            metadata = await response.json();
+        }
         console.log("name " + JSON.stringify(metadata.properties));
         return metadata
 
@@ -167,20 +107,20 @@ const Details = () => {
     //{this.nftMetadata.description}
 
     return (
-        <div className="slide-container">
-            <div className="wrapper">
-                <div className="clash-card barbarian">
-                    <div className="clash-card__image clash-card__image--barbarian" src={`https://ipfs.infura.io/ipfs/${metadata.properties.image.description}`} style={divStyle}>
+        <div class="slide-container">
+            <div class="wrapper">
+                <div class="clash-card barbarian">
+                    <div class="clash-card__image clash-card__image--barbarian" src={`https://ipfs.infura.io/ipfs/${metadata.properties.image.description}`} style={divStyle}>
                     </div>
-                    <div className="clash-card__level clash-card__level--barbarian">{accountId.accountId}</div>
-                    <div className="clash-card__unit-name">{metadata.properties.name.description}</div>
-                    <div className="clash-card__unit-description">
+                    <div class="clash-card__level clash-card__level--barbarian">{accountId.accountId}</div>
+                    <div class="clash-card__unit-name">{metadata.properties.name.description}</div>
+                    <div class="clash-card__unit-description">
                         {metadata.properties.description.description}
                     </div>
-                    <div className="nft-price">
-                        Price: not set
+                    <div class="nft-price">
+                        {metadata.properties.price.description}
                     </div>
-                    <button className="detailButton" type="button">Sell</button>
+                    <button class="detailButton" type="button">Sell</button>
 
 
 

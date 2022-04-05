@@ -69,8 +69,6 @@ function showPreview(event) {
 const Create = () => {
     const [nftName, setNftName] = useState('');
     const [nftDescription, setNftDescription] = useState('');
-    const [nftPrice, setNftPrice] = useState(0);
-    const [currency, setCurrency] = useState('ETH');
     const [nftImage, setNftImage] = useState(null);
 
 
@@ -150,20 +148,7 @@ const Create = () => {
                     }}
                 />
             </div>
-            <h3>NFT Price</h3>
-            <h4>Here you can input a price for your NFT</h4>
-            <section>
-                <input
-                    placeholder="Asset Price in Eth"
-                    type="number"
-                    step="0.1"
-                    min="0" //not allowed to set a negative price
-                    onChange={e => {
-                        e.preventDefault();
-                        setNftPrice(e.target.value);
-                    }}
-                />
-            </section>
+
             <h3>Image</h3>
             <h4>Here you can upload a picture of your NFT</h4>
             <div>

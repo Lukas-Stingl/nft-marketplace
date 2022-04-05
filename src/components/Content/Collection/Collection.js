@@ -52,9 +52,9 @@ const Collection = () => {
 
 
 
-  const cancelHandler = (event) => {
-    const cancelIndex = parseInt(event.target.value);
-    marketplaceCtx.contract.methods.cancelOffer(marketplaceCtx.offers[cancelIndex].offerId).send({ from: web3Ctx.account })
+  const cancelHandler = (index) => {
+
+    marketplaceCtx.contract.methods.cancelOffer(marketplaceCtx.offers[index].offerId).send({ from: web3Ctx.account })
       .on('transactionHash', (hash) => {
         marketplaceCtx.setMktIsLoading(true);
       })
@@ -64,8 +64,8 @@ const Collection = () => {
       });
   };
 
-  const showHandles = owner === web3Ctx.account;
-  console.log(showHandles);
+  const userIsOwner = owner === web3Ctx.account;
+  console.log(userIsOwner);
   return (
     <div>
       <div style={{ alignItems: "center", padding: "1rem 3rem 1rem 3rem" }} >
@@ -78,7 +78,7 @@ const Collection = () => {
             {collection.map((NFT, key) => {
               return (
                 // TODO: make offer go through
-                <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler}></NFTCard>
+                <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} userIsOwner={userIsOwner}></NFTCard>
               );
 
               // TODO: show NFTs on sale from this person 
