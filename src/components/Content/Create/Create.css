@@ -36,13 +36,13 @@ form {
 
   button {
     color: white;
-    background-color: #177eae;
+    background-color: #32a189;
     font-weight: 600;
     font-size: large;
     border-radius: 15px;
     height: 50px;
     width: 120px;
-    border-color: black;
+    border-color: #00000052;
 
   }
 
