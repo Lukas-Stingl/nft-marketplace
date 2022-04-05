@@ -142,18 +142,18 @@ const Details = () => {
         //does not load contract from context yet, use hard coded context and change when context is working
         //const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
         const nftContract = new web3.eth.Contract(NFTCollection.abi, nftDeployedNetwork);
-        nftContract.options.address = "0xce8dCB7164590aAe74847D5BDe15251BE07E6eA3"
+        nftContract.options.address = "0x5dF7fa8Ef4D6da600d4e897Cd7E704d6ABB0E745"
 
 
 
         //get tokenId from URL
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const tokenId = urlParams.get('value')
+        const metadata = urlParams.get('value')
 
 
-        metadata = await collectionCtx.loadSingleToken(tokenId, nftContract)
-        console.log("name " + JSON.stringify(metadata.properties));
+        // metadata = await collectionCtx.loadSingleToken(tokenId, nftContract)
+        // console.log("name " + JSON.stringify(metadata.properties));
         return metadata
 
 

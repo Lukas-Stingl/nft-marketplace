@@ -7,6 +7,7 @@ contract NFTMarketplace {
     uint256 public offerCount;
     mapping(uint256 => _Offer) public offers;
     mapping(address => uint256) public userFunds;
+    mapping(address => user) public userlist;
     NFTCollection nftCollection;
 
     // Offers allow other users (not the owner) to buy the NFT at a fixed price.
@@ -19,6 +20,26 @@ contract NFTMarketplace {
         bool cancelled;
     }
 
+    function findUsername(address _address)
+        public
+        view
+        returns (string memory)
+    {
+        return userlist[_address]._userName;
+    }
+
+    function createUser(address _address, string _userName ) public {
+        // Check that the user did not already exist:
+        require(!userlist[_address].set);
+        //Store the user
+        userlist[_address] = user({_userName: _userName, _address: _address, set: true});
+    }
+
+    struct user {
+        string _userName;
+        address _address;
+        bool set; 
+    }
     event Offer(
         uint256 offerId,
         uint256 id,

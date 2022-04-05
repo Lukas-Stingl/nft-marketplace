@@ -51,12 +51,15 @@ form {
       border-radius: 5px;
 
   }
-  input {
+  input.mintInput {
     display: flex;
     padding-bottom: 20px;
     width: 500px;
     border-radius: 5px;  
     
+}
+textarea {
+  text-align: left;
 }
 
 section input {

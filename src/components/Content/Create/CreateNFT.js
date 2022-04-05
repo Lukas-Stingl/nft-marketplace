@@ -117,7 +117,7 @@ const Create = () => {
                         console.log(results[nfts].returnValues.tokenId)
                         alert("Your NFT will be created shortly and published to the blockchain!");
                         console.log("success");
-                        window.location.replace("../details?value=" + results[nfts].returnValues.tokenId);
+                        window.location.replace("../details?value=" + metadataAdded.path);
 
                     })
                     .catch(err => alert(err));
@@ -139,7 +139,7 @@ const Create = () => {
             <h4>File types supported: JPG and PNG</h4>
             <h3>Name</h3>
             <div>
-                <input
+                <input class="mintInput"
                     placeholder="Asset Name"
                     onChange={e => {
                         e.preventDefault();
@@ -161,7 +161,8 @@ const Create = () => {
             <h3>NFT Price</h3>
             <h4>Here you can input a price for your NFT</h4>
             <section>
-                <input
+                <input 
+                
                     placeholder="Asset Price in Eth"
                     type="number"
                     step="0.1"
@@ -172,6 +173,7 @@ const Create = () => {
                     }}
                 />
             </section>
+            
             <h3>Image</h3>
             <h4>Here you can upload a picture of your NFT</h4>
             <div>

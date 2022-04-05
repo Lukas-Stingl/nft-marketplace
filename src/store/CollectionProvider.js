@@ -118,7 +118,7 @@ const CollectionProvider = props => {
       }).catch((err) => {
         console.log("Failed with error: " + err);
         setTimeout(function () {
-          window.location.reload();
+          // window.location.reload();
         }, 1000)
 
       });

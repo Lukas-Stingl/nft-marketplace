@@ -4,11 +4,16 @@ body {
   margin: 0;
   font-family: 'Lato', sans-serif;
 }
-
+button.edit {
+  background-color: transparent;
+  margin-left: 10px;
+  width: 50px;
+  float: right;
+}
 .header {
   min-height: 60vh;
   background: #009FFF;
-background: linear-gradient(to right, #ec2F4B, #009FFF);
+  background: linear-gradient(to right, #ec2F4B, #009FFF);
   color: white;
   clip-path: ellipse(100vw 60vh at 50% 50%);
   display: flex;
@@ -20,7 +25,14 @@ background: linear-gradient(to right, #ec2F4B, #009FFF);
 .details {
   text-align: center;
 }
-
+input.profileInput, select.profileInput, textarea.profileInput{
+  background-color: white;
+  background: white;
+  color:black;
+  text-align: center;
+  padding-top:10px;
+  float:left;
+}
 .profile-pic {
   height: 6rem;
   width: 6rem;

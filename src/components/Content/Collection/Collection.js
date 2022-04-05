@@ -9,6 +9,8 @@ import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
 import { formatPrice } from '../../../helpers/utils';
 import eth from '../../../img/ethereum.svg';
+import { useEffect, useState } from 'react';
+
 
 const Collection = () => {
   const web3Ctx = useContext(Web3Context);
@@ -18,6 +20,8 @@ const Collection = () => {
   const owner = searchParams.get("owner");
   console.log(collectionCtx.collection.length);
 
+  var [username, changedData] = useState(web3Ctx.account)
+
   const collection = collectionCtx.collection.filter(function (element) {
     console.log("element.owner: " + element.owner);
     console.log("owner: " + owner);
@@ -25,6 +29,36 @@ const Collection = () => {
   });
 
 
+  // useEffect(async () => {
+  //   //const username = await getUsername();
+
+  // }, [])
+    
+
+   const getUsername = async() => {
+    marketplaceCtx.contract.methods.findUsername(web3Ctx.account).send({from: web3Ctx.account}).then(res => {
+      console.log(res);
+    })
+   .catch(err => {
+      console.log("user already exists")
+    })
+   }
+  
+
+
+
+ const setUsername = (username) => {
+   
+  marketplaceCtx.contract.methods.createUser(web3Ctx.account, username).send({ from: web3Ctx.account })
+  .on('transactionHash', (hash) => {
+
+    console.log("user created")
+    changedData({
+      ...username,
+      username: username
+  });
+  })
+ }
 
   const priceRefs = useRef([]);
   if (priceRefs.current.length !== collection.length) {
@@ -65,6 +99,12 @@ const Collection = () => {
       });
   };
 
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+}
+
+
 
 
   return (
@@ -73,10 +113,28 @@ const Collection = () => {
         <header class="header">
           <div class="details">
             <img src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b38c22a46932485790a3f52c61fcbe5a" alt="John Doe" class="profile-pic" />
-            <h1 class="heading">{web3Ctx.account}</h1>
+            <form onSubmit={onSubmit}>
+            <input class="profileInput" placeholder={username}
+            onChange=
+            {
+                e => {
+                    changedData(e.target.value);
+                }
+            }>
+            
+            </input>
+            <button class="edit"
+              onClick={() => {
+                setUsername(username);
+              }}
+            >
+              Save
+            </button>
+            </form>
             <div class="stats">
               <div class="col-4">
-
+                <div align="center">
+                </div>
                 <h4>{collection.length}</h4>
                 <p>Owned Currently</p>
               </div>
