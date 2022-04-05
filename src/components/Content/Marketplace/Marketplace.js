@@ -32,11 +32,12 @@ const Marketplace = () => {
 
 
   return (
-    <div style={{ alignItems: "center", padding: "1rem 3rem 1rem 3rem" }} >
-      <h2 style={{ color: "#131313" }}>
-        NFT Marketplace
-      </h2>
-      <div className='container-fluid' >
+    <div style={{ alignItems: "left", padding: "1rem 3rem 1rem 3rem" }} >
+      <div >
+        <h2 style={{ color: "#131313", textAlign: "left", marginBottom: 0 }}>Marketplace</h2>
+        <h4 style={{ color: "#BABABA", fontWeight: 600 }}>{`Items on sale: ${collection.length}`}</h4>
+      </div>
+      <div className='container-fluid' style={{ marginTop: "2rem" }}>
         <div className="row gy-4" >
           {collection.map((NFT, key) => {
             const index = marketplaceCtx.offers.findIndex(offer => offer.id === NFT.id);

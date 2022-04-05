@@ -1,109 +1,150 @@
+.createform {
+  justify-content: center;
+  align-items: left;
+  height: inherit;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  display: table;
+  margin: auto;
+}
 
-form {
-    justify-content: center;
-    align-items: center;
-    height: inherit;
-    margin-left: 20%;
-    padding:20px;
-    border-radius:10px;
-    width: fit-content;
-    display: table;
-    margin: auto;
-  }
+.createform h1 {
+  font-size: 2.5em;
+  font-weight: 1000;
+  margin-bottom: 50px;
+  color: #131313;
+}
 
-  h1{
-    
-    font-size: 2.5em;
-    font-weight: 1000;
-    margin-top: 100px;
-    margin-bottom: 50px;
-   
-
-  }
-
-  h3 {
-  margin-top:30px;
+.createform h3 {
+  color: #131313;
+  margin-top: 2em;
   font-size: 1.5em;
-    margin-bottom: 20px;
-   
-  }
-
-  h4{
-    margin-top:10px;
-    font-size: 1em;
-    margin-bottom: 10px;
-  }
-
-  button {
-    color: white;
-    background-color: #32a189;
-    font-weight: 600;
-    font-size: large;
-    border-radius: 15px;
-    height: 50px;
-    width: 120px;
-    border-color: #00000052;
-
-  }
-
-  textarea {
-      width: 500px;
-      border-radius: 5px;
-
-  }
-  input {
-    display: flex;
-    padding-bottom: 20px;
-    width: 500px;
-    border-radius: 5px;  
-    
+  margin-bottom: 0.5em;
+  text-align: left;
 }
 
-section input {
-    display: flex;
-    padding-bottom: 10px;
-    width: 500px;
-    border-radius: 5px;    
-    background: url(../../../img/ethereum.svg) no-repeat scroll 7px 2px;
-    background-size: 12px;
-    padding-left:30px;
+.createform h4 {
+  margin-top: 0;
+  font-size: 0.8em;
+  margin-bottom: 10px;
+  color: #BABABA;
 }
 
+.createform textarea {
+  box-sizing: border-box;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-.custom-file-input {
-  color: transparent;
-  width: 75px
+.createform input {
+  box-sizing: border-box;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-.custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
+
+.createform input:focus {
+  box-shadow: rgba(50, 50, 93, 0.15) 2px 4px 8px -2px, rgba(0, 0, 0, 0.2) 2px 2px 4px -2px;
+  bottom: 5px;
 }
-.custom-file-input::before {
-  content: 'Select file';
-  color: black;
-  display: inline-block;
-  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
+
+.createform textarea:focus {
+  box-shadow: rgba(50, 50, 93, 0.15) 2px 4px 8px -2px, rgba(0, 0, 0, 0.2) 2px 2px 4px -2px;
+  bottom: 5px;
+}
+
+.createform .select-image {
+  border: 2px dashed #ccc;
+  background-color: #f6f6f6;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
   cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
-}
-.custom-file-input:hover::before {
-  border-color: black;
-}
-.custom-file-input:active {
-  outline: 0;
-}
-.custom-file-input:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 3em;
 }
 
-.preview img {
-  width:500px;
-  margin-bottom:30px;
+.createform .select-image:hover {
+  border: 2px dashed #969696;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+:active,
+:hover,
+:focus {
+  outline: 0 !important;
+  outline-offset: 0;
+}
+
+::before,
+::after {
+  position: absolute;
+  content: "";
+}
+
+.createform .bbtn {
+  position: relative;
+  display: inline;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0px;
+  min-width: 500px;
+}
+
+.createform .bbtn span {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 2rem 1rem 2rem;
+  transition: 0.3s;
+  color: rgb(28, 31, 30);
+  border: 1px solid #00000052;
+  transition: 0.2s;
+}
+
+.createform .bbtn::before {
+  background-color: #131313;
+  transition: 0.3s ease-out;
+}
+
+
+.createform .bbtn span:hover {
+  color: rgb(255, 255, 255);
+  transition: 0.2s 0.1s;
+}
+
+.createform .bbtn.hover-slide-right::before {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+}
+
+.createform .bbtn.hover-slide-right:hover::before {
+  width: 100%;
 }

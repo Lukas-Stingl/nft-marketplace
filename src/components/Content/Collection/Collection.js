@@ -17,11 +17,8 @@ const Collection = () => {
   const marketplaceCtx = useContext(MarketplaceContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const owner = searchParams.get("owner");
-  console.log(collectionCtx.collection.length);
 
   const collection = collectionCtx.collection.filter(function (element) {
-    console.log("element.owner: " + element.owner);
-    console.log("owner: " + owner);
     return element.owner === owner;
   });
 
@@ -31,7 +28,6 @@ const Collection = () => {
   if (priceRefs.current.length !== collection.length) {
     priceRefs.current = Array(collection.length).fill().map((_, i) => priceRefs.current[i] || createRef());
   }
-
 
 
   const makeOfferHandler = (price, id) => {
@@ -67,28 +63,27 @@ const Collection = () => {
   const userIsOwner = owner === web3Ctx.account;
   console.log(userIsOwner);
   return (
-    <div>
-      <div style={{ alignItems: "center", padding: "1rem 3rem 1rem 3rem" }} >
-        <h2 style={{ color: "#131313" }}>
-          Collection
-        </h2>
-        <div className='container-fluid' >
-          <div className="row gy-4" >
 
-            {collection.map((NFT, key) => {
-              return (
-                // TODO: make offer go through
-                <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} userIsOwner={userIsOwner}></NFTCard>
-              );
+    <div style={{ textAlign: "left", padding: "1rem 3rem 1rem 3rem" }} >
+      <div >
+        <h2 style={{ color: "#131313", textAlign: "left", marginBottom: 0 }}>{userIsOwner ? "My Collection" : `Collection of ${owner}`}</h2>
+        <h4 style={{ color: "#BABABA", fontWeight: 600 }}>{`Items owned: ${collection.length}`}</h4>
+      </div>
+      <div className='container-fluid' style={{ marginTop: "2rem" }}>
+        <div className="row gy-4" >
 
-              // TODO: show NFTs on sale from this person 
-            })}
+          {collection.map((NFT, key) => {
+            return (
+              // TODO: make offer go through
+              <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} userIsOwner={userIsOwner}></NFTCard>
+            );
 
-
-          </div>
+            // TODO: show NFTs on sale from this person 
+          })}
         </div>
       </div>
     </div>
+
   );
 };
 

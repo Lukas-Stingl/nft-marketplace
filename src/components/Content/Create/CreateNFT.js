@@ -3,7 +3,7 @@
 
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
-
+import selectImage from '../../../img/select-image.svg';
 
 import React, { useState, useContext } from 'react';
 import "./Create.css"
@@ -70,7 +70,7 @@ const Create = () => {
     const [nftName, setNftName] = useState('');
     const [nftDescription, setNftDescription] = useState('');
     const [nftImage, setNftImage] = useState(null);
-
+    const [previewImg, setPreviewImg] = useState(null);
 
     const web3Ctx = useContext(Web3Context);
     const collectionCtx = useContext(CollectionContext);
@@ -122,14 +122,19 @@ const Create = () => {
             })
     }
 
+    const inputFileRef = React.useRef();
+    const onBtnClick = () => {
+        /*Collecting node-element and performing click*/
+        inputFileRef.current.click();
+    };
 
     return (
         <form className="createform" onSubmit={onSubmit}>
             <h1>Create new Item</h1>
-            <h4>File types supported: JPG and PNG</h4>
             <h3>Name</h3>
             <div>
                 <input
+                    required
                     placeholder="Asset Name"
                     onChange={e => {
                         e.preventDefault();
@@ -141,6 +146,7 @@ const Create = () => {
             <h4>The description will be included on the item's detail page underneath its image. </h4>
             <div>
                 <textarea
+                    required
                     placeholder="Provide a detailed description of your Item"
                     onChange={e => {
                         e.preventDefault();
@@ -151,28 +157,32 @@ const Create = () => {
 
             <h3>Image</h3>
             <h4>Here you can upload a picture of your NFT</h4>
-            <div>
+            <div className="select-image" onClick={onBtnClick}>
+                {nftImage && <img src={URL.createObjectURL(nftImage)} alt="Preview" style={{
+
+                    objectFit: "contain",
+                    width: "480px",
+                    height: "480px",
+                }}></img>}
+                {!nftImage && <img src={selectImage} alt="Select" color="#969696" style={{ objectFit: "contain", width: "100px", height: "100px" }}></img>}
                 <input
+                    required
+                    style={{ display: "none" }}
                     type="file"
-                    // name="Asset"
-                    // className="my-4"
                     accept="image/png, image/jpeg"
+                    ref={inputFileRef}
                     onChange=
                     {
                         e => {
                             e.preventDefault();
                             setNftImage(e.target.files[0]);
-                            showPreview(e)   //allows to show a preview of the uploaded img 
+
                         }
                     }
                 />
             </div>
-            <div className="preview">
-                <h4>Preview:</h4>
-                <img id="file-ip-1-preview" alt="Preview" ></img>
-            </div>
             <div>
-                <button>Create NFT</button>
+                <button className="bbtn hover-slide-right"><span>Create</span></button>
             </div>
         </form >
     );

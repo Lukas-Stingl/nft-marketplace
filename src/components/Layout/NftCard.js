@@ -26,10 +26,10 @@ const NFTCard = ({ NFT, price, index, buyHandler, cancelHandler, makeOfferHandle
                     </div>
                     <Card.Body>
                         <Card.Title>{NFT.title}</Card.Title>
-                        {NFT.owner && <p style={{ whiteSpace: "nowrap", color: "#BABABA", fontWeight: 600, fontSize: "0.8em" }}>by <a href={`/collection?owner=${NFT.owner}`} className="link" style={{}}>{`${NFT.owner}`}</a></p>}
+                        {!userIsOwner && <p style={{ whiteSpace: "nowrap", color: "#BABABA", fontWeight: 600, fontSize: "0.8em" }}>by <a href={`/collection?owner=${NFT.owner}`} className="link" style={{}}>{`${NFT.owner}`}</a></p>}
                         <div style={{ display: "flex", justifyContent: "space-between", alignContent: "center" }}>
                             {buyHandler && <div style={{ display: "flex" }}><img alt="Ethereum Logo" src={eth} style={{ height: "1.5em" }}></img><p>{` ${price}`}</p></div>}
-                            {hovered && userIsOwner && makeOfferHandler && <input type="number" min="0" max="1000" step="0.001" value={offerPrice} onChange={e => {
+                            {userIsOwner && makeOfferHandler && <input type="number" min="0" max="1000" step="0.001" value={offerPrice} onChange={e => {
                                 e.preventDefault();
                                 setOfferPrice(e.target.value);
                             }} onClick={e => { e.stopPropagation(); }}></input>}
@@ -39,10 +39,10 @@ const NFTCard = ({ NFT, price, index, buyHandler, cancelHandler, makeOfferHandle
                             }}>
                                 <span>buy now</span>
                             </button>}
-                            {hovered && userIsOwner && cancelHandler && <button className="bbtn bbtn-2 hover-slide-right" onClick={() => cancelHandler(index)}>
+                            {userIsOwner && cancelHandler && <button className="bbtn bbtn-2 hover-slide-right" onClick={() => cancelHandler(index)}>
                                 <span>cancel</span>
                             </button>}
-                            {hovered && userIsOwner && makeOfferHandler && <button className="bbtn bbtn-2 hover-slide-right" onClick={(e) => {
+                            {userIsOwner && makeOfferHandler && <button className="bbtn bbtn-2 hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
 
                                 makeOfferHandler(offerPrice, index)
