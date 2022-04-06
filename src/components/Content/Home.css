@@ -1,88 +1,115 @@
-header{
-    color: black;
-    font-weight: bold;
-    font-size: 50px;
+.home {
+    margin-top: 180px;
+    margin-bottom: 120px;
+    height: inherit;
 }
 
-h5{
+.home h3 {
+    text-align: center;
+    font-weight: 600;
+    color: #131313;
+    margin-bottom: 2em;
+}
+
+.home h4 {
+    font-weight: 700;
+}
+
+.home h5 {
     margin-top: 5%;
     color: grey;
     font-size: 40px;
 }
-/* first button to get to the marketplace*/
-.Discover{
-    color: Black;
-    background-color: white;
-    font-weight: 600;
-    font-size: large;
-    border-radius: 15px;
-    height: 100px;
-    width: 250px;
-    border-color: black;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
+
+.top-content {
+    display: flex;
+
+    margin-left: 200px;
+    margin-right: 60px;
+    margin-bottom: 160px;
+    justify-content: space-between;
 }
 
-.Discover:hover{
-    box-shadow: inset 400px 0 0 0 black;
+.top-content .text-section {
+    text-align: left;
+    align-items: left;
+    justify-content: left;
+    margin-right: 4em;
+}
+
+
+.top-content p {
+    margin-top: 1.3em;
+    font-size: 2em;
+    margin-bottom: 2em;
+}
+
+.top-content img {
+    height: 26em;
+}
+
+.top-content .bbtn1 {
+    position: relative;
+    display: inline;
+    width: auto;
+    height: auto;
+    border: none;
+    cursor: pointer;
+    margin: 0px;
+    min-width: 150px;
+}
+
+.top-content .bbtn-light {
+    background-color: white;
+    margin-left: 30px;
+}
+
+.top-content .bbtn-light span {
+    color: #131313;
+}
+
+.top-content .bbtn-dark {
+    background-color: #131313;
+}
+
+.top-content .bbtn-dark span {
     color: white;
 }
-/*second button to get to the minting page*/
-.Create{
-    color: Black;
-    background-color: white;
-    font-weight: 600;
-    font-size: large;
-    border-radius: 15px;
-    height: 100px;
-    width: 250px;
-    border-color: black;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
+
+.top-content .bbtn1 span {
+    position: relative;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1em 2rem 1rem 2rem;
+    border: 1px solid #00000052;
 }
 
-.Create:hover{
-    box-shadow: inset 400px 0 0 0 black;
-    color: white;
-}
 
-.widthDivider{
-    width:5px;
-    height:auto;
-    display:inline-block;
-}
 
-.heightDivider{
-    height:50px;
-    width:auto;
-    display:inline-block;
-}
-
-h3{
-    text-align:center;
-    margin-top: 100px;
-    font-size: .5em;
-    font-weight: 600;
-    color: black;
-}
-
-h4{
-    font-weight: 700;
-}
 /*description of different features of the marketplace*/
-.Wallet, .Collection, .Minting, .Sell{
+
+.home .info-cards {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.home .info-cards .website-feature {
     height: 300px;
     width: 300px;
     float: left;
     text-align: center;
     font-weight: 500;
-    margin-left: 7%;
 }
 
-p{
-    color: grey;
-
+.cli-card:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 8px 14px -3px, rgba(0, 0, 0, 0.3) 0px 4px 8px -4px;
+    bottom: 3px;
 }
-

@@ -5,7 +5,6 @@ import MarketplaceContext from '../../store/marketplace-context';
 import web3 from '../../connection/web3';
 import userAvatar from "../../img/icon.svg";
 import ethereum from "../../img/ethereum.svg";
-import collectionIcon from "../../img/collection.png";
 import { useToggle, formatPrice } from '../../helpers/utils';
 
 import {
@@ -106,7 +105,7 @@ const Navigation = () => {
               {marketplaceCtx.userFunds && !fundsLoading &&
                 <div style={{}}>
                   <div style={{ display: "flex" }}>
-                    <img src={ethereum} alt="Ether Logo" style={{ height: "24px", paddingRight: "10px"  }} />
+                    <img src={ethereum} alt="Ether Logo" style={{ height: "24px", paddingRight: "10px" }} />
                     <p style={{ textAlign: "center" }}>{formatPrice(marketplaceCtx.userFunds)}</p>
                   </div>
                   {marketplaceCtx.userFunds > 0 && <button onClick={claimFundsHandler} style={{ height: "2em", backgroundColor: "#32a189", border: "none" }}>Withdraw</button>}
@@ -153,9 +152,9 @@ export default Navigation;
               {`CLAIM ${formatPrice(marketplaceCtx.userFunds)} ETH`}
             </button>}
           {fundsLoading &&
-            <div class="d-flex justify-content-center text-info">
-              <div class="spinner-border" role="status">
-                <span class="sr-only"></span>
+            <div className="d-flex justify-content-center text-info">
+              <div className="spinner-border" role="status">
+                <span className="sr-only"></span>
               </div>
             </div>}
         </li>

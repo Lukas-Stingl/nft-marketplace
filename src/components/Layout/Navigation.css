@@ -6,7 +6,7 @@
   height: 66px;
   width: 100%;
   flex-wrap: nowrap;
-  box-shadow: 4px 4px 25px rgba(19, 19, 19, 0.15);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 12px 20px -3px, rgba(0, 0, 0, 0.3) 0px 8px 14px -4px;
 }
 
 .logo {
