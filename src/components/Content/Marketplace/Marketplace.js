@@ -5,6 +5,7 @@ import MarketplaceContext from '../../../store/marketplace-context';
 import { formatPrice } from '../../../helpers/utils';
 import "./Marketplace.css";
 import NFTCard from '../../Layout/NftCard';
+import Spinner from "../../Layout/Spinner";
 
 
 const Marketplace = () => {
@@ -30,6 +31,10 @@ const Marketplace = () => {
 
   const collection = collectionCtx.collection.filter(e => marketplaceCtx.offers.findIndex(offer => (offer.id === e.id && offer.user !== web3Ctx.account)) !== -1);
 
+  //event Listener that handles the event "page loaded" and makes loading circle disappear
+  document.addEventListener("pageLoaded", (event) => {
+    document.querySelector('.loadingSpinner').style.display = 'none';
+});
 
   return (
     <div style={{ alignItems: "left", padding: "1rem 3rem 1rem 3rem" }} >
@@ -51,6 +56,9 @@ const Marketplace = () => {
           })}
         </div>
       </div>
+      <div className="loadingSpinner" >
+        <Spinner></Spinner>
+        </div>
     </div>
   );
 };
