@@ -87,14 +87,9 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 - Select the "Kovan Test Network"
 - **Check what happens then ToDo**
 
-In order to be able to do any kind of transaction on the marketplace you need acquire Ether; here is how you do it
-- 
-- 
-
-
 ## Project architecture
 
-<img src="./ressources/Application_Diagram.png" alt="architecture">
+<img src="./ressources/Application_Diagram.png" alt="architecture", width="250">
 
 The user can access the application via web-browser, and he must have the Metamask wallet installed. This interface, built with React.js, relies on the web3.js library to communicate with the smart contracts through Metamask. This means that the data reflected on the front-end application is fetched from the Ethereum blockchain. Each action performed by the user (mint a NFT, offer NFT, buy NFT...) creates a transaction on Ethereum, which will require Metamask confirmation and pay a small fee, and this transaction will permanently modify the state of the NFTCollection and NFTMarketplace smart contracts. On top of it, the user will upload the NFT Metadata to the IPFS, creating a permanent hash which will be permanently recorded on the blockchain itself to prove ownership.
 
