@@ -45,7 +45,7 @@ This project was developed with the following technologies:
 #### **Blockchain and Smart Contracts** <sub><sup>Solidity</sup></sub>
   - [Solidity](https://docs.soliditylang.org/)
   - [Truffle](https://www.trufflesuite.com/)
-  - [Ganache](https://www.trufflesuite.com/ganache)
+  - [Kovan Testnet](https://kovan-testnet.github.io/website/)
 
 
 <a id='how-to-use'/>
@@ -86,6 +86,10 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 - Open the Network Configuration panel
 - Select the "Kovan Test Network"
 - **Check what happens then ToDo**
+
+In order to be able to do any kind of transaction on the marketplace you need acquire Ether; here is how you do it
+- 
+- 
 
 
 ## Project architecture
