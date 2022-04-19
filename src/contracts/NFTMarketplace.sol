@@ -113,3 +113,117 @@ contract NFTMarketplace {
         revert();
     }
 }
+
+//<-------------------------Just import Contracts as a whole---------------------------------------->
+
+contract Auction {
+    uint256 public auctionCount;
+    uint256 public endingPrice;
+    mapping(uint256 => _Auction) public auctions;
+    mapping(address => uint) public bids;
+
+
+    struct _Auction {
+        // Id of auction
+        uint256 id;
+        // Current owner of NFT
+        address seller;
+        // Price at beginning of auction
+        uint256 startingPrice;
+        // Duration (in seconds) of auction
+        uint64 duration;
+        // Time when auction started
+        // NOTE: 0 if this auction has been concluded
+        uint64 startedAt;
+        //end time of auction
+        uint endedAt
+        //current state of auction
+        bool active;
+        //current highest bidder
+        address highestBidder;
+        //current highest bid
+        uint highestBid;
+    }
+
+    event AuctionCreated(
+        uint256 tokenId,
+        uint256 startingPrice,
+        uint256 duration
+    );
+    event AuctionSuccessful(
+        uint256 tokenId,
+        uint256 totalPrice,
+        address winner
+    );
+    event AuctionCancelled(uint256 tokenId);
+
+    function makeAuction(uint256 _id) public {
+        require(msg.sender == seller, "not seller");
+        nftCollection.transferFrom(msg.sender, address(this), _id);
+        auctionCount++;
+        auctions[auctionCount] = _Auction(
+            auctionCount,
+            _id,
+            msg.sender,
+            1,
+            //duration fixed 1 hour = 3600 seconds
+            3600,
+            now,
+            now + 3600; 
+            true,
+            0,
+            0
+        );
+        emit AuctionCreated(
+            _id,
+            auctions[auctionCount].startingPrice,
+            auction[auctionCount].duration
+        );
+    }
+
+    function fillBid(uint256 _auctionId) public payable {
+        _Auction storage _auction = auctions[_auctionId];
+        require(_auction.auctionId == _auctionId, "The auction must exist");
+        require(block.timestamp < endAt, "ended");
+        require(msg.value > highestBid, "value < highest");
+
+        _auction.highestBidder = msg.sender
+        _auction.highestBid = msg.value
+
+        );
+
+        function end(uint256 _auctionId) external {
+        _Auction storage _auction = auctions[_auctionId];
+        require(_auction.auctionId == _auctionId, "The auction must exist");
+        require(block.timestamp >= endAt, "not ended");
+        require(!ended, "ended");
+
+        ended = true;
+        if (highestBidder != address(0)) {
+            nft.safeTransferFrom(address(this), highestBidder, nftId);
+            seller.transfer(highestBid);
+        } else {
+            nft.safeTransferFrom(address(this), seller, nftId);
+        }
+
+        emit End(highestBidder, highestBid);
+    }
+
+
+        // require(
+        //     _offer.user != msg.sender,
+        //     "The owner of the offer cannot fill it"
+        // );
+        // require(!_offer.fulfilled, "An offer cannot be fulfilled twice");
+        // require(!_offer.cancelled, "A cancelled offer cannot be fulfilled");
+        // require(
+        //     msg.value == _offer.price,
+        //     "The ETH amount should match with the NFT Price"
+        // );
+        // nftCollection.transferFrom(address(this), msg.sender, _offer.id);
+        // _offer.fulfilled = true;
+        // userFunds[_offer.user] += msg.value;
+        // emit OfferFilled(_offerId, _offer.id, msg.sender);
+
+    }
+}
