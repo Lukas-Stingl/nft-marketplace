@@ -120,8 +120,12 @@ contract Auction {
     uint256 public auctionCount;
     uint256 public endingPrice;
     mapping(uint256 => _Auction) public auctions;
-    mapping(address => uint) public bids;
+    NFTCollection nftCollection;
 
+    struct _Bids {
+        mapping(address => uint256) _bids;
+        uint256 auctionId;
+    }
 
     struct _Auction {
         // Id of auction
@@ -136,13 +140,36 @@ contract Auction {
         // NOTE: 0 if this auction has been concluded
         uint64 startedAt;
         //end time of auction
-        uint endedAt
+        uint256 endedAt;
         //current state of auction
-        bool active;
+        //bool isActive;
         //current highest bidder
         address highestBidder;
         //current highest bid
-        uint highestBid;
+        uint256 highestBid;
+
+
+        Bids bids;
+          
+    }
+
+    constructor(address _nftCollection) {
+        nftCollection = NFTCollection(_nftCollection);
+    }
+
+    function getBids(_Auction storage auction, address bidder)
+        internal
+        returns (uint256)
+    {
+        return auction.bids[bidder];
+    }
+
+    function setBids(
+        _Auction storage auction,
+        address bidder,
+        uint256 bid
+    ) internal {
+        auction.bids[bidder] += bid;
     }
 
     event AuctionCreated(
@@ -156,9 +183,10 @@ contract Auction {
         address winner
     );
     event AuctionCancelled(uint256 tokenId);
+    event End(address bidder, uint256 withdrawalAmount);
 
     function makeAuction(uint256 _id) public {
-        require(msg.sender == seller, "not seller");
+        //require(msg.sender == seller, "not seller");
         nftCollection.transferFrom(msg.sender, address(this), _id);
         auctionCount++;
         auctions[auctionCount] = _Auction(
@@ -168,62 +196,82 @@ contract Auction {
             1,
             //duration fixed 1 hour = 3600 seconds
             3600,
-            now,
-            now + 3600; 
-            true,
+            block.timestamp,
+            block.timestamp + 3600,
+            //true,
             0,
             0
         );
         emit AuctionCreated(
             _id,
             auctions[auctionCount].startingPrice,
-            auction[auctionCount].duration
+            auctions[auctionCount].duration
         );
     }
 
     function fillBid(uint256 _auctionId) public payable {
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction must exist");
-        require(block.timestamp < endAt, "ended");
-        require(msg.value > highestBid, "value < highest");
+        require(block.timestamp < _auction.endedAt, "ended");
+        //create a new Bid for this auction
+        _Bids storage _bids = bids[_auctionId];
+        
+        // calculate the user's total bid based on the current amount they've sent to the contract plus whatever has
+        // been sent with this transaction
+        uint256 newBid = getBids(_auction, msg.sender) + msg.value;
+        setBids(_auction, msg.sender, newBid);
+        require(newBid > _auction.highestBid, "value < highest");
+        _auction.highestBidder = msg.sender;
+        _auction.highestBid = getBids(_auction, _auction.highestBidder);
+    }
 
-        _auction.highestBidder = msg.sender
-        _auction.highestBid = msg.value
-
-        );
-
-        function end(uint256 _auctionId) external {
+    function end(uint256 _auctionId) external {
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction must exist");
-        require(block.timestamp >= endAt, "not ended");
-        require(!ended, "ended");
+        require(block.timestamp >= _auction.endedAt, "not ended");
+        //require(!ended, "ended");
 
-        ended = true;
-        if (highestBidder != address(0)) {
-            nft.safeTransferFrom(address(this), highestBidder, nftId);
-            seller.transfer(highestBid);
+        //ended = true;
+        if (_auction.highestBidder != address(0)) {
+            nftCollection.safeTransferFrom(
+                address(this),
+                _auction.highestBidder,
+                _auction.id
+            );
+            //seller.transfer(highestBid);
         } else {
-            nft.safeTransferFrom(address(this), seller, nftId);
+            nftCollection.safeTransferFrom(address(this), _auction.seller, _auction.id);
         }
 
-        emit End(highestBidder, highestBid);
+        emit AuctionSuccessful(
+            _auction.id,
+            _auction.highestBid,
+            _auction.highestBidder
+        );
     }
 
+    function withdraw(uint256 _auctionId) public {
+        _Auction storage _auction = auctions[_auctionId];
+        require(msg.sender != _auction.highestBidder);
+        uint256 amount = getBids(_auctionId, msg.sender);
+        setBids(_auctionId, msg.sender, 0);
+        payable(msg.sender).transfer(amount);
 
-        // require(
-        //     _offer.user != msg.sender,
-        //     "The owner of the offer cannot fill it"
-        // );
-        // require(!_offer.fulfilled, "An offer cannot be fulfilled twice");
-        // require(!_offer.cancelled, "A cancelled offer cannot be fulfilled");
-        // require(
-        //     msg.value == _offer.price,
-        //     "The ETH amount should match with the NFT Price"
-        // );
-        // nftCollection.transferFrom(address(this), msg.sender, _offer.id);
-        // _offer.fulfilled = true;
-        // userFunds[_offer.user] += msg.value;
-        // emit OfferFilled(_offerId, _offer.id, msg.sender);
-
+        emit End(msg.sender, amount);
     }
+
+    // require(
+    //     _offer.user != msg.sender,
+    //     "The owner of the offer cannot fill it"
+    // );
+    // require(!_offer.fulfilled, "An offer cannot be fulfilled twice");
+    // require(!_offer.cancelled, "A cancelled offer cannot be fulfilled");
+    // require(
+    //     msg.value == _offer.price,
+    //     "The ETH amount should match with the NFT Price"
+    // );
+    // nftCollection.transferFrom(address(this), msg.sender, _offer.id);
+    // _offer.fulfilled = true;
+    // userFunds[_offer.user] += msg.value;
+    // emit OfferFilled(_offerId, _offer.id, msg.sender);
 }
