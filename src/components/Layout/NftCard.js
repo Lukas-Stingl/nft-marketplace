@@ -51,6 +51,21 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                             }}>
                                 <span>offer</span>
                             </button>}
+                            
+                            
+                            {hovered && buyHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
+                                console.log("make bid")
+                            }}>
+                                <span>bid</span>
+                            </button>}
+                            {userIsOwner && cancelHandler && <button className="bbtn hover-slide-right" onClick={() => cancelHandler(index)}>
+                                <span>cancel</span>
+                            </button>}
+                            {userIsOwner && makeOfferHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
+                                console.log("make auction")
+                            }}>
+                                <span>auction</span>
+                            </button>}
                         </div>
                     </Card.Body>
                 </Card>

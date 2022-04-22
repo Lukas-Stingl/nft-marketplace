@@ -122,14 +122,9 @@ contract Auction {
     mapping(uint256 => _Auction) public auctions;
     NFTCollection nftCollection;
 
-    struct _Bids {
-        mapping(address => uint256) _bids;
-        uint256 auctionId;
-    }
-
     struct _Auction {
         // Id of auction
-        uint256 id;
+        uint256 auctionId;
         // Current owner of NFT
         address seller;
         // Price at beginning of auction
@@ -138,7 +133,7 @@ contract Auction {
         uint64 duration;
         // Time when auction started
         // NOTE: 0 if this auction has been concluded
-        uint64 startedAt;
+        uint256 startedAt;
         //end time of auction
         uint256 endedAt;
         //current state of auction
@@ -147,29 +142,12 @@ contract Auction {
         address highestBidder;
         //current highest bid
         uint256 highestBid;
-
-
-        Bids bids;
+        mapping(address => uint256) bids;
           
     }
 
-    constructor(address _nftCollection) {
+    constructor(address payable _nftCollection){
         nftCollection = NFTCollection(_nftCollection);
-    }
-
-    function getBids(_Auction storage auction, address bidder)
-        internal
-        returns (uint256)
-    {
-        return auction.bids[bidder];
-    }
-
-    function setBids(
-        _Auction storage auction,
-        address bidder,
-        uint256 bid
-    ) internal {
-        auction.bids[bidder] += bid;
     }
 
     event AuctionCreated(
@@ -185,23 +163,33 @@ contract Auction {
     event AuctionCancelled(uint256 tokenId);
     event End(address bidder, uint256 withdrawalAmount);
 
-    function makeAuction(uint256 _id) public {
+    function getBids(_Auction storage auction, address bidder) internal
+        returns (uint256)
+    {
+        return auction.bids[bidder];
+    }
+
+    function setBids(
+        _Auction storage auction,
+        address bidder,
+        uint256 bid
+    ) internal {
+        auction.bids[bidder] += bid;
+    }
+    function makeAuction(uint256 _id) public payable {
         //require(msg.sender == seller, "not seller");
         nftCollection.transferFrom(msg.sender, address(this), _id);
         auctionCount++;
-        auctions[auctionCount] = _Auction(
-            auctionCount,
-            _id,
-            msg.sender,
-            1,
-            //duration fixed 1 hour = 3600 seconds
-            3600,
-            block.timestamp,
-            block.timestamp + 3600,
+        _Auction storage _auction = auctions[auctionCount];
+        _auction.auctionId = auctionCount;
+        _auction.seller =  msg.sender;
+        _auction.startingPrice = 1;
+        //duration fixed 1 hour = 3600 seconds
+        _auction.duration =  300;
+        _auction.startedAt =  block.timestamp;
+        _auction.endedAt =    block.timestamp + 300;
             //true,
-            0,
-            0
-        );
+        
         emit AuctionCreated(
             _id,
             auctions[auctionCount].startingPrice,
@@ -214,13 +202,16 @@ contract Auction {
         require(_auction.auctionId == _auctionId, "The auction must exist");
         require(block.timestamp < _auction.endedAt, "ended");
         //create a new Bid for this auction
-        _Bids storage _bids = bids[_auctionId];
+        // _Bids storage bids = bids[_auctionId];
         
         // calculate the user's total bid based on the current amount they've sent to the contract plus whatever has
         // been sent with this transaction
-        uint256 newBid = getBids(_auction, msg.sender) + msg.value;
-        setBids(_auction, msg.sender, newBid);
+        uint256 newBid = msg.value;
         require(newBid > _auction.highestBid, "value < highest");
+        uint256 cumulatedBids = getBids(_auction, msg.sender) ;
+        autoBookBack(cumulatedBids, _auctionId);
+        setBids(_auction, msg.sender, 0);
+        setBids(_auction, msg.sender, newBid);
         _auction.highestBidder = msg.sender;
         _auction.highestBid = getBids(_auction, _auction.highestBidder);
     }
@@ -236,25 +227,32 @@ contract Auction {
             nftCollection.safeTransferFrom(
                 address(this),
                 _auction.highestBidder,
-                _auction.id
+                _auction.auctionId
             );
             //seller.transfer(highestBid);
         } else {
-            nftCollection.safeTransferFrom(address(this), _auction.seller, _auction.id);
+            nftCollection.safeTransferFrom(address(this), _auction.seller, _auction.auctionId);
         }
 
         emit AuctionSuccessful(
-            _auction.id,
+            _auction.auctionId,
             _auction.highestBid,
             _auction.highestBidder
         );
     }
 
+        function autoBookBack(uint256 amount, uint256 _auctionId) public {
+        setBids(auctions[_auctionId], msg.sender, 0);
+        payable(msg.sender).transfer(amount);
+
+        emit End(msg.sender, amount);
+    }
+
     function withdraw(uint256 _auctionId) public {
         _Auction storage _auction = auctions[_auctionId];
         require(msg.sender != _auction.highestBidder);
-        uint256 amount = getBids(_auctionId, msg.sender);
-        setBids(_auctionId, msg.sender, 0);
+        uint256 amount = getBids(auctions[_auctionId], msg.sender);
+        setBids(auctions[_auctionId], msg.sender, 0);
         payable(msg.sender).transfer(amount);
 
         emit End(msg.sender, amount);
