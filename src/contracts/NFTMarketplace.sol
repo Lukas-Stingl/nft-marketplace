@@ -112,15 +112,14 @@ contract NFTMarketplace {
     fallback() external {
         revert();
     }
-}
+
 
 //<-------------------------Just import Contracts as a whole---------------------------------------->
 
-contract Auction {
+
     uint256 public auctionCount;
     uint256 public endingPrice;
     mapping(uint256 => _Auction) public auctions;
-    NFTCollection nftCollection;
 
     struct _Auction {
         // Id of auction
@@ -146,9 +145,29 @@ contract Auction {
           
     }
 
-    constructor(address payable _nftCollection){
-        nftCollection = NFTCollection(_nftCollection);
+    function checkIfHighestBidder(uint256 _auctionId) internal {
+        _Auction storage _auction = auctions[_auctionId];
+        uint256 currentCummulatedBids = getBids(_auction, msg.sender);
+        if (currentCummulatedBids > 0 && _auction.highestBidder != msg.sender)
+            emit gotOverbidden (_auctionId, msg.sender);
     }
+
+    function getAuction(uint256 _auctionId) public returns (address, uint256, uint256, uint256, uint256, address, uint256) {
+        checkIfHighestBidder(_auctionId);
+        _Auction storage _auction = auctions[_auctionId];
+        uint256 auctionId = _auction.auctionId; //not neccessary
+        address auctionSeller= _auction.seller;
+        uint256 auctionStartingPrice = _auction.startingPrice;
+        //duration fixed 5 minutes = 300 seconds
+        uint256 auctionDuration = _auction.duration;
+        uint256 auctionStartedAt = _auction.startedAt;
+        uint256 auctionEndetAt = _auction.endedAt;
+        address highestBidder = _auction.highestBidder;
+        uint256 highestBid = _auction.highestBid;
+
+        return (auctionSeller, auctionStartingPrice, auctionDuration, auctionStartedAt, auctionEndetAt, highestBidder, highestBid);
+    }
+
 
     event AuctionCreated(
         uint256 tokenId,
@@ -162,6 +181,7 @@ contract Auction {
     );
     event AuctionCancelled(uint256 tokenId);
     event End(address bidder, uint256 withdrawalAmount);
+    event gotOverbidden(uint256 auctionId, address user);
 
     function getBids(_Auction storage auction, address bidder) internal
         returns (uint256)
@@ -224,14 +244,14 @@ contract Auction {
 
         //ended = true;
         if (_auction.highestBidder != address(0)) {
-            nftCollection.safeTransferFrom(
+            nftCollection.transferFrom(
                 address(this),
                 _auction.highestBidder,
                 _auction.auctionId
             );
             //seller.transfer(highestBid);
         } else {
-            nftCollection.safeTransferFrom(address(this), _auction.seller, _auction.auctionId);
+            nftCollection.transferFrom(address(this), _auction.seller, _auction.auctionId);
         }
 
         emit AuctionSuccessful(

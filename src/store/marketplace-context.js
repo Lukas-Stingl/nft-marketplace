@@ -1,6 +1,7 @@
 import React from 'react';
 
 const MarketplaceContext = React.createContext({
+  //offers
   contract: null,
   offerCount: null,
   offers: [],
@@ -12,7 +13,18 @@ const MarketplaceContext = React.createContext({
   updateOffer: () => { },
   addOffer: () => { },
   loadUserFunds: () => { },
-  setMktIsLoading: () => { }
+  setMktIsLoading: () => { },
+
+  //auction
+  auctionsCount: null,
+  auctions: [],
+  loadAuctionsCount: () => { },
+  loadAuctions: () => { },
+  updateAuction: () => { },
+  addAuction:() => { },
+  loadBids: () => { },
+  updateBids: () => { },
+  addBid: () => { },
 });
 
 export default MarketplaceContext;
