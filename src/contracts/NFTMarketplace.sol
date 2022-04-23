@@ -174,7 +174,7 @@ contract Auction {
         address bidder,
         uint256 bid
     ) internal {
-        auction.bids[bidder] += bid;
+        auction.bids[bidder] = bid;
     }
     function makeAuction(uint256 _id) public payable {
         //require(msg.sender == seller, "not seller");
@@ -184,7 +184,7 @@ contract Auction {
         _auction.auctionId = auctionCount;
         _auction.seller =  msg.sender;
         _auction.startingPrice = 1;
-        //duration fixed 1 hour = 3600 seconds
+        //duration fixed 5 minutes = 300 seconds
         _auction.duration =  300;
         _auction.startedAt =  block.timestamp;
         _auction.endedAt =    block.timestamp + 300;
@@ -213,7 +213,7 @@ contract Auction {
         setBids(_auction, msg.sender, 0);
         setBids(_auction, msg.sender, newBid);
         _auction.highestBidder = msg.sender;
-        _auction.highestBid = getBids(_auction, _auction.highestBidder);
+        _auction.highestBid = newBid;
     }
 
     function end(uint256 _auctionId) external {
