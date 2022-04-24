@@ -113,9 +113,7 @@ contract NFTMarketplace {
         revert();
     }
 
-
-//<-------------------------Just import Contracts as a whole---------------------------------------->
-
+    //<-------------------------Just import Contracts as a whole---------------------------------------->
 
     uint256 public auctionCount;
     uint256 public endingPrice;
@@ -124,6 +122,8 @@ contract NFTMarketplace {
     struct _Auction {
         // Id of auction
         uint256 auctionId;
+        //Id of NFT
+        uint256 nftId;
         // Current owner of NFT
         address seller;
         // Price at beginning of auction
@@ -142,32 +142,7 @@ contract NFTMarketplace {
         //current highest bid
         uint256 highestBid;
         mapping(address => uint256) bids;
-          
     }
-
-    function checkIfHighestBidder(uint256 _auctionId) internal {
-        _Auction storage _auction = auctions[_auctionId];
-        uint256 currentCummulatedBids = getBids(_auction, msg.sender);
-        if (currentCummulatedBids > 0 && _auction.highestBidder != msg.sender)
-            emit gotOverbidden (_auctionId, msg.sender);
-    }
-
-    function getAuction(uint256 _auctionId) public returns (address, uint256, uint256, uint256, uint256, address, uint256) {
-        checkIfHighestBidder(_auctionId);
-        _Auction storage _auction = auctions[_auctionId];
-        uint256 auctionId = _auction.auctionId; //not neccessary
-        address auctionSeller= _auction.seller;
-        uint256 auctionStartingPrice = _auction.startingPrice;
-        //duration fixed 5 minutes = 300 seconds
-        uint256 auctionDuration = _auction.duration;
-        uint256 auctionStartedAt = _auction.startedAt;
-        uint256 auctionEndetAt = _auction.endedAt;
-        address highestBidder = _auction.highestBidder;
-        uint256 highestBid = _auction.highestBid;
-
-        return (auctionSeller, auctionStartingPrice, auctionDuration, auctionStartedAt, auctionEndetAt, highestBidder, highestBid);
-    }
-
 
     event AuctionCreated(
         uint256 tokenId,
@@ -182,13 +157,14 @@ contract NFTMarketplace {
     event AuctionCancelled(uint256 tokenId);
     event End(address bidder, uint256 withdrawalAmount);
     event gotOverbidden(uint256 auctionId, address user);
-
-    function getBids(_Auction storage auction, address bidder) internal
+/** getBids returns cumulated bids of the bidder */
+    function getBids(_Auction storage auction, address bidder)
+        internal
         returns (uint256)
     {
         return auction.bids[bidder];
     }
-
+/** setBids updates bids for bidder  */
     function setBids(
         _Auction storage auction,
         address bidder,
@@ -196,20 +172,29 @@ contract NFTMarketplace {
     ) internal {
         auction.bids[bidder] = bid;
     }
+
+    function checkIfHighestBidder(uint256 _auctionId) internal {
+        _Auction storage _auction = auctions[_auctionId];
+        uint256 currentCummulatedBids = getBids(_auction, msg.sender);
+        if (currentCummulatedBids > 0 && _auction.highestBidder != msg.sender)
+            emit gotOverbidden(_auctionId, msg.sender);
+    }
+/** make auction creates the auction struct and starts the timer */
     function makeAuction(uint256 _id) public payable {
         //require(msg.sender == seller, "not seller");
         nftCollection.transferFrom(msg.sender, address(this), _id);
         auctionCount++;
         _Auction storage _auction = auctions[auctionCount];
         _auction.auctionId = auctionCount;
-        _auction.seller =  msg.sender;
+        _auction.nftId = _id;
+        _auction.seller = msg.sender;
         _auction.startingPrice = 1;
         //duration fixed 5 minutes = 300 seconds
-        _auction.duration =  300;
-        _auction.startedAt =  block.timestamp;
-        _auction.endedAt =    block.timestamp + 300;
-            //true,
-        
+        _auction.duration = 300;
+        _auction.startedAt = block.timestamp;
+        _auction.endedAt = block.timestamp + 300;
+        //true,
+
         emit AuctionCreated(
             _id,
             auctions[auctionCount].startingPrice,
@@ -217,32 +202,70 @@ contract NFTMarketplace {
         );
     }
 
+/** getAuction is used to get details about the auction and check if the current user has been overbidden (if true emit Event) */
+    function getAuction(uint256 _auctionId)
+        public
+        returns (
+            address,
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            address,
+            uint256
+        )
+    {
+        checkIfHighestBidder(_auctionId);
+        _Auction storage _auction = auctions[_auctionId];
+        uint256 auctionId = _auction.auctionId; //not neccessary
+        address auctionSeller = _auction.seller;
+        uint256 auctionStartingPrice = _auction.startingPrice;
+        //duration fixed 5 minutes = 300 seconds
+        uint256 auctionDuration = _auction.duration;
+        uint256 auctionStartedAt = _auction.startedAt;
+        uint256 auctionEndetAt = _auction.endedAt;
+        address highestBidder = _auction.highestBidder;
+        uint256 highestBid = _auction.highestBid;
+
+        return (
+            auctionSeller,
+            auctionStartingPrice,
+            auctionDuration,
+            auctionStartedAt,
+            auctionEndetAt,
+            highestBidder,
+            highestBid
+        );
+    }
+
+/** fillBid is used to update the auction struct, if someone overbid the current bid */
     function fillBid(uint256 _auctionId) public payable {
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction must exist");
         require(block.timestamp < _auction.endedAt, "ended");
         //create a new Bid for this auction
         // _Bids storage bids = bids[_auctionId];
-        
+
         // calculate the user's total bid based on the current amount they've sent to the contract plus whatever has
         // been sent with this transaction
         uint256 newBid = msg.value;
         require(newBid > _auction.highestBid, "value < highest");
-        uint256 cumulatedBids = getBids(_auction, msg.sender) ;
-        autoBookBack(cumulatedBids, _auctionId);
+        uint256 cumulatedBids = getBids(_auction, msg.sender);
+        //set current Bids on 0 to counter re-entry attacks
         setBids(_auction, msg.sender, 0);
+        //book back older bids in case
+        autoBookBack(cumulatedBids, _auctionId);
+        //set current Bids on new Bid
         setBids(_auction, msg.sender, newBid);
         _auction.highestBidder = msg.sender;
         _auction.highestBid = newBid;
     }
 
+/** end is called after the auction has ended → if someone bid on the nft, it is transferred to the highest bidder, else transferred back to the seller */
     function end(uint256 _auctionId) external {
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction must exist");
         require(block.timestamp >= _auction.endedAt, "not ended");
-        //require(!ended, "ended");
-
-        //ended = true;
         if (_auction.highestBidder != address(0)) {
             nftCollection.transferFrom(
                 address(this),
@@ -251,7 +274,11 @@ contract NFTMarketplace {
             );
             //seller.transfer(highestBid);
         } else {
-            nftCollection.transferFrom(address(this), _auction.seller, _auction.auctionId);
+            nftCollection.transferFrom(
+                address(this),
+                _auction.seller,
+                _auction.auctionId
+            );
         }
 
         emit AuctionSuccessful(
@@ -261,13 +288,15 @@ contract NFTMarketplace {
         );
     }
 
-        function autoBookBack(uint256 amount, uint256 _auctionId) public {
+/** autoBookBack books back all transfered ether of previous bids in case a new bid is made */
+    function autoBookBack(uint256 amount, uint256 _auctionId) public {
+        //again set Bids on 0 in case of re-entry attack
         setBids(auctions[_auctionId], msg.sender, 0);
         payable(msg.sender).transfer(amount);
 
         emit End(msg.sender, amount);
     }
-
+/** withdraw allows overbidden users to withdraw their cumulated bids  */
     function withdraw(uint256 _auctionId) public {
         _Auction storage _auction = auctions[_auctionId];
         require(msg.sender != _auction.highestBidder);
