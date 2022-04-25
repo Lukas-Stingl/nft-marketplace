@@ -46,6 +46,23 @@ const Collection = () => {
       });
   };
 
+  const makeAuctionHandler = (startingPrice, id) => {
+    //additional feature in the future
+    //const enteredPrice = web3.utils.toWei(startingPrice, 'ether');
+
+    collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
+      .on('transactionHash', (hash) => {
+        marketplaceCtx.setMktIsLoading(true);
+      })
+      .on('receipt', (receipt) => {
+        marketplaceCtx.contract.methods.makeAuction(id).send({ from: web3Ctx.account })
+          .on('error', (error) => {
+            window.alert('Something went wrong when pushing to the blockchain');
+            marketplaceCtx.setMktIsLoading(false);
+          });
+      });
+  };
+
 
 
   const cancelHandler = (index) => {
@@ -75,7 +92,7 @@ const Collection = () => {
           {collection.map((NFT, key) => {
             return (
               // TODO: make offer go through
-              <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} userIsOwner={userIsOwner}></NFTCard>
+              <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} makeAuctionHandler={makeAuctionHandler}userIsOwner={userIsOwner}></NFTCard>
             );
 
             // TODO: show NFTs on sale from this person 

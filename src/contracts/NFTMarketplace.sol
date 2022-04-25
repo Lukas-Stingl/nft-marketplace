@@ -145,18 +145,20 @@ contract NFTMarketplace {
     }
 
     event AuctionCreated(
+        uint256 auctionId,
         uint256 tokenId,
         uint256 startingPrice,
         uint256 duration
     );
     event AuctionSuccessful(
+        uint256 auctionId,
         uint256 tokenId,
         uint256 totalPrice,
         address winner
     );
-    event AuctionCancelled(uint256 tokenId);
-    event End(address bidder, uint256 withdrawalAmount);
-    event gotOverbidden(uint256 auctionId, address user);
+    event AuctionCancelled(uint256 tokenId); //not implemented yet?
+    event End(address bidder, uint256 withdrawalAmount); //not implemented yet?
+    event GotOverbidden(uint256 auctionId, address user);
 /** getBids returns cumulated bids of the bidder */
     function getBids(_Auction storage auction, address bidder)
         internal
@@ -177,7 +179,7 @@ contract NFTMarketplace {
         _Auction storage _auction = auctions[_auctionId];
         uint256 currentCummulatedBids = getBids(_auction, msg.sender);
         if (currentCummulatedBids > 0 && _auction.highestBidder != msg.sender)
-            emit gotOverbidden(_auctionId, msg.sender);
+            emit GotOverbidden(_auctionId, msg.sender);
     }
 /** make auction creates the auction struct and starts the timer */
     function makeAuction(uint256 _id) public payable {
@@ -196,6 +198,7 @@ contract NFTMarketplace {
         //true,
 
         emit AuctionCreated(
+            auctionCount,
             _id,
             auctions[auctionCount].startingPrice,
             auctions[auctionCount].duration
@@ -283,6 +286,7 @@ contract NFTMarketplace {
 
         emit AuctionSuccessful(
             _auction.auctionId,
+            _auction.nftId,
             _auction.highestBid,
             _auction.highestBidder
         );

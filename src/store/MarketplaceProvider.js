@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { blockTagForPayload } from 'web3-provider-engine/util/rpc-cache-utils';
 
 import MarketplaceContext from './marketplace-context';
 
@@ -116,31 +117,101 @@ const marketplaceReducer = (state, action) => {
   }
 
   if (action.type === 'LOADAUCTIONSCOUNT') {
-    //to be filled
+    return {
+      contract: state.contract,
+      offerCount: state.offerCount,
+      offers: state.offers,
+      userFunds: state.userFunds,
+      mktIsLoading: state.mktIsLoading,
+      auctionsCount: action.auctionsCount,
+      auctions: state.auctions
+    };
   }
 
   if (action.type === 'LOADAUCTIONS') {
-    //to be filled
+    return {
+      contract: state.contract,
+      offerCount: state.offerCount,
+      offers: state.offers,
+      userFunds: state.userFunds,
+      mktIsLoading: state.mktIsLoading,
+      auctionsCount: state.auctionsCount,
+      auctions: action.auctions
+    };
   }
 
   if (action.type === 'UPDATEAUCTION') {
-    //to be filled
+    const auctions = state.auctions.filter(auction => auction.auctionId !== parseInt(action.auctionId));
+
+    return {
+      contract: state.contract,
+      offerCount: state.offerCount,
+      offers: state.offers,
+      userFunds: state.userFunds,
+      mktIsLoading: state.mktIsLoading,
+      auctionsCount: state.auctionsCount,
+      auctions: auctions
+    };
   }
 
   if (action.type === 'ADDAUCTION') {
-    //to be filled
+    const index = state.auctions.findIndex(auction => auction.auctionId === parseInt(action.auction.auctionId));
+    let auctions = [];
+
+    if (index === -1) {
+      auctions = [...state.auctions, {
+        auctionId: parseInt(action.auction.auctionId),
+        nftId: parseInt(action.auction.nftId),
+        seller: (action.auction.seller),
+        startingPrice: parseInt(action.auction.startingPrice),
+        startedAt: parseInt(action.auction.startedAt),
+        endedAt: parseInt(action.auction.endedAt),
+        highestBidder: 0,
+        highestBid: 0,
+        fulfilled: false,
+        cancelled: false
+      }];
+    } else {
+      auctions = [...state.auctions];
+    }
+
+    return {
+      contract: state.contract,
+      offerCount: state.offerCount,
+      offers: state.offers,
+      userFunds: state.userFunds,
+      mktIsLoading: state.mktIsLoading,
+      auctionsCount: state.auctionsCount,
+      auctions: auctions
+    };
   }
 
-  if (action.type === 'LOADBIDS') {
+  /*if (action.type === 'LOADBIDS') {
     //to be filled
-  }
+  }*/
 
   if (action.type === 'UPDATEBIDS') {
-    //to be filled
+    return {
+      contract: state.contract,
+      offerCount: state.offerCount,
+      offers: state.offers,
+      userFunds: state.userFunds,
+      mktIsLoading: state.mktIsLoading,
+      auctionsCount: state.auctionsCount,
+      auctions: state.auctions
+    };
   }
 
   if (action.type === 'ADDBID') {
-    //to be filled
+    return {
+      contract: state.contract,
+      offerCount: state.offerCount,
+      offers: state.offers,
+      userFunds: state.userFunds,
+      mktIsLoading: state.mktIsLoading,
+      auctionsCount: state.auctionsCount,
+      auctions: state.auctions
+    };
   }
   return defaultMarketplaceState;
 };
@@ -202,7 +273,7 @@ const MarketplaceProvider = props => {
 
   const loadAuctionsCountHandler = async (contract) => {
     const auctionsCount = await contract.methods.auctionsCount().call();
-    dispatchMarketplaceAction({ type: 'AUCTIONSCOUNT', auctionsCount: auctionsCount });
+    dispatchMarketplaceAction({ type: 'LOADAUCTIONSCOUNT', auctionsCount: auctionsCount });
     return auctionsCount;
   };
 
@@ -214,13 +285,42 @@ const MarketplaceProvider = props => {
     }
     auctions = auctions
       .map(auction => {
-        auction.offerId = parseInt(offer.offerId);
-        auction.id = parseInt(offer.id);
-        auction.price = parseInt(offer.price);
+        auction.auctionId = parseInt(auction.auctionId);
         return auction;
       })
-      .filter(offer => offer.fulfilled === false && offer.cancelled === false);
-    dispatchMarketplaceAction({ type: 'LOADOFFERS', offers: offers });
+      .filter(auction => auction.endedAt > Date.now());
+    dispatchMarketplaceAction({ type: 'LOADAUCTIONS', auctions : auctions });
+  };
+
+  const updateAuctionHandler = (auctionId) => {
+    dispatchMarketplaceAction({ type: 'UPDATEAUCTION', auctionId: auctionId });
+  };
+
+  const addAuctionHandler = (auction) => {
+    dispatchMarketplaceAction({ type: 'ADDAUCTION', auction: auction });
+  };
+
+  /*const loadBidsHandler = async (contract, auctionId, bidder ) => { //tbc
+    let bids = [];
+    for (let i = 0; i < auctionsCount; i++) {
+      const auction = await contract.methods.auction(i + 1).call();
+      auctions.push(auction);
+    }
+    auctions = auctions
+      .map(auction => {
+        auction.auctionId = parseInt(auction.auctionId);
+        return auction;
+      })
+      .filter(auction => auction.endedAt > now);
+    dispatchMarketplaceAction({ type: 'LOADBIDS', auctions : auctions });
+  };*/
+
+  const updateBidsHandler = (bidder) => {
+    dispatchMarketplaceAction({ type: 'UPDATEBIDS', bidder: bidder});
+  };
+
+  const addBidHandler = (bid) => {
+    dispatchMarketplaceAction({ type: 'ADDBID', bid: bid });
   };
 
   const marketplaceContext = {
@@ -242,7 +342,7 @@ const MarketplaceProvider = props => {
     loadAuctions: loadAuctionsHandler,
     updateAuction: updateAuctionHandler,
     addAuction: addAuctionHandler,
-    loadBids: loadBidsHandler,
+    //loadBids: loadBidsHandler,
     updateBids: updateBidsHandler,
     addBid: addBidHandler
   };

@@ -5,7 +5,7 @@ import eth from '../../img/ethereum.svg';
 import './NFTCard.css';
 
 
-const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOfferHandler, userIsOwner }) => {
+const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOfferHandler, bidHandler, makeAuctionHandler, userIsOwner }) => {
     const [hovered, setHovered] = useToggle(false);
     const [offerPrice, setOfferPrice] = useState(0.001);
 
@@ -35,6 +35,7 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                                 e.preventDefault();
                                 setOfferPrice(e.target.value);
                             }} onClick={e => { e.stopPropagation(); }}></input>}
+                            {userIsOwner && makeAuctionHandler && <div style={{ display: "flex" }}></div>}
                             {hovered && buyHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
                                 buyHandler(index);

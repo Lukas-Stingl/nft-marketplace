@@ -22,7 +22,7 @@ const MarketplaceContext = React.createContext({
   loadAuctions: () => { },
   updateAuction: () => { },
   addAuction:() => { },
-  loadBids: () => { },
+  //loadBids: () => { },
   updateBids: () => { },
   addBid: () => { },
 });

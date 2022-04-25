@@ -1,4 +1,5 @@
 import React, { useContext, useRef, createRef } from 'react';
+import web3 from '../../../connection/web3';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
@@ -26,6 +27,23 @@ const Marketplace = () => {
         window.alert('Something went wrong when pushing to the blockchain');
         marketplaceCtx.setMktIsLoading(false);
       });
+  };
+
+  const bidHandler = (price, index, id) => {
+    //do we first have to set up an button to make a bid - because right now we don´t have the amount of the bid
+    const enteredPrice = web3.utils.toWei(price, 'ether');
+    collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
+    .on('transactionHash', (hash) => {
+      marketplaceCtx.setMktIsLoading(true);
+    })
+    .on('receipt', (receipt) => {
+    marketplaceCtx.contract.methods.fillBid(marketplaceCtx.auctions[index].auctionId, enteredPrice).send({ from: web3Ctx.account, value: enteredPrice })
+      .on('error', (error) => {
+        window.alert('Something went wrong when pushing to the blockchain');
+        marketplaceCtx.setMktIsLoading(false);
+      });
+    });
+  
   };
 
   const collection = collectionCtx.collection.filter(e => marketplaceCtx.offers.findIndex(offer => (offer.id === e.id && offer.user !== web3Ctx.account)) !== -1);
