@@ -9,7 +9,7 @@ const defaultMarketplaceState = {
   offers: [],
   userFunds: null,
   mktIsLoading: true,
-  auctionsCount: null,
+  auctionCount: null,
   auctions: []
 };
 
@@ -21,7 +21,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -33,7 +33,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -45,7 +45,7 @@ const marketplaceReducer = (state, action) => {
       offers: action.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -59,7 +59,7 @@ const marketplaceReducer = (state, action) => {
       offers: offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -87,7 +87,7 @@ const marketplaceReducer = (state, action) => {
       offers: offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -99,7 +99,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: action.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -111,19 +111,19 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: action.loading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
 
-  if (action.type === 'LOADAUCTIONSCOUNT') {
+  if (action.type === 'LOADauctionCount') {
     return {
       contract: state.contract,
       offerCount: state.offerCount,
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: action.auctionsCount,
+      auctionCount: action.auctionCount,
       auctions: state.auctions
     };
   }
@@ -135,7 +135,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: action.auctions
     };
   }
@@ -149,7 +149,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: auctions
     };
   }
@@ -181,7 +181,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: auctions
     };
   }
@@ -197,7 +197,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -209,7 +209,7 @@ const marketplaceReducer = (state, action) => {
       offers: state.offers,
       userFunds: state.userFunds,
       mktIsLoading: state.mktIsLoading,
-      auctionsCount: state.auctionsCount,
+      auctionCount: state.auctionCount,
       auctions: state.auctions
     };
   }
@@ -271,24 +271,26 @@ const MarketplaceProvider = props => {
 
   //AuctionHandler:
 
-  const loadAuctionsCountHandler = async (contract) => {
-    const auctionsCount = await contract.methods.auctionsCount().call();
-    dispatchMarketplaceAction({ type: 'LOADAUCTIONSCOUNT', auctionsCount: auctionsCount });
-    return auctionsCount;
+  const loadauctionCountHandler = async (contract) => {
+    const auctionCount = await contract.methods.auctionCount().call();
+    dispatchMarketplaceAction({ type: 'LOADauctionCount', auctionCount: auctionCount });
+    return auctionCount;
   };
 
-  const loadAuctionsHandler = async (contract, auctionsCount) => {
+  const loadAuctionsHandler = async (contract, auctionCount) => {
     let auctions = [];
-    for (let i = 0; i < auctionsCount; i++) {
-      const auction = await contract.methods.auction(i + 1).call();
+    for (let i = 0; i < auctionCount; i++) {
+      const auction = await contract.methods.auctions(i + 1).call();
       auctions.push(auction);
     }
     auctions = auctions
       .map(auction => {
         auction.auctionId = parseInt(auction.auctionId);
+        auction.nftId = parseInt(auction.nftId);
+        auction.startingPrice = parseInt(auction.startingPrice);
         return auction;
       })
-      .filter(auction => auction.endedAt > Date.now());
+      //.filter(auction => auction.endedAt > Date.now());
     dispatchMarketplaceAction({ type: 'LOADAUCTIONS', auctions : auctions });
   };
 
@@ -302,7 +304,7 @@ const MarketplaceProvider = props => {
 
   /*const loadBidsHandler = async (contract, auctionId, bidder ) => { //tbc
     let bids = [];
-    for (let i = 0; i < auctionsCount; i++) {
+    for (let i = 0; i < auctionCount; i++) {
       const auction = await contract.methods.auction(i + 1).call();
       auctions.push(auction);
     }
@@ -329,7 +331,7 @@ const MarketplaceProvider = props => {
     offers: MarketplaceState.offers,
     userFunds: MarketplaceState.userFunds,
     mktIsLoading: MarketplaceState.mktIsLoading,
-    auctionsCount: MarketplaceState.auctionsCount,
+    auctionCount: MarketplaceState.auctionCount,
     auctions: MarketplaceState.auctions,
     loadContract: loadContractHandler,
     loadOfferCount: loadOfferCountHandler,
@@ -338,7 +340,7 @@ const MarketplaceProvider = props => {
     addOffer: addOfferHandler,
     loadUserFunds: loadUserFundsHandler,
     setMktIsLoading: setMktIsLoadingHandler,
-    loadAuctionsCount: loadAuctionsCountHandler,
+    loadauctionCount: loadauctionCountHandler,
     loadAuctions: loadAuctionsHandler,
     updateAuction: updateAuctionHandler,
     addAuction: addAuctionHandler,

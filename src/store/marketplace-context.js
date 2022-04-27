@@ -16,9 +16,9 @@ const MarketplaceContext = React.createContext({
   setMktIsLoading: () => { },
 
   //auction
-  auctionsCount: null,
+  auctionCount: null,
   auctions: [],
-  loadAuctionsCount: () => { },
+  loadauctionCount: () => { },
   loadAuctions: () => { },
   updateAuction: () => { },
   addAuction:() => { },

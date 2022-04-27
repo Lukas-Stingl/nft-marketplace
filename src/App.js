@@ -84,12 +84,12 @@ const App = () => {
         // Load offer count
         const offerCount = await marketplaceCtx.loadOfferCount(mktContract);
         //Load auctions count
-        const auctionsCount = await marketplaceCtx.loadAuctionsCount(mktContract);
+        const auctionCount = await marketplaceCtx.loadauctionCount(mktContract);
 
         // Load offers
         marketplaceCtx.loadOffers(mktContract, offerCount);
         // Load auctions
-        marketplaceCtx.loadAuctions(mktContract, auctionsCount);
+        marketplaceCtx.loadAuctions(mktContract, auctionCount);
 
         // Load User Funds
         account && marketplaceCtx.loadUserFunds(mktContract, account);

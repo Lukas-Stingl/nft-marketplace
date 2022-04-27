@@ -46,7 +46,9 @@ const Marketplace = () => {
   
   };
 
-  const collection = collectionCtx.collection.filter(e => marketplaceCtx.offers.findIndex(offer => (offer.id === e.id && offer.user !== web3Ctx.account)) !== -1);
+  const collection = collectionCtx.collection.filter(
+    e => marketplaceCtx.auctions.findIndex(
+      auction => (      auction.nftId === e.id && auction.seller !== web3Ctx.account)) !== -1);
 
 
   return (
@@ -58,13 +60,13 @@ const Marketplace = () => {
       <div className='container-fluid' style={{ marginTop: "2rem" }}>
         <div className="row gy-4" >
           {collection.map((NFT, key) => {
-            const index = marketplaceCtx.offers.findIndex(offer => offer.id === NFT.id);
-            const owner = marketplaceCtx.offers[index].user;
-            const price = formatPrice(marketplaceCtx.offers[index].price).toFixed(2);
+            const index = marketplaceCtx.auctions.findIndex(auction => auction.nftId === NFT.id);
+            const owner = marketplaceCtx.auctions[index].seller;
+            const price = formatPrice(marketplaceCtx.auctions[index].highestBid).toFixed(2);
 
 
             return (
-              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler}></NFTCard>
+              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} bidHandler={bidHandler}></NFTCard>
             );
           })}
         </div>
