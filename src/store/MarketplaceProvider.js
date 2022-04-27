@@ -116,7 +116,7 @@ const marketplaceReducer = (state, action) => {
     };
   }
 
-  if (action.type === 'LOADauctionCount') {
+  if (action.type === 'LOADAUCTIONCOUNT') {
     return {
       contract: state.contract,
       offerCount: state.offerCount,
@@ -273,7 +273,7 @@ const MarketplaceProvider = props => {
 
   const loadauctionCountHandler = async (contract) => {
     const auctionCount = await contract.methods.auctionCount().call();
-    dispatchMarketplaceAction({ type: 'LOADauctionCount', auctionCount: auctionCount });
+    dispatchMarketplaceAction({ type: 'LOADAUCTIONCOUNT', auctionCount: auctionCount });
     return auctionCount;
   };
 
