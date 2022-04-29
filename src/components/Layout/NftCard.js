@@ -79,7 +79,7 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                                 <span>offer</span>
                             </button>}
                             
-                            {!auctionExpired &&!userIsOwner && bidHandler && <input type="number" min="0" max="1000" step="0.001" value={offerPrice} onChange={e => {
+                            {!auctionExpired &&!userIsOwner && bidHandler && <input type="number" min="0" max="1000" step="0.001" value={bidPrice} onChange={e => {
                               e.preventDefault();
                               setBidPrice(e.target.value);
                                 

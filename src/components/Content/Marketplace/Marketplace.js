@@ -67,12 +67,13 @@ const Marketplace = () => {
       <div className='container-fluid' style={{ marginTop: "2rem" }}>
         <div className="row gy-4" >
           {collection.map((NFT, key) => {
-            const index = marketplaceCtx.auctions.findIndex(auction => auction.nftId === NFT.id);
+            //find most recent nft → this is why array is reversed 
+            const index = marketplaceCtx.auctions.reverse().findIndex(auction => auction.nftId === NFT.id);
             const owner = marketplaceCtx.auctions[index].seller;
             const price = marketplaceCtx.auctions[index].highestBid;
             const endedAt = marketplaceCtx.auctions[index].endedAt;
             const highestBidder = marketplaceCtx.auctions[index].highestBidder;
-            const auctionExpired =  new Date(parseInt(endedAt+"000")) - new Date().getTime() < 0;
+            let auctionExpired =  new Date(parseInt(endedAt+"000")) - new Date().getTime() < 0;
             const isAuction =  marketplaceCtx.auctions[index] !== null
             if(price === 0) {
               var winner = marketplaceCtx.auctions[index].seller
