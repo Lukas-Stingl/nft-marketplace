@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./NFTCollection.sol";
 
+
 contract NFTMarketplace {
     uint256 public offerCount;
     mapping(uint256 => _Offer) public offers;
@@ -108,15 +109,10 @@ contract NFTMarketplace {
         userFunds[msg.sender] = 0;
     }
 
-    // Fallback: reverts if Ether is sent to this smart-contract by mistake
-    fallback() external {
-        revert();
-    }
 
-    //<-------------------------Just import Contracts as a whole---------------------------------------->
+    //<-------------------------Implementing Auction mechnanism---------------------------------------->
 
     uint256 public auctionCount;
-    uint256 public endingPrice;
     mapping(uint256 => _Auction) public auctions;
 
     struct _Auction {
@@ -182,25 +178,24 @@ contract NFTMarketplace {
             emit GotOverbidden(_auctionId, msg.sender);
     }
 /** make auction creates the auction struct and starts the timer */
-    function makeAuction(uint256 _id) public payable {
-        //require(msg.sender == seller, "not seller");
-        nftCollection.transferFrom(msg.sender, address(this), _id);
+    function makeAuction(uint256 _nftId) public payable {
+        nftCollection.transferFrom(msg.sender, address(this), _nftId);
         auctionCount++;
         _Auction storage _auction = auctions[auctionCount];
         _auction.auctionId = auctionCount;
-        _auction.nftId = _id;
+        _auction.nftId = _nftId;
         _auction.seller = msg.sender;
-        _auction.startingPrice = 1;
+        _auction.startingPrice = 1; //currently even necessary?
         //duration fixed 5 minutes = 300 seconds
         _auction.isActive = true;
-        _auction.duration = 300;
+        _auction.duration = 60;
         _auction.startedAt = block.timestamp;
-        _auction.endedAt = block.timestamp + 300;
+        _auction.endedAt = block.timestamp + 60;
         //true,
 
         emit AuctionCreated(
             auctionCount,
-            _id,
+            _nftId,
             auctions[auctionCount].startingPrice,
             auctions[auctionCount].duration
         );
@@ -245,13 +240,10 @@ contract NFTMarketplace {
 /** fillBid is used to update the auction struct, if someone overbid the current bid */
     function fillBid(uint256 _auctionId) public payable {
         _Auction storage _auction = auctions[_auctionId];
-        require(_auction.auctionId == _auctionId, "The auction must exist");
-        require(block.timestamp < _auction.endedAt, "ended");
-        //create a new Bid for this auction
-        // _Bids storage bids = bids[_auctionId];
+        require(_auction.auctionId == _auctionId, "The auction does not exist!");
+        require(block.timestamp < _auction.endedAt, "The Auction has already ended!");
+        require(_auction.seller != msg.sender, "The seller can not place a bid on his own NFT!");
 
-        // calculate the user's total bid based on the current amount they've sent to the contract plus whatever has
-        // been sent with this transaction
         uint256 newBid = msg.value;
         require(newBid > _auction.highestBid, "value < highest");
         uint256 cumulatedBids = getBids(_auction, msg.sender);
@@ -265,24 +257,30 @@ contract NFTMarketplace {
         _auction.highestBid = newBid;
     }
 
-/** end is called after the auction has ended → if someone bid on the nft, it is transferred to the highest bidder, else transferred back to the seller */
-    function end(uint256 _auctionId) external {
+
+/** end is called after the auction has ended → if someone bid on the NFT, it is transferred to the highest bidder, else transferred back to the seller */
+    function end(uint256 _auctionId) public payable {
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction must exist");
         require(block.timestamp >= _auction.endedAt, "not ended");
+        _auction.isActive = false;
         if (_auction.highestBidder != address(0)) {
             nftCollection.transferFrom(
                 address(this),
                 _auction.highestBidder,
-                _auction.auctionId
+                _auction.nftId
             );
-            //seller.transfer(highestBid);
+
+            //user funds balance of the seller get the amount of the highest bid
+            //the user can claim all of his earned funds by calling "claimFunds"-function
+            userFunds[_auction.seller] += _auction.highestBid;
         } else {
             nftCollection.transferFrom(
                 address(this),
                 _auction.seller,
-                _auction.auctionId
+                _auction.nftId
             );
+            
         }
 
         emit AuctionSuccessful(
@@ -298,8 +296,6 @@ contract NFTMarketplace {
         //again set Bids on 0 in case of re-entry attack
         setBids(auctions[_auctionId], msg.sender, 0);
         payable(msg.sender).transfer(amount);
-
-        emit End(msg.sender, amount);
     }
 /** withdraw allows overbidden users to withdraw their cumulated bids  */
     function withdraw(uint256 _auctionId) public {
@@ -312,18 +308,8 @@ contract NFTMarketplace {
         emit End(msg.sender, amount);
     }
 
-    // require(
-    //     _offer.user != msg.sender,
-    //     "The owner of the offer cannot fill it"
-    // );
-    // require(!_offer.fulfilled, "An offer cannot be fulfilled twice");
-    // require(!_offer.cancelled, "A cancelled offer cannot be fulfilled");
-    // require(
-    //     msg.value == _offer.price,
-    //     "The ETH amount should match with the NFT Price"
-    // );
-    // nftCollection.transferFrom(address(this), msg.sender, _offer.id);
-    // _offer.fulfilled = true;
-    // userFunds[_offer.user] += msg.value;
-    // emit OfferFilled(_offerId, _offer.id, msg.sender);
+    // Fallback: reverts if Ether is sent to this smart-contract by mistake
+    fallback() external {
+        revert();
+    }
 }
