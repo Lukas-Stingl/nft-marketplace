@@ -69,7 +69,7 @@ const Marketplace = () => {
         <div className="row gy-4" >
           {collection.map((NFT, key) => {
             //assumption: we first look if Marketplace offering is an auction, if it is, proceed, if it is not skip to else
-            var index = marketplaceCtx.auctions.findLastIndex(auction => auction.nftId === NFT.id);
+            var index = marketplaceCtx.auctions.findLastIndex(auction => auction.nftId === NFT.id && auction.isActive === true);
             var owner;
             var price;
             var endedAt;
@@ -79,7 +79,7 @@ const Marketplace = () => {
             var winner;
             var isWinner;
             if(marketplaceCtx.auctions[index]){
-            index = marketplaceCtx.auctions.findLastIndex(auction => auction.nftId === NFT.id);
+            index = marketplaceCtx.auctions.findLastIndex(auction => auction.nftId === NFT.id && auction.isActive === true) ;
             owner = marketplaceCtx.auctions[index].seller;
             price = marketplaceCtx.auctions[index].highestBid / 1000000000000000000;
             endedAt = marketplaceCtx.auctions[index].endedAt;
