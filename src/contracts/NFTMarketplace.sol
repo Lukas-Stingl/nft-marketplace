@@ -153,7 +153,6 @@ contract NFTMarketplace {
         address winner
     );
     event AuctionCancelled(uint256 tokenId); //not implemented yet?
-    event End(address bidder, uint256 withdrawalAmount); //not implemented yet?
     event GotOverbidden(uint256 auctionId, address user);
 /** getBids returns cumulated bids of the bidder */
     function getBids(_Auction storage auction, address bidder)
@@ -263,6 +262,7 @@ contract NFTMarketplace {
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction must exist");
         require(block.timestamp >= _auction.endedAt, "not ended");
+        require(_auction.isActive == true, "The isActive is already set to false!");
         _auction.isActive = false;
         if (_auction.highestBidder != address(0)) {
             nftCollection.transferFrom(
@@ -304,8 +304,6 @@ contract NFTMarketplace {
         uint256 amount = getBids(auctions[_auctionId], msg.sender);
         setBids(auctions[_auctionId], msg.sender, 0);
         payable(msg.sender).transfer(amount);
-
-        emit End(msg.sender, amount);
     }
 
     // Fallback: reverts if Ether is sent to this smart-contract by mistake
