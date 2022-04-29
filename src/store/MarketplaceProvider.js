@@ -166,8 +166,9 @@ const marketplaceReducer = (state, action) => {
         startingPrice: parseInt(action.auction.startingPrice),
         startedAt: parseInt(action.auction.startedAt),
         endedAt: parseInt(action.auction.endedAt),
-        highestBidder: 0,
-        highestBid: 0,
+        highestBidder: 0,   
+        highestBid: 0,                                                 
+        isActive: true,
         fulfilled: false,
         cancelled: false
       }];
@@ -287,7 +288,8 @@ const MarketplaceProvider = props => {
       .map(auction => {
         auction.auctionId = parseInt(auction.auctionId);
         auction.nftId = parseInt(auction.nftId);
-        auction.startingPrice = parseInt(auction.startingPrice);
+        auction.highestBid = parseFloat(auction.highestBid);
+        auction.startingPrice = parseFloat(auction.startingPrice);
         return auction;
       })
       //.filter(auction => auction.endedAt > Date.now());

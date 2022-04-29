@@ -136,7 +136,7 @@ contract NFTMarketplace {
         //end time of auction
         uint256 endedAt;
         //current state of auction
-        //bool isActive;
+        bool isActive;
         //current highest bidder
         address highestBidder;
         //current highest bid
@@ -192,6 +192,7 @@ contract NFTMarketplace {
         _auction.seller = msg.sender;
         _auction.startingPrice = 1;
         //duration fixed 5 minutes = 300 seconds
+        _auction.isActive = true;
         _auction.duration = 300;
         _auction.startedAt = block.timestamp;
         _auction.endedAt = block.timestamp + 300;
@@ -213,20 +214,20 @@ contract NFTMarketplace {
             uint256,
             uint256,
             uint256,
-            uint256,
+            bool,
             address,
             uint256
         )
     {
         checkIfHighestBidder(_auctionId);
         _Auction storage _auction = auctions[_auctionId];
-        uint256 auctionId = _auction.auctionId; //not neccessary
+        //uint256 auctionId = _auction.auctionId; //not neccessary
         address auctionSeller = _auction.seller;
         uint256 auctionStartingPrice = _auction.startingPrice;
         //duration fixed 5 minutes = 300 seconds
         uint256 auctionDuration = _auction.duration;
-        uint256 auctionStartedAt = _auction.startedAt;
         uint256 auctionEndetAt = _auction.endedAt;
+        bool auctionIsActive = _auction.isActive;
         address highestBidder = _auction.highestBidder;
         uint256 highestBid = _auction.highestBid;
 
@@ -234,8 +235,8 @@ contract NFTMarketplace {
             auctionSeller,
             auctionStartingPrice,
             auctionDuration,
-            auctionStartedAt,
             auctionEndetAt,
+            auctionIsActive,
             highestBidder,
             highestBid
         );

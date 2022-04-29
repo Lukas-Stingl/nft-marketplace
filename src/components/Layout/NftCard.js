@@ -56,7 +56,7 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                             
                             {hovered && buyHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
-                                bidHandler("1", index, index)
+                                bidHandler("0.01", index, 1)
                             }}>
                                 <span>bid</span>
                             </button>}

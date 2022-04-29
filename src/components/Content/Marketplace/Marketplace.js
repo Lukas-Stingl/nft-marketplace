@@ -32,23 +32,23 @@ const Marketplace = () => {
   const bidHandler = (price, index, id) => {
     //do we first have to set up an button to make a bid - because right now we don´t have the amount of the bid
     const enteredPrice = web3.utils.toWei(price, 'ether');
-    collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
-    .on('transactionHash', (hash) => {
-      marketplaceCtx.setMktIsLoading(true);
-    })
-    .on('receipt', (receipt) => {
-    marketplaceCtx.contract.methods.fillBid(marketplaceCtx.auctions[index].auctionId, enteredPrice).send({ from: web3Ctx.account, value: enteredPrice })
+    // collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
+    // .on('transactionHash', (hash) => {
+    //   marketplaceCtx.setMktIsLoading(true);
+    // })
+    // .on('receipt', (receipt) => {
+    marketplaceCtx.contract.methods.fillBid(marketplaceCtx.auctions[index].auctionId/*, enteredPrice*/).send({ from: web3Ctx.account, value: enteredPrice })
       .on('error', (error) => {
         window.alert('Something went wrong when pushing to the blockchain');
         marketplaceCtx.setMktIsLoading(false);
       });
-    });
+    // });
   
   };
 
   const collection = collectionCtx.collection.filter(
     e => marketplaceCtx.auctions.findIndex(
-      auction => (      auction.nftId === e.id && auction.seller !== web3Ctx.account)) !== -1);
+      auction => (      auction.nftId === e.id /*&& auction.seller !== web3Ctx.account*/)) !== -1);
 
 
   return (
@@ -62,7 +62,7 @@ const Marketplace = () => {
           {collection.map((NFT, key) => {
             const index = marketplaceCtx.auctions.findIndex(auction => auction.nftId === NFT.id);
             const owner = marketplaceCtx.auctions[index].seller;
-            const price = formatPrice(marketplaceCtx.auctions[index].highestBid).toFixed(2);
+            const price = marketplaceCtx.auctions[index].highestBid;
 
 
             return (
