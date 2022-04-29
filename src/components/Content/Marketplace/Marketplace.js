@@ -54,7 +54,8 @@ const Marketplace = () => {
   const collection = collectionCtx.collection.filter(
     e => marketplaceCtx.auctions.findIndex(
       auction => (auction.nftId === e.id && auction.isActive === true
-            )) !== -1);
+            )) !== -1 || marketplaceCtx.offers.findIndex(
+              offer => (offer.id === e.id )) !== -1);
 
 
 
@@ -67,22 +68,41 @@ const Marketplace = () => {
       <div className='container-fluid' style={{ marginTop: "2rem" }}>
         <div className="row gy-4" >
           {collection.map((NFT, key) => {
-            //find most recent nft → this is why array is reversed 
-            const index = marketplaceCtx.auctions.reverse().findIndex(auction => auction.nftId === NFT.id);
-            const owner = marketplaceCtx.auctions[index].seller;
-            const price = marketplaceCtx.auctions[index].highestBid;
-            const endedAt = marketplaceCtx.auctions[index].endedAt;
-            const highestBidder = marketplaceCtx.auctions[index].highestBidder;
-            let auctionExpired =  new Date(parseInt(endedAt+"000")) - new Date().getTime() < 0;
-            const isAuction =  marketplaceCtx.auctions[index] !== null
+            //assumption: we first look if Marketplace offering is an auction, if it is, proceed, if it is not skip to else
+            var index = marketplaceCtx.auctions.findLastIndex(auction => auction.nftId === NFT.id);
+            var owner;
+            var price;
+            var endedAt;
+            var highestBidder;
+            var auctionExpired;
+            var isAuction;
+            var winner;
+            var isWinner;
+            if(marketplaceCtx.auctions[index]){
+            index = marketplaceCtx.auctions.findLastIndex(auction => auction.nftId === NFT.id);
+            owner = marketplaceCtx.auctions[index].seller;
+            price = marketplaceCtx.auctions[index].highestBid / 1000000000000000000;
+            endedAt = marketplaceCtx.auctions[index].endedAt;
+            highestBidder = marketplaceCtx.auctions[index].highestBidder;
+            auctionExpired =  new Date(parseInt(endedAt+"000")) - new Date().getTime() < 0;
+            isAuction =  marketplaceCtx.auctions[index] !== null
             if(price === 0) {
-              var winner = marketplaceCtx.auctions[index].seller
+              winner = marketplaceCtx.auctions[index].seller
             }
             else {
-              var winner = highestBidder
+              winner = highestBidder
             }
-            const isWinner = winner === web3Ctx.account && auctionExpired;
-
+            isWinner = winner === web3Ctx.account && auctionExpired;
+          }
+          else{
+            index = marketplaceCtx.offers.findLastIndex(offer => offer.id === NFT.id);
+            price = marketplaceCtx.offers[index].price / 1000000000000000000;
+             owner = 0;
+             endedAt = 0;
+             highestBidder = 0;
+             auctionExpired =  0;
+             isAuction =  false
+          }
             return (
               <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction}></NFTCard>
             );
