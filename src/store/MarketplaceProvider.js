@@ -164,10 +164,9 @@ const marketplaceReducer = (state, action) => {
         nftId: parseInt(action.auction.nftId),
         seller: (action.auction.seller),
         startingPrice: parseInt(action.auction.startingPrice),
-        startedAt: parseInt(action.auction.startedAt),
         endedAt: parseInt(action.auction.endedAt),
-        highestBidder: 0,   
-        highestBid: 0,                                                 
+        highestBidder: (action.auction.highestBidder),   
+        highestBid: action.auction.highestBid,                                                 
         isActive: true,
         fulfilled: false,
         cancelled: false
@@ -327,6 +326,7 @@ const MarketplaceProvider = props => {
     dispatchMarketplaceAction({ type: 'ADDBID', bid: bid });
   };
 
+
   const marketplaceContext = {
     contract: MarketplaceState.contract,
     offerCount: MarketplaceState.offerCount,
@@ -348,7 +348,7 @@ const MarketplaceProvider = props => {
     addAuction: addAuctionHandler,
     //loadBids: loadBidsHandler,
     updateBids: updateBidsHandler,
-    addBid: addBidHandler
+    addBid: addBidHandler,
   };
 
   return (

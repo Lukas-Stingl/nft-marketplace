@@ -182,14 +182,14 @@ contract NFTMarketplace {
         auctionCount++;
         _Auction storage _auction = auctions[auctionCount];
         _auction.auctionId = auctionCount;
-        _auction.nftId = _nftId;
+        _auction.nftId = _nftId;    
         _auction.seller = msg.sender;
         _auction.startingPrice = 1; //currently even necessary?
         //duration fixed 5 minutes = 300 seconds
         _auction.isActive = true;
-        _auction.duration = 60;
+        _auction.duration = 300;
         _auction.startedAt = block.timestamp;
-        _auction.endedAt = block.timestamp + 60;
+        _auction.endedAt = block.timestamp + 300;
         //true,
 
         emit AuctionCreated(
@@ -258,7 +258,7 @@ contract NFTMarketplace {
 
 
 /** end is called after the auction has ended → if someone bid on the NFT, it is transferred to the highest bidder, else transferred back to the seller */
-    function end(uint256 _auctionId) public payable {
+    function end(uint256 _auctionId) public payable returns (string memory){
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction must exist");
         require(block.timestamp >= _auction.endedAt, "not ended");
@@ -289,6 +289,7 @@ contract NFTMarketplace {
             _auction.highestBid,
             _auction.highestBidder
         );
+        return("Auction ended successfully!");
     }
 
 /** autoBookBack books back all transfered ether of previous bids in case a new bid is made */

@@ -5,11 +5,35 @@ import eth from '../../img/ethereum.svg';
 import './NFTCard.css';
 
 
-const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOfferHandler, bidHandler, makeAuctionHandler, userIsOwner }) => {
+const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOfferHandler, bidHandler, makeAuctionHandler, userIsOwner, endedAt, endAuction, isWinner, auctionExpired}) => {
     const [hovered, setHovered] = useToggle(false);
     const [offerPrice, setOfferPrice] = useState(0.001);
 
-    // Nullish coalescing operator not working when compiling for some reason
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+    
+      // Get today's date and time
+      var now = new Date().getTime();
+        
+      // Find the distance between now and the count down date
+      var distance = new Date(parseInt(endedAt+"000")) - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+      // Output the result in an element with id="demo"
+      document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+        
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
 
     return (
         <div className="col-sm-4 col-md-4 col-lg-3 col-xl-2">
@@ -29,14 +53,15 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                     <Card.Body>
                         <Card.Title>{NFT.title}</Card.Title>
                         {owner && <p style={{ whiteSpace: "nowrap", color: "#BABABA", fontWeight: 600, fontSize: "0.8em" }}>by <a href={`/collection?owner=${owner}`} className="link">{`${owner}`}</a></p>}
+                        <div><p id="demo">Verbleibende Dauer</p></div>
                         <div style={{ display: "flex", justifyContent: "space-between", alignContent: "center" }}>
                             {buyHandler && <div style={{ display: "flex" }}><img alt="Ethereum Logo" src={eth} style={{ height: "1.5em" }}></img><p>{` ${price}`}</p></div>}
                             {userIsOwner && makeOfferHandler && <input type="number" min="0" max="1000" step="0.001" value={offerPrice} onChange={e => {
                                 e.preventDefault();
                                 setOfferPrice(e.target.value);
                             }} onClick={e => { e.stopPropagation(); }}></input>}
-                            {userIsOwner && makeAuctionHandler && <div style={{ display: "flex" }}></div>}
-                            {hovered && buyHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
+                            {userIsOwner && !isWinner &&makeAuctionHandler && <div style={{ display: "flex" }}></div>}
+                            {hovered && buyHandler && !isWinner && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
                                 buyHandler(index);
                             }}>
@@ -53,17 +78,22 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                                 <span>offer</span>
                             </button>}
                             
+                            {!auctionExpired &&!userIsOwner && bidHandler && <input type="number" min="0" max="1000" step="0.001" value={offerPrice} onChange={e => {
+                                e.preventDefault();
+                                bidHandler(e.target.value, index, NFT.id);
+                            }} onClick={e => { e.stopPropagation(); }}></input>}
                             
-                            {hovered && buyHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
+
+                            {buyHandler && isWinner && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
-                                bidHandler("0.01", index, 1)
+                                endAuction(index)
                             }}>
-                                <span>bid</span>
+                                <span>Redeem NFT</span>
                             </button>}
                             {userIsOwner && cancelHandler && <button className="bbtn hover-slide-right" onClick={() => cancelHandler(index)}>
                                 <span>cancel</span>
                             </button>}
-                            {userIsOwner && makeAuctionHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
+                            {userIsOwner && !isWinner && makeAuctionHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
                                  e.stopPropagation();
                                 makeAuctionHandler(offerPrice,index)
                             }}>
