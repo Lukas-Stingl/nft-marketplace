@@ -78,6 +78,7 @@ const Marketplace = () => {
             var isAuction;
             var winner;
             var isWinner;
+            var isUserTheOwner;
             if(marketplaceCtx.auctions[index]){
             index = marketplaceCtx.auctions.findLastIndex(auction => auction.nftId === NFT.id && auction.isActive === true) ;
             owner = marketplaceCtx.auctions[index].seller;
@@ -86,6 +87,7 @@ const Marketplace = () => {
             highestBidder = marketplaceCtx.auctions[index].highestBidder;
             auctionExpired =  new Date(parseInt(endedAt+"000")) - new Date().getTime() < 0;
             isAuction =  marketplaceCtx.auctions[index] !== null
+            isUserTheOwner = (owner == web3Ctx.account);
             if(price === 0) {
               winner = marketplaceCtx.auctions[index].seller
             }
@@ -97,14 +99,15 @@ const Marketplace = () => {
           else{
             index = marketplaceCtx.offers.findLastIndex(offer => offer.id === NFT.id);
             price = marketplaceCtx.offers[index].price / 1000000000000000000;
-             owner = 0;
+             owner = owner = marketplaceCtx.offers[index].user;;
              endedAt = 0;
              highestBidder = 0;
              auctionExpired =  0;
              isAuction =  false
+             isUserTheOwner = (owner == web3Ctx.account);
           }
             return (
-              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction}></NFTCard>
+              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction} isUserTheOwner={isUserTheOwner}></NFTCard>
             );
           })}
         </div>
