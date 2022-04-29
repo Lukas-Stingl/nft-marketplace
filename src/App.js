@@ -142,7 +142,7 @@ const App = () => {
         mktContract.events.AuctionSuccessful()
           .on('data', (event) => {
             marketplaceCtx.updateAuction(event.returnValues.auctionId);
-            collectionCtx.updateOwner(event.returnValues.tokenid, event.returnValues.winner);
+            collectionCtx.updateOwner(event.returnValues.tokenId, event.returnValues.winner);
             marketplaceCtx.setMktIsLoading(false);
           })
           .on('error', (error) => {

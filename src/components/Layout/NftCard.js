@@ -5,9 +5,10 @@ import eth from '../../img/ethereum.svg';
 import './NFTCard.css';
 
 
-const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOfferHandler, bidHandler, makeAuctionHandler, userIsOwner, endedAt, endAuction, isWinner, auctionExpired}) => {
+const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOfferHandler, bidHandler, makeAuctionHandler, userIsOwner, endedAt, endAuction, isWinner, auctionExpired, isAuction}) => {
     const [hovered, setHovered] = useToggle(false);
     const [offerPrice, setOfferPrice] = useState(0.001);
+    const [bidPrice, setBidPrice] = useState(0.001);
 
     // Update the count down every 1 second
     var x = setInterval(function() {
@@ -61,7 +62,7 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                                 setOfferPrice(e.target.value);
                             }} onClick={e => { e.stopPropagation(); }}></input>}
                             {userIsOwner && !isWinner &&makeAuctionHandler && <div style={{ display: "flex" }}></div>}
-                            {hovered && buyHandler && !isWinner && <button className="bbtn hover-slide-right" onClick={(e) => {
+                            {!isAuction && hovered && buyHandler && !isWinner && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
                                 buyHandler(index);
                             }}>
@@ -79,10 +80,16 @@ const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOffe
                             </button>}
                             
                             {!auctionExpired &&!userIsOwner && bidHandler && <input type="number" min="0" max="1000" step="0.001" value={offerPrice} onChange={e => {
-                                e.preventDefault();
-                                bidHandler(e.target.value, index, NFT.id);
+                              e.preventDefault();
+                              setBidPrice(e.target.value);
+                                
                             }} onClick={e => { e.stopPropagation(); }}></input>}
-                            
+                            {!auctionExpired && buyHandler && !isWinner && <button className="bbtn hover-slide-right" onClick={(e) => {
+                                e.stopPropagation();
+                                bidHandler(bidPrice, index, NFT.id);
+                            }}>
+                                <span>bid</span>
+                            </button>}
 
                             {buyHandler && isWinner && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();

@@ -73,6 +73,7 @@ const Marketplace = () => {
             const endedAt = marketplaceCtx.auctions[index].endedAt;
             const highestBidder = marketplaceCtx.auctions[index].highestBidder;
             const auctionExpired =  new Date(parseInt(endedAt+"000")) - new Date().getTime() < 0;
+            const isAuction =  marketplaceCtx.auctions[index] !== null
             if(price === 0) {
               var winner = marketplaceCtx.auctions[index].seller
             }
@@ -82,7 +83,7 @@ const Marketplace = () => {
             const isWinner = winner === web3Ctx.account && auctionExpired;
 
             return (
-              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired}></NFTCard>
+              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction}></NFTCard>
             );
           })}
         </div>
