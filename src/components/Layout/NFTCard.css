@@ -6,7 +6,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {
     width: auto;
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 0.5rem;
@@ -17,12 +17,18 @@ input[type=number] {
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-top: calc(-10 * var(--bs-gutter-y));
     margin-right: calc(-25 * var(--bs-gutter-x));
     margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
 .card {
-    min-width: 350px;
+    min-width: 300px;
+    max-width: 350px;
+}
+.col-sm-4.col-md-4.col-lg-3.col-xl-2 {
+    width: auto;
+    margin-bottom: 15px;
 }

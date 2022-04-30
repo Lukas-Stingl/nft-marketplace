@@ -65,17 +65,6 @@ const Collection = () => {
 
 
 
-  const cancelHandler = (index) => {
-
-    marketplaceCtx.contract.methods.cancelOffer(marketplaceCtx.offers[index].offerId).send({ from: web3Ctx.account })
-      .on('transactionHash', (hash) => {
-        marketplaceCtx.setMktIsLoading(true);
-      })
-      .on('error', (error) => {
-        window.alert('Something went wrong when pushing to the blockchain');
-        marketplaceCtx.setMktIsLoading(false);
-      });
-  };
 
   const userIsOwner = owner === web3Ctx.account;
   console.log(userIsOwner);
@@ -92,7 +81,7 @@ const Collection = () => {
           {collection.map((NFT, key) => {
             return (
               // TODO: make offer go through
-              <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} makeAuctionHandler={makeAuctionHandler}userIsOwner={userIsOwner}></NFTCard>
+              <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} makeAuctionHandler={makeAuctionHandler}userIsOwner={userIsOwner} ></NFTCard>
             );
 
             // TODO: show NFTs on sale from this person 

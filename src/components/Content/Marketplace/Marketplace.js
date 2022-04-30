@@ -45,6 +45,17 @@ const Marketplace = () => {
     // });
   
   };
+  const cancelHandler = (index) => {
+
+    marketplaceCtx.contract.methods.cancelOffer(marketplaceCtx.offers[index].offerId).send({ from: web3Ctx.account })
+      .on('transactionHash', (hash) => {
+        marketplaceCtx.setMktIsLoading(true);
+      })
+      .on('error', (error) => {
+        window.alert('Something went wrong when pushing to the blockchain');
+        marketplaceCtx.setMktIsLoading(false);
+      });
+  };
 
   const endAuction = async(index) => {
     const response = await marketplaceCtx.contract.methods.end(marketplaceCtx.auctions[index].auctionId).send({from: web3Ctx.account  })
@@ -87,7 +98,7 @@ const Marketplace = () => {
             highestBidder = marketplaceCtx.auctions[index].highestBidder;
             auctionExpired =  new Date(parseInt(endedAt+"000")) - new Date().getTime() < 0;
             isAuction =  marketplaceCtx.auctions[index] !== null
-            isUserTheOwner = (owner == web3Ctx.account);
+            isUserTheOwner = (owner === web3Ctx.account);
             if(price === 0) {
               winner = marketplaceCtx.auctions[index].seller
             }
@@ -107,7 +118,7 @@ const Marketplace = () => {
              isUserTheOwner = (owner == web3Ctx.account);
           }
             return (
-              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction} isUserTheOwner={isUserTheOwner}></NFTCard>
+              <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} cancelHandler={cancelHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction} isUserTheOwner={isUserTheOwner}></NFTCard>
             );
           })}
         </div>

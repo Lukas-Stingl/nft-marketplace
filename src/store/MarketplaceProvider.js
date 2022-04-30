@@ -301,6 +301,7 @@ const MarketplaceProvider = props => {
 
   const addAuctionHandler = (auction) => {
     dispatchMarketplaceAction({ type: 'ADDAUCTION', auction: auction });
+    window.location.reload();
   };
 
   /*const loadBidsHandler = async (contract, auctionId, bidder ) => { //tbc
