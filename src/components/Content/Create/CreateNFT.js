@@ -4,7 +4,7 @@
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import selectImage from '../../../img/select-image.svg';
-
+import Spinner from "../../Layout/Spinner";
 import React, { useState, useContext } from 'react';
 import "./Create.css"
 
@@ -70,7 +70,9 @@ const Create = () => {
     const [nftName, setNftName] = useState('');
     const [nftDescription, setNftDescription] = useState('');
     const [nftImage, setNftImage] = useState(null);
-
+    if(document.querySelector('.loadingSpinner')){
+    document.querySelector('.loadingSpinner').style.display = 'none';
+    }
     const web3Ctx = useContext(Web3Context);
     const collectionCtx = useContext(CollectionContext);
 
@@ -89,9 +91,10 @@ const Create = () => {
         event.preventDefault();
 
         const metadataAdded = await makeBuffer(nftImage, nftName, nftDescription);
-
+        document.querySelector('.loadingSpinner').style.display = 'flex';
         collectionCtx.contract.methods.safeMint(metadataAdded.path).send({ from: web3Ctx.account })
             .on('transactionHash', (hash) => {
+                document.querySelector('.loadingSpinner').style.display = 'none';
                 //NFTCollectionContract.setNftIsLoading(true);
                 let options = {
                     filter: {
@@ -103,7 +106,6 @@ const Create = () => {
                 collectionCtx.contract.getPastEvents('Transfer', options)
                     .then(results => {
                         let nfts = results.length - 1
-                        console.log(results[nfts].returnValues.tokenId)
                         alert("Your NFT will be created shortly and published to the blockchain!");
                         console.log("success");
                         setTimeout(function () {
@@ -117,6 +119,7 @@ const Create = () => {
                 window.alert('Something went wrong when pushing to the blockchain');
                 //NFTCollectionContract.setNftIsLoading(false);
                 console.log("failure")
+                document.querySelector('.loadingSpinner').style.display = 'none';
 
                 // Show in UI that createion was unsuccessful
             })
@@ -129,7 +132,11 @@ const Create = () => {
     };
 
     return (
+        
         <form className="createform" onSubmit={onSubmit}>
+        <div className="loadingSpinner" >
+        <Spinner></Spinner>
+        </div>
             <h1>Create new Item</h1>
             <h3>Name</h3>
             <div>

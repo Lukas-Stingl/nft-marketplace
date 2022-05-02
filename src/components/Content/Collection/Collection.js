@@ -17,7 +17,12 @@ const Collection = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const owner = searchParams.get("owner");
 
+  if(document.querySelector('.loadingSpinner')){
+    document.querySelector('.loadingSpinner').style.display = 'flex';
+    }
+
   const collection = collectionCtx.collection.filter(function (element) {
+    document.querySelector('.loadingSpinner').style.display = 'none';
     return element.owner === owner;
   });
 
@@ -30,42 +35,54 @@ const Collection = () => {
 
 
   const makeOfferHandler = (price, id) => {
+    document.querySelector('.loadingSpinner').style.display = 'flex';
     const enteredPrice = web3.utils.toWei(price, 'ether');
 
     collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
       .on('transactionHash', (hash) => {
         marketplaceCtx.setMktIsLoading(true);
+        document.querySelector('.loadingSpinner').style.display = 'flex';
       })
       .on('receipt', (receipt) => {
         marketplaceCtx.contract.methods.makeOffer(id, enteredPrice).send({ from: web3Ctx.account })
+        .on('transactionHash', (hash) => {
+          document.querySelector('.loadingSpinner').style.display = 'none';
+          window.location.reload();
+        })
           .on('error', (error) => {
             window.alert('Something went wrong when pushing to the blockchain');
             marketplaceCtx.setMktIsLoading(false);
+            document.querySelector('.loadingSpinner').style.display = 'none';
+
           });
+          
       });
   };
 
   const makeAuctionHandler = (startingPrice, id) => {
     //additional feature in the future
     //const enteredPrice = web3.utils.toWei(startingPrice, 'ether');
-
+    document.querySelector('.loadingSpinner').style.display = 'flex';
     collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
       .on('transactionHash', (hash) => {
         marketplaceCtx.setMktIsLoading(true);
+        document.querySelector('.loadingSpinner').style.display = 'flex';
       })
       .on('receipt', (receipt) => {
         marketplaceCtx.contract.methods.makeAuction(id).send({ from: web3Ctx.account })
           .on('error', (error) => {
             window.alert('Something went wrong when pushing to the blockchain');
             marketplaceCtx.setMktIsLoading(false);
+            document.querySelector('.loadingSpinner').style.display = 'none';
+
           });
       });
   };
 
   //event Listener that handles the event "page loaded" and makes loading circle disappear
-  document.addEventListener("pageLoaded", (event) => {
-    document.querySelector('.loadingSpinner').style.display = 'none';
-  });
+  // document.addEventListener("pageLoaded", (event) => {
+  //   document.querySelector('.loadingSpinner').style.display = 'none';
+  // });
 
   const userIsOwner = owner === web3Ctx.account;
   console.log(userIsOwner);

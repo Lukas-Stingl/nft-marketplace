@@ -18,7 +18,6 @@ const Marketplace = () => {
   if (priceRefs.current.length !== collectionCtx.collection.length) {
     priceRefs.current = Array(collectionCtx.collection.length).fill().map((_, i) => priceRefs.current[i] || createRef());
   }
-
   const buyHandler = (index) => {
     marketplaceCtx.contract.methods.fillOffer(marketplaceCtx.offers[index].offerId).send({ from: web3Ctx.account, value: marketplaceCtx.offers[index].price })
       .on('transactionHash', (hash) => {
@@ -47,20 +46,25 @@ const Marketplace = () => {
   
   };
   const cancelHandler = (index) => {
-
+    document.querySelector('.loadingSpinner').style.display = 'flex';
     marketplaceCtx.contract.methods.cancelOffer(marketplaceCtx.offers[index].offerId).send({ from: web3Ctx.account })
       .on('transactionHash', (hash) => {
         marketplaceCtx.setMktIsLoading(true);
+        document.querySelector('.loadingSpinner').style.display = 'none';
+        window.location.reload();
       })
       .on('error', (error) => {
         window.alert('Something went wrong when pushing to the blockchain');
         marketplaceCtx.setMktIsLoading(false);
+        document.querySelector('.loadingSpinner').style.display = 'none';
       });
   };
 
   const endAuction = async(index) => {
+    document.querySelector('.loadingSpinner').style.display = 'flex';
     const response = await marketplaceCtx.contract.methods.end(marketplaceCtx.auctions[index].auctionId).send({from: web3Ctx.account  })
     console.log(JSON.stringify(response))
+    document.querySelector('.loadingSpinner').style.display = 'none';
   }
 
   const collection = collectionCtx.collection.filter(
