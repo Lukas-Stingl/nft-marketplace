@@ -1,8 +1,8 @@
 require('dotenv').config();
-
+const fs = require('fs');
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-var privateKey = "82d78d423df5d65b41d3b14549628f0d4d0bb1943a9a48ec5f601d5e05c11208"
 
+let keys = JSON.parse(fs.readFileSync('config.json'));
 
 module.exports = {
   mocha: {
@@ -23,7 +23,7 @@ module.exports = {
           // mnemonic: {
           //   phrase: mnemonicPhrase
           // },
-          privateKeys: [privateKey],
+          privateKeys: [keys.privateKey],
           providerOrUrl: "wss://kovan.infura.io/ws/v3/1dd7dc4372ce47379854dad92d2abce9",
           numberOfAddresses: 1,
           shareNonce: true,
@@ -35,6 +35,12 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true
     },
+  },
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    etherscan: keys.etherscanKey
   },
   contracts_directory: './src/contracts',
   contracts_build_directory: './src/abis',
