@@ -1,8 +1,7 @@
 import './Profile_style.css'; //tell this .js to use the Stylessheet
 import React, { useContext, useRef, createRef } from 'react';
-
 import { useSearchParams } from 'react-router-dom';
-
+import Spinner from "../../Layout/Spinner";
 import web3 from '../../../connection/web3';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
@@ -63,8 +62,10 @@ const Collection = () => {
       });
   };
 
-
-
+  //event Listener that handles the event "page loaded" and makes loading circle disappear
+  document.addEventListener("pageLoaded", (event) => {
+    document.querySelector('.loadingSpinner').style.display = 'none';
+  });
 
   const userIsOwner = owner === web3Ctx.account;
   console.log(userIsOwner);
@@ -77,7 +78,6 @@ const Collection = () => {
       </div>
       <div className='container-fluid' style={{ marginTop: "2rem" }}>
         <div className="row gy-4" >
-
           {collection.map((NFT, key) => {
             return (
               // TODO: make offer go through
@@ -88,6 +88,9 @@ const Collection = () => {
           })}
         </div>
       </div>
+        <div className="loadingSpinner" >
+        <Spinner></Spinner>
+        </div>
     </div>
 
   );
