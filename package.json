@@ -37,7 +37,7 @@
     "truffle-plugin-verify": "^0.5.25"
   },
   "scripts": {
-    "start": "REACT_APP_STAGE=dev react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
