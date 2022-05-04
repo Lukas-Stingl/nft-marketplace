@@ -1,11 +1,11 @@
 import React from 'react';
+import { RotatingLines } from 'react-loader-spinner';
 
+//standardized loading Animation for use in the whole project
 const Spinner = () => {
   return (
-    <div className="text-center mt-5">
-      <div className="spinner-border text-info text-center"></div>
-    </div>
+    <RotatingLines width="100" strokeColor="black" height="100" ariaLabel="Loading"/>
   );
-};
+}
 
 export default Spinner;

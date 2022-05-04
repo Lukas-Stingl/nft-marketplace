@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./NFTCollection.sol";
 
+
 contract NFTMarketplace {
     uint256 public offerCount;
     mapping(uint256 => _Offer) public offers;
@@ -106,6 +107,204 @@ contract NFTMarketplace {
         payable(msg.sender).transfer(userFunds[msg.sender]);
         emit ClaimFunds(msg.sender, userFunds[msg.sender]);
         userFunds[msg.sender] = 0;
+    }
+
+
+    //<-------------------------Implementing Auction mechnanism---------------------------------------->
+
+    uint256 public auctionCount;
+    mapping(uint256 => _Auction) public auctions;
+
+    struct _Auction {
+        // Id of auction
+        uint256 auctionId;
+        //Id of NFT
+        uint256 nftId;
+        // Current owner of NFT
+        address seller;
+        // Price at beginning of auction
+        uint256 startingPrice;
+        // Duration (in seconds) of auction
+        uint64 duration;
+        // Time when auction started
+        // NOTE: 0 if this auction has been concluded
+        uint256 startedAt;
+        //end time of auction
+        uint256 endedAt;
+        //current state of auction
+        bool isActive;
+        //current highest bidder
+        address highestBidder;
+        //current highest bid
+        uint256 highestBid;
+        mapping(address => uint256) bids;
+    }
+
+    event AuctionCreated(
+        uint256 auctionId,
+        uint256 tokenId,
+        uint256 startingPrice,
+        uint256 duration
+    );
+    event AuctionSuccessful(
+        uint256 auctionId,
+        uint256 tokenId,
+        uint256 totalPrice,
+        address winner
+    );
+    event AuctionCancelled(uint256 tokenId); //not implemented yet?
+    event GotOverbidden(uint256 auctionId, address user);
+/** getBids returns cumulated bids of the bidder */
+    function getBids(_Auction storage auction, address bidder)
+        internal
+        returns (uint256)
+    {
+        return auction.bids[bidder];
+    }
+/** setBids updates bids for bidder  */
+    function setBids(
+        _Auction storage auction,
+        address bidder,
+        uint256 bid
+    ) internal {
+        auction.bids[bidder] = bid;
+    }
+
+    function checkIfHighestBidder(uint256 _auctionId) internal {
+        _Auction storage _auction = auctions[_auctionId];
+        uint256 currentCummulatedBids = getBids(_auction, msg.sender);
+        if (currentCummulatedBids > 0 && _auction.highestBidder != msg.sender)
+            emit GotOverbidden(_auctionId, msg.sender);
+    }
+/** make auction creates the auction struct and starts the timer */
+    function makeAuction(uint256 _nftId) public payable {
+        nftCollection.transferFrom(msg.sender, address(this), _nftId);
+        auctionCount++;
+        _Auction storage _auction = auctions[auctionCount];
+        _auction.auctionId = auctionCount;
+        _auction.nftId = _nftId;    
+        _auction.seller = msg.sender;
+        _auction.startingPrice = 1; //currently even necessary?
+        //duration fixed 5 minutes = 300 seconds
+        _auction.isActive = true;
+        _auction.duration = 300;
+        _auction.startedAt = block.timestamp;
+        _auction.endedAt = block.timestamp + 300;
+        //true,
+
+        emit AuctionCreated(
+            auctionCount,
+            _nftId,
+            auctions[auctionCount].startingPrice,
+            auctions[auctionCount].duration
+        );
+    }
+
+/** getAuction is used to get details about the auction and check if the current user has been overbidden (if true emit Event) */
+    function getAuction(uint256 _auctionId)
+        public
+        returns (
+            address,
+            uint256,
+            uint256,
+            uint256,
+            bool,
+            address,
+            uint256
+        )
+    {
+        checkIfHighestBidder(_auctionId);
+        _Auction storage _auction = auctions[_auctionId];
+        //uint256 auctionId = _auction.auctionId; //not neccessary
+        address auctionSeller = _auction.seller;
+        uint256 auctionStartingPrice = _auction.startingPrice;
+        //duration fixed 5 minutes = 300 seconds
+        uint256 auctionDuration = _auction.duration;
+        uint256 auctionEndetAt = _auction.endedAt;
+        bool auctionIsActive = _auction.isActive;
+        address highestBidder = _auction.highestBidder;
+        uint256 highestBid = _auction.highestBid;
+
+        return (
+            auctionSeller,
+            auctionStartingPrice,
+            auctionDuration,
+            auctionEndetAt,
+            auctionIsActive,
+            highestBidder,
+            highestBid
+        );
+    }
+
+/** fillBid is used to update the auction struct, if someone overbid the current bid */
+    function fillBid(uint256 _auctionId) public payable {
+        _Auction storage _auction = auctions[_auctionId];
+        require(_auction.auctionId == _auctionId, "The auction does not exist!");
+        require(block.timestamp < _auction.endedAt, "The Auction has already ended!");
+        require(_auction.seller != msg.sender, "The seller can not place a bid on his own NFT!");
+
+        uint256 newBid = msg.value;
+        require(newBid > _auction.highestBid, "value < highest");
+        uint256 cumulatedBids = getBids(_auction, msg.sender);
+        //set current Bids on 0 to counter re-entry attacks
+        setBids(_auction, msg.sender, 0);
+        //book back older bids in case
+        autoBookBack(cumulatedBids, _auctionId);
+        //set current Bids on new Bid
+        setBids(_auction, msg.sender, newBid);
+        _auction.highestBidder = msg.sender;
+        _auction.highestBid = newBid;
+    }
+
+
+/** end is called after the auction has ended → if someone bid on the NFT, it is transferred to the highest bidder, else transferred back to the seller */
+    function end(uint256 _auctionId) public payable returns (string memory){
+        _Auction storage _auction = auctions[_auctionId];
+        require(_auction.auctionId == _auctionId, "The auction must exist");
+        require(block.timestamp >= _auction.endedAt, "not ended");
+        require(_auction.isActive == true, "The isActive is already set to false!");
+        _auction.isActive = false;
+        if (_auction.highestBidder != address(0)) {
+            nftCollection.transferFrom(
+                address(this),
+                _auction.highestBidder,
+                _auction.nftId
+            );
+
+            //user funds balance of the seller get the amount of the highest bid
+            //the user can claim all of his earned funds by calling "claimFunds"-function
+            userFunds[_auction.seller] += _auction.highestBid;
+        } else {
+            nftCollection.transferFrom(
+                address(this),
+                _auction.seller,
+                _auction.nftId
+            );
+            
+        }
+
+        emit AuctionSuccessful(
+            _auction.auctionId,
+            _auction.nftId,
+            _auction.highestBid,
+            _auction.highestBidder
+        );
+        return("Auction ended successfully!");
+    }
+
+/** autoBookBack books back all transfered ether of previous bids in case a new bid is made */
+    function autoBookBack(uint256 amount, uint256 _auctionId) public {
+        //again set Bids on 0 in case of re-entry attack
+        setBids(auctions[_auctionId], msg.sender, 0);
+        payable(msg.sender).transfer(amount);
+    }
+/** withdraw allows overbidden users to withdraw their cumulated bids  */
+    function withdraw(uint256 _auctionId) public {
+        _Auction storage _auction = auctions[_auctionId];
+        require(msg.sender != _auction.highestBidder);
+        uint256 amount = getBids(auctions[_auctionId], msg.sender);
+        setBids(auctions[_auctionId], msg.sender, 0);
+        payable(msg.sender).transfer(amount);
     }
 
     // Fallback: reverts if Ether is sent to this smart-contract by mistake

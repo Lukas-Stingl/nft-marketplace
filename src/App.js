@@ -83,9 +83,13 @@ const App = () => {
       if (mktContract) {
         // Load offer count
         const offerCount = await marketplaceCtx.loadOfferCount(mktContract);
+        //Load auctions count
+        const auctionCount = await marketplaceCtx.loadauctionCount(mktContract);
 
         // Load offers
         marketplaceCtx.loadOffers(mktContract, offerCount);
+        // Load auctions
+        marketplaceCtx.loadAuctions(mktContract, auctionCount);
 
         // Load User Funds
         account && marketplaceCtx.loadUserFunds(mktContract, account);
@@ -123,6 +127,34 @@ const App = () => {
           .on('error', (error) => {
             console.log(error);
           });
+
+         // Event AuctionCreated subscription 
+        mktContract.events.AuctionCreated()
+        .on('data', (event) => {
+          marketplaceCtx.addAuction(event.returnValues);
+          marketplaceCtx.setMktIsLoading(false);
+        })
+        .on('error', (error) => {
+          console.log(error);
+        });
+
+        // Event AuctionSuccessful subscription 
+        mktContract.events.AuctionSuccessful()
+          .on('data', (event) => {
+            marketplaceCtx.updateAuction(event.returnValues.auctionId);
+            collectionCtx.updateOwner(event.returnValues.tokenId, event.returnValues.winner);
+            marketplaceCtx.setMktIsLoading(false);
+          })
+          .on('error', (error) => {
+            console.log(error);
+          });
+
+       // Event GotOverbidden subscription
+       mktContract.events.GotOverbidden()
+       .on('data', (event) => {
+         marketplaceCtx.loadAuctions(event.returnValues.auctionId); //is that right?
+         marketplaceCtx.setMktIsLoading(false);
+       })
 
       } else {
         window.alert('NFTMarketplace contract not deployed to detected network.')
