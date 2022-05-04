@@ -73,7 +73,7 @@ $ cd nft-marketplace
 $ npm install
 
 # deploy de contracts on the kovan testchain
-$ truffle migrate --network kovan
+$ truffle migrate --reset --network kovan
 
 # start the application 
 $ npm start
