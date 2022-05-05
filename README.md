@@ -106,13 +106,21 @@ The user can access the application via web-browser, and he must have the Metama
 
 The user can perform the following actions on this NFT Marketplace:
 
+#### Latest Drops
+
+On the “home” page you do not only get introduced to the main features of our marketplace but can also admire the three most recently added NFTs, which means this section shows the three latest NFT mints made by any user of the platform.
+
 #### Mint
 
 The user must input a name, description and upload a file (image) to mint his own NFT. Once minted, a representation of this NFT will be displayed in the marketplace and initially it will be owned by its creator. This is open for everyone, meaning everyone can participate in this NFT creation within this collection. 
 
 #### Make Offer
 
-The user can offer his NFT by specifying its price (in Ether). If someone fulfills this offer, then the ownership is transferred to a new owner. 
+The user can offer his NFT by specifying its price (in Ether). If someone fulfills this offer, then the ownership is transferred to a new owner. If someone fulfils this offer, then the ownership is transferred to a new owner in exchange for the price paid. If the owner of the offered NFT would like to cancel the sale, he can simply cancel the offer and add the NFT back into his collection.
+
+#### Offer NFT in an auction
+
+The user can offer his NFT in an auction by specifying its price (in Ether). As soon as the NFT auction expires after a certain time, the NFT gets transferred to the highest bidding user in exchange for the bid (in ETH). If there is not a single bid for the offered NFT the user can “redeem NFT” to add the unsold NFT back the personal collection.
 
 #### Cancel Offer
 
@@ -124,5 +132,13 @@ A user can buy those NFT which someone else offered. This will require paying th
 
 #### Claim Funds
 
-If a user sold an NFT, he can claim his funds by clicking the button in the top-right.
+If a user sold an NFT, he can claim his funds by clicking the "withdraw" button in the top-right corner.
+
+#### See transaction history
+
+The user can have a look at his transaction history by clicking on "transactions" in the top-right corner.
+
+#### See user collection
+
+If you click on the private key of an NFT owner, you can access his/her showroom and have a look at the users NFT collection. You can also have a look at your own collection (see “make offer”).
 
