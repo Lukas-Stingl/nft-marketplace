@@ -146,25 +146,15 @@ If you click on the private key of an NFT owner, you can access his/her showroom
 
 
 - Ethereum: [https://ethereum.org/en/]
-
 - IPFS: [https://ipfs.io/] 
-
 - ReactJS: [https://reactjs.org/] 
-
 - Kovan Testnet: [https://kovan-testnet.github.io/website/]  
-
 - Web3.js: [https://web3js.readthedocs.io/en/v1.7.3/] 
-
 - Node.js: [https://nodejs.org/en/] 
-
 - Metamask: [https://metamask.io/] 
-
 - Infura: [https://infura.io/] 
-
 - Solidity: [https://docs.soliditylang.org/en/v0.8.13/] 
-
 - TruffleSuite: [https://trufflesuite.com/] 
-
 - Cryptozombies: [https://cryptozombies.io/en/course] 
 
 
