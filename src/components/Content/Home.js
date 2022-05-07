@@ -1,5 +1,5 @@
 import "./Home.css";
-import React, { useContext, useState, } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import CollectionContext from '../../store/collection-context';
 import MarketplaceContext from '../../store/marketplace-context';
@@ -10,14 +10,18 @@ import nft from '../../img/select-image.svg';
 import sale from '../../img/sale.svg';
 import logo from '../../img/logo.jpg';
 import Canvas from "../Layout/Canvas";
-import NFTCard from "../Layout/NftCard";
+import Spinner from "../Layout/Spinner";
 
 
 
 
 function Home() {
     const collectionCtx = useContext(CollectionContext);
-
+    
+    //event Listener that handles the event "page loaded" and makes loading circle disappear
+    document.addEventListener("pageLoaded", (event) => {
+        document.querySelector('.loadingSpinner').style.display = 'none';
+    });
 
     const latestDrops = collectionCtx.collection.slice(0, 3);
     //Creating the Layout of the "Home" Page
@@ -79,16 +83,16 @@ function Home() {
                                         minWidth: "100%",
                                         minHeight: "100%"
                                     }} />
-
                                 </div>
                             </Card>
                         </div>
                     );
                 })}
             </div>
-
+            <div className="loadingSpinner" style={{ display: "flex", justifyContent: "center" }}>
+                <Spinner></Spinner>
+            </div>
         </div>
-
     );
 }
 

@@ -1,0 +1,85 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "last_completed_migration",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "completed",
+						"type": "uint256"
+					}
+				],
+				"name": "setCompleted",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/contracts/Migrations.sol": "Migrations"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"src/contracts/Migrations.sol": {
+			"keccak256": "0x1b57a9741ab50962f285c2556d2e4ea2c16b796d220fa6266700033e9e45c124",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e06ede3eeaaca345508ea6c9ab23f08e8218262d929bfc4cb628b0756f467892",
+				"dweb:/ipfs/QmcQBaWAKXDXDkExEcfAmLsd45pQ1dDszq5MUefVxbuoBz"
+			]
+		}
+	},
+	"version": 1
+}
