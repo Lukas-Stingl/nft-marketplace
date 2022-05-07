@@ -29,7 +29,7 @@ https://git.scc.kit.edu/uflgi/nft-marketplace/
 
 ### Requirements
 
-To run the application you'll need:
+To run the application you'll need to install the following (_click links_):
 * [Git](https://git-scm.com)
 * [Node](https://nodejs.org/)
 * [Truffle](https://trufflesuite.com/truffle/)
