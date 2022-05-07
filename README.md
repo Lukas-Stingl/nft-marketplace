@@ -65,7 +65,7 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 - Scroll down and toggle the Button "show test networks" to on
 - Open the Network Configuration panel
 - Select the "Kovan Test Network"
-- Get Free Kovan Ether by copying your account address and posting it into the “faucet” Gitter channel on: https://gitter.im/kovan-testnet/faucet 
+- Get Free Kovan Ether on https://faucets.chain.link/
 
 
 
