@@ -8,7 +8,7 @@ This is an open decentralized NFT Marketplace built with smart contracts powered
 
 - [Getting Started](#getting-started)
 - [The Project](#the-project)
-- [NFT Marketplace features](#NFT Marketplace features)
+- [NFT-Marketplace-features](#NFT-Marketplace-features)
 - [Resources](#resources)
 
 
@@ -114,7 +114,7 @@ The user can access the application via web-browser, and he must have the Metama
   <img src="./ressources/basic_architecture.png" alt="architecture">
 </p></center>
 
-### NFT Marketplace features
+### NFT-Marketplace-features
 
 The user can perform the following actions on this NFT Marketplace:
 
