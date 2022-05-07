@@ -3,7 +3,6 @@ import web3 from '../../../connection/web3';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
-import { formatPrice } from '../../../helpers/utils';
 import "./Marketplace.css";
 import NFTCard from '../../Layout/NftCard';
 import Spinner from "../../Layout/Spinner";
@@ -127,7 +126,7 @@ const Marketplace = () => {
              highestBidder = 0;
              auctionExpired =  0;
              isAuction =  false
-             isUserTheOwner = (owner == web3Ctx.account);
+             isUserTheOwner = (owner === web3Ctx.account);
           }
             return (
               <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} cancelHandler={cancelHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction} isUserTheOwner={isUserTheOwner}></NFTCard>

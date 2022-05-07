@@ -79,11 +79,6 @@ const Collection = () => {
       });
   };
 
-  //event Listener that handles the event "page loaded" and makes loading circle disappear
-  // document.addEventListener("pageLoaded", (event) => {
-  //   document.querySelector('.loadingSpinner').style.display = 'none';
-  // });
-
   const userIsOwner = owner === web3Ctx.account;
   console.log(userIsOwner);
   return (
