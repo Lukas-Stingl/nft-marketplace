@@ -127,7 +127,7 @@ const Marketplace = () => {
              highestBidder = 0;
              auctionExpired =  0;
              isAuction =  false
-             isUserTheOwner = (owner == web3Ctx.account);
+             isUserTheOwner = (owner === web3Ctx.account);
           }
             return (
               <NFTCard NFT={NFT} key={key} index={index} price={price} owner={owner} buyHandler={buyHandler} cancelHandler={cancelHandler} bidHandler={bidHandler} endedAt={endedAt} endAuction={endAuction} isWinner={isWinner} auctionExpired={auctionExpired} isAuction={isAuction} isUserTheOwner={isUserTheOwner}></NFTCard>
