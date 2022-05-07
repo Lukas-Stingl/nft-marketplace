@@ -2,7 +2,7 @@
 
 # NFT Marketplace
 
-This is an open decentralized NFT Marketplace built with smart contracts powered by Ethereum. It basically consists in an open platform where each user can mint his own NFT and expose it on a marketplace.
+This is an open decentralized NFT Marketplace built with smart contracts powered by Ethereum. It basically consists in an open platform where each user can mint his own NFT and expose it on a marketplace, see other users collections and buy the NFTs of their dreams.
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@ This is an open decentralized NFT Marketplace built with smart contracts powered
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Just follow the instructions below:
 
 First, you will need to `clone` the repository into your Github account:
 
@@ -74,7 +74,7 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 This project consists in an open platform where each user can mint his own NFT and expose it on a marketplace by making an offer or buying NFT from others. It includes:
 
 - A smart contract which represents a collection of NFTs by following the [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) standard
-- A smart contract which represents the NFT Marketplace and contains all the logic to make offers, fill offers...
+- A smart contract which represents the NFT Marketplace and contains all the logic to make offers, fill offers, the auction...
 - Tests built with JavaScripts to ensure smart contracts are accomplishing the expected functionalities
 - A React.js front-end application as a user interface
 
@@ -98,6 +98,7 @@ This project was developed with the following technologies:
   - [Solidity](https://docs.soliditylang.org/)
   - [Truffle](https://www.trufflesuite.com/)
   - [Kovan Testnet](https://kovan-testnet.github.io/website/)
+  - [Infura]([https://infura.io/)
 
 
 <p>
