@@ -152,7 +152,7 @@ const CollectionProvider = props => {
         console.error('Something went wrong');
       }
     }
-    //event that triggers the loading circle to disappear
+    // Event that triggers the loading circle to disappear
     dispatchCollectionAction({ type: 'LOADCOLLECTION', collection: collection });
     const pageLoaded = new Event('pageLoaded', {
       bubbles: true,

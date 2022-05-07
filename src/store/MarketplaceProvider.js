@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-
 import MarketplaceContext from './marketplace-context';
 
 const defaultMarketplaceState = {
@@ -185,33 +184,6 @@ const marketplaceReducer = (state, action) => {
     };
   }
 
-  /*if (action.type === 'LOADBIDS') {
-    //to be filled
-  }*/
-
-  if (action.type === 'UPDATEBIDS') {
-    return {
-      contract: state.contract,
-      offerCount: state.offerCount,
-      offers: state.offers,
-      userFunds: state.userFunds,
-      mktIsLoading: state.mktIsLoading,
-      auctionCount: state.auctionCount,
-      auctions: state.auctions
-    };
-  }
-
-  if (action.type === 'ADDBID') {
-    return {
-      contract: state.contract,
-      offerCount: state.offerCount,
-      offers: state.offers,
-      userFunds: state.userFunds,
-      mktIsLoading: state.mktIsLoading,
-      auctionCount: state.auctionCount,
-      auctions: state.auctions
-    };
-  }
   return defaultMarketplaceState;
 };
 
@@ -224,7 +196,7 @@ const MarketplaceProvider = props => {
     return contract;
   };
 
-  //OfferHandler:
+  // OfferHandler:
 
   const loadOfferCountHandler = async (contract) => {
     const offerCount = await contract.methods.offerCount().call();
@@ -268,7 +240,7 @@ const MarketplaceProvider = props => {
   };
 
 
-  //AuctionHandler:
+  // AuctionHandler:
 
   const loadauctionCountHandler = async (contract) => {
     const auctionCount = await contract.methods.auctionCount().call();
@@ -290,7 +262,6 @@ const MarketplaceProvider = props => {
         auction.startingPrice = parseFloat(auction.startingPrice);
         return auction;
       })
-      //.filter(auction => auction.endedAt > Date.now());
     dispatchMarketplaceAction({ type: 'LOADAUCTIONS', auctions : auctions });
   };
 
@@ -302,30 +273,6 @@ const MarketplaceProvider = props => {
     dispatchMarketplaceAction({ type: 'ADDAUCTION', auction: auction });
     window.location.reload();
   };
-
-  /*const loadBidsHandler = async (contract, auctionId, bidder ) => { //tbc
-    let bids = [];
-    for (let i = 0; i < auctionCount; i++) {
-      const auction = await contract.methods.auction(i + 1).call();
-      auctions.push(auction);
-    }
-    auctions = auctions
-      .map(auction => {
-        auction.auctionId = parseInt(auction.auctionId);
-        return auction;
-      })
-      .filter(auction => auction.endedAt > now);
-    dispatchMarketplaceAction({ type: 'LOADBIDS', auctions : auctions });
-  };*/
-
-  const updateBidsHandler = (bidder) => {
-    dispatchMarketplaceAction({ type: 'UPDATEBIDS', bidder: bidder});
-  };
-
-  const addBidHandler = (bid) => {
-    dispatchMarketplaceAction({ type: 'ADDBID', bid: bid });
-  };
-
 
   const marketplaceContext = {
     contract: MarketplaceState.contract,
@@ -346,9 +293,6 @@ const MarketplaceProvider = props => {
     loadAuctions: loadAuctionsHandler,
     updateAuction: updateAuctionHandler,
     addAuction: addAuctionHandler,
-    //loadBids: loadBidsHandler,
-    updateBids: updateBidsHandler,
-    addBid: addBidHandler,
   };
 
   return (
