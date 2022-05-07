@@ -65,11 +65,7 @@ const Details = () => {
 
         // Load Contracts   
         const nftDeployedNetwork = NFTCollection.networks[networkId];
-
-        //does not load contract from context yet, use hard coded context and change when context is working
-        //const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
-        const nftContract = new web3.eth.Contract(NFTCollection.abi, nftDeployedNetwork);
-        nftContract.options.address = "0xD7ACd2a9FD159E69Bb102A1ca21C9a3e3A5F771B"
+        const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
 
 
 
@@ -99,7 +95,7 @@ const Details = () => {
 
     }
 
-
+    var url = "/collection?owner=" + accountId.accountId
 
     //{this.nftMetadata.name}
     //{this.nftMetadata.description}
@@ -110,7 +106,7 @@ const Details = () => {
                 <div className="clash-card barbarian">
                     <div className="clash-card__image clash-card__image--barbarian" src={`https://ipfs.infura.io/ipfs/${metadata.properties.image.description}`} style={divStyle}>
                     </div>
-                    <div className="clash-card__level clash-card__level--barbarian">{accountId.accountId}</div>
+                    <a class name="link" href={url}>{accountId.accountId}</a>
                     <div className="clash-card__unit-name">{metadata.properties.name.description}</div>
                     <div className="clash-card__unit-description">
                         {metadata.properties.description.description}

@@ -29,13 +29,21 @@ body {
 
 .clash-card {
   background: #bdbdbd2e;
-  width: 400px;
+  width: 450px;
   display: inline-block;
   margin: auto;
   position: relative;
   text-align: center;
   box-shadow: -1px 15px 30px -12px black;
   z-index: 9999;
+}
+
+a{
+  color: #BABABA;
+  text-decoration: none;
+}
+a:hover {
+  color: #474747;
 }
 
 .clash-card__image {
