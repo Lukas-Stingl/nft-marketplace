@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { blockTagForPayload } from 'web3-provider-engine/util/rpc-cache-utils';
 
 import MarketplaceContext from './marketplace-context';
 

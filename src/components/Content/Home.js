@@ -1,9 +1,7 @@
 import "./Home.css";
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Card from 'react-bootstrap/Card';
 import CollectionContext from '../../store/collection-context';
-import MarketplaceContext from '../../store/marketplace-context';
-import { formatPrice, useToggle } from '../../helpers/utils';
 import wallet from '../../img/wallet.svg';
 import collection from '../../img/collection.svg';
 import nft from '../../img/select-image.svg';

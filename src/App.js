@@ -178,8 +178,6 @@ const App = () => {
     loadBlockchainData();
   }, []);
 
-  const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
-  const showContent = web3 && collectionCtx.contract && marketplaceCtx.contract && web3Ctx.account;
   return (
 
     <Router>
@@ -195,8 +193,6 @@ const App = () => {
         </Routes>
       </div>
     </Router>
-
-    // {/* {showContent && <Main />} */}
 
   );
 

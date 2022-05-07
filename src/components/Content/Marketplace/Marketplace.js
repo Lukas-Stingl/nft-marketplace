@@ -3,7 +3,6 @@ import web3 from '../../../connection/web3';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
-import { formatPrice } from '../../../helpers/utils';
 import "./Marketplace.css";
 import NFTCard from '../../Layout/NftCard';
 import Spinner from "../../Layout/Spinner";
