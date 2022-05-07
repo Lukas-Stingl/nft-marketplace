@@ -5,7 +5,22 @@ import eth from '../../img/ethereum.svg';
 import './NFTCard.css';
 
 
-const NFTCard = ({ NFT, price, owner, index, buyHandler, cancelHandler, makeOfferHandler, bidHandler, makeAuctionHandler, endedAt, endAuction, isWinner, auctionExpired, isAuction, userIsOwner, isUserTheOwner }) => {
+const NFTCard = ({ NFT, 
+    price, 
+    owner, 
+    index, 
+    buyHandler, 
+    cancelHandler, 
+    makeOfferHandler, 
+    bidHandler, 
+    makeAuctionHandler, 
+    endedAt, 
+    endAuction, 
+    isWinner, 
+    auctionExpired, 
+    isAuction, 
+    userIsOwner, 
+    isUserTheOwner }) => {
     const [hovered, setHovered] = useToggle(false);
     const [offerPrice, setOfferPrice] = useState("0.001");
     const [bidPrice, setBidPrice] = useState("0.001");
