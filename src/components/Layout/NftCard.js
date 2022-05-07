@@ -53,10 +53,9 @@ const NFTCard = ({ NFT,
             
             }
         }
-            
     }, 1000);
 
-
+    //standardized Layout of a NFT card that is used in the collection and on the marketplace as a template
     return (
         <div className="col-sm-4 col-md-4 col-lg-3 col-xl-2">
             <div onClick={() => { window.location.replace(`../details?value=${NFT.id}`) }} style={{}}>

@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-
 import web3 from './connection/web3';
 import Navigation from './components/Layout/Navigation';
 import Home from './components/Content/Home';
@@ -57,7 +56,6 @@ const App = () => {
       const mktContract = marketplaceCtx.loadContract(web3, NFTMarketplace, mktDeployedNetwork);
 
 
-
       if (nftContract) {
         console.log(`reached if nftContract block`);
         // Load total Supply
@@ -93,7 +91,6 @@ const App = () => {
 
         // Load User Funds
         account && marketplaceCtx.loadUserFunds(mktContract, account);
-
 
 
         // Event OfferFilled subscription 
@@ -193,12 +190,8 @@ const App = () => {
         </Routes>
       </div>
     </Router>
-
   );
-
-
 };
-
 
 export default App;
 
