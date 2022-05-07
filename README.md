@@ -114,7 +114,7 @@ The user can access the application via web-browser, and he must have the Metama
   <img src="./ressources/basic_architecture.png" alt="architecture">
 </p></center>
 
-#### NFT-Marketplace-features
+# NFT-Marketplace-features
 
 The user can perform the following actions on this NFT Marketplace:
 
