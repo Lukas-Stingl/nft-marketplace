@@ -1,17 +1,13 @@
 import React, { useContext, useState } from 'react';
-
 import Web3Context from '../../store/web3-context';
 import MarketplaceContext from '../../store/marketplace-context';
 import web3 from '../../connection/web3';
 import userAvatar from "../../img/icon.svg";
 import ethereum from "../../img/ethereum.svg";
 import { useToggle, formatPrice } from '../../helpers/utils';
-
 import {
   Navbar,
   Nav,
-  InputGroup,
-  Input,
   NavItem,
   NavLink,
   Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
@@ -74,13 +70,6 @@ const Navigation = () => {
     <Navbar>
       <a href="/"><img className="logo" src={logo} alt="logo" style={{ backgroundColor: "#131313" }} /></a>
       <Nav>
-        <InputGroup className="search">
-          <Input
-            id="search-input"
-            placeholder="Search"
-            style={{ borderBottomLeftRadius: 4, borderTopLeftRadius: 4 }}
-          />
-        </InputGroup>
         <NavItem >
           <NavLink href="/marketplace" style={{ color: '#fff' }}>Marketplace</NavLink>
         </NavItem>
@@ -116,7 +105,6 @@ const Navigation = () => {
                   <span className="sr-only"></span>
                 </div>
               </div>}
-
             </ListGroup>
           </DropdownMenu>
         </Dropdown>

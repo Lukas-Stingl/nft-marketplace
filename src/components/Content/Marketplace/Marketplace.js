@@ -85,6 +85,9 @@ const Marketplace = () => {
         <h2 style={{ color: "#131313", textAlign: "left", marginBottom: 0 }}>Marketplace</h2>
         <h4 style={{ color: "#BABABA", fontWeight: 600 }}>{`Items on sale: ${collection.length}`}</h4>
       </div>
+      <div className="loadingSpinner" style={{ display: "flex", justifyContent: "center" }} >
+        <Spinner></Spinner>
+        </div>
       <div className='container-fluid' style={{ marginTop: "2rem" }}>
         <div className="row gy-4" >
           {collection.map((NFT, key) => {
@@ -132,9 +135,6 @@ const Marketplace = () => {
           })}
         </div>
       </div>
-      <div className="loadingSpinner" >
-        <Spinner></Spinner>
-        </div>
     </div>
   );
 };
