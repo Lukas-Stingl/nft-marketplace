@@ -91,14 +91,14 @@ This project was developed with the following technologies:
   - [React](https://pt-br.reactjs.org/)
   - [Web3.js](https://web3js.readthedocs.io/en/v1.3.4/)
 
-#### **Backend** <sub><sup>Express</sup></sub>
+#### **Backend** 
   - [IPFS](https://ipfs.io/)
  
 #### **Blockchain and Smart Contracts** <sub><sup>Solidity</sup></sub>
   - [Solidity](https://docs.soliditylang.org/)
   - [Truffle](https://www.trufflesuite.com/)
   - [Kovan Testnet](https://kovan-testnet.github.io/website/)
-  - [Infura]([https://infura.io/)
+  - [Infura](https://infura.io/)
 
 
 <p>
