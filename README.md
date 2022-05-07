@@ -1,4 +1,16 @@
 `#Ethereum`
+
+# NFT Marketplace
+
+This is an open decentralized NFT Marketplace built with smart contracts powered by Ethereum. It basically consists in an open platform where each user can mint his own NFT and expose it on a marketplace.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [The Project](#the-project)
+- [Resources](#resources)
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -9,23 +21,6 @@ First, you will need to `clone` the repository into your Github account:
 https://git.scc.kit.edu/uflgi/nft-marketplace/
 ```
 <a id='technologies'/>
-
-## :gear: Built With
-
-This project was developed with the following technologies:
-
-#### **Frontend** <sub><sup>React + JavaScript</sup></sub>
-  - [Node](https://nodejs.org/)
-  - [React](https://pt-br.reactjs.org/)
-  - [Web3.js](https://web3js.readthedocs.io/en/v1.3.4/)
-
-#### **Backend** <sub><sup>Express</sup></sub>
-  - [IPFS](https://ipfs.io/)
- 
-#### **Blockchain and Smart Contracts** <sub><sup>Solidity</sup></sub>
-  - [Solidity](https://docs.soliditylang.org/)
-  - [Truffle](https://www.trufflesuite.com/)
-  - [Kovan Testnet](https://kovan-testnet.github.io/website/)
 
 
 <a id='how-to-use'/>
@@ -68,15 +63,6 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 - **Check what happens then ToDo**
 
 
-# NFT Marketplace
-
-This is an open decentralized NFT Marketplace built with smart contracts powered by Ethereum. It basically consists in an open platform where each user can mint his own NFT and expose it on a marketplace.
-
-## Table of Contents
-
-- [Getting Started](#getting-started)
-- [The Project](#the-project)
-- [Resources](#resources)
 
 ## The Project
 
@@ -90,6 +76,25 @@ This project consists in an open platform where each user can mint his own NFT a
 
 
 ## Project architecture
+
+## :gear: Built With
+
+This project was developed with the following technologies:
+
+#### **Frontend** <sub><sup>React + JavaScript</sup></sub>
+  - [Node](https://nodejs.org/)
+  - [React](https://pt-br.reactjs.org/)
+  - [Web3.js](https://web3js.readthedocs.io/en/v1.3.4/)
+
+#### **Backend** <sub><sup>Express</sup></sub>
+  - [IPFS](https://ipfs.io/)
+ 
+#### **Blockchain and Smart Contracts** <sub><sup>Solidity</sup></sub>
+  - [Solidity](https://docs.soliditylang.org/)
+  - [Truffle](https://www.trufflesuite.com/)
+  - [Kovan Testnet](https://kovan-testnet.github.io/website/)
+
+
 <p>
   <img src="./ressources/Application_Diagram.png" alt="architecture" width="500">
 </p></center>
