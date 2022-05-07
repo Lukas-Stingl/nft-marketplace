@@ -8,7 +8,7 @@ This is an open decentralized NFT Marketplace built with smart contracts powered
 
 - [Getting Started](#getting-started)
 - [The Project](#the-project)
-- [Features](#NFT Marketplace features)
+- [NFT Marketplace features](#NFT Marketplace features)
 - [Resources](#resources)
 
 
