@@ -32,8 +32,7 @@ https://git.scc.kit.edu/uflgi/nft-marketplace/
 To run the application you'll need:
 * [Git](https://git-scm.com)
 * [Node](https://nodejs.org/)
-* [npm](https://www.npmjs.com/)
-* [Truffle](https://www.trufflesuite.com/)
+* [Truffle](https://trufflesuite.com/truffle/)
 * Clone the repository:
   * ```$ git clone https://git.scc.kit.edu/uflgi/nft-marketplace.git ```
 
@@ -47,6 +46,9 @@ $ cd nft-marketplace
 # install the dependencies
 $ npm install
 
+# install truffle
+$ npm install truffle -g
+
 # deploy de contracts on the kovan testchain
 $ truffle migrate --reset --network kovan
 
@@ -58,9 +60,11 @@ First of all, it is required to install Metamask wallet as a browser extension: 
 
 Then you should configure Metamask to connect to the Kovan testchain. This requires the following:
 - Open Metamask
+- go to settings - advanced setting
+- scroll down and toggle the Button "show test networks" to on
 - Open the Network Configuration panel
 - Select the "Kovan Test Network"
-- **Check what happens then ToDo**
+- Get Free Kovan Ether by copying your account address and posting it into the “faucet” Gitter channel on: https://gitter.im/kovan-testnet/faucet 
 
 
 
