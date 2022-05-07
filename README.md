@@ -10,14 +10,6 @@ This is an open decentralized NFT Marketplace built with smart contracts powered
 - [The Project](#the-project)
 - [Resources](#resources)
 
-## The Project
-
-This project consists in an open platform where each user can mint his own NFT and expose it on a marketplace by making an offer or buying NFT from others. It includes:
-
-- A smart contract which represents a collection of NFTs by following the [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) standard
-- A smart contract which represents the NFT Marketplace and contains all the logic to make offers, fill offers...
-- Tests built with JavaScripts to ensure smart contracts are accomplishing the expected functionalities
-- A React.js front-end application as a user interface
 
 ## Getting Started
 
@@ -29,23 +21,6 @@ First, you will need to `clone` the repository into your Github account:
 https://git.scc.kit.edu/uflgi/nft-marketplace/
 ```
 <a id='technologies'/>
-
-## :gear: Built With
-
-This project was developed with the following technologies:
-
-#### **Frontend** <sub><sup>React + JavaScript</sup></sub>
-  - [Node](https://nodejs.org/)
-  - [React](https://pt-br.reactjs.org/)
-  - [Web3.js](https://web3js.readthedocs.io/en/v1.3.4/)
-
-#### **Backend** <sub><sup>Express</sup></sub>
-  - [IPFS](https://ipfs.io/)
- 
-#### **Blockchain and Smart Contracts** <sub><sup>Solidity</sup></sub>
-  - [Solidity](https://docs.soliditylang.org/)
-  - [Truffle](https://www.trufflesuite.com/)
-  - [Kovan Testnet](https://kovan-testnet.github.io/website/)
 
 
 <a id='how-to-use'/>
@@ -87,7 +62,39 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 - Select the "Kovan Test Network"
 - **Check what happens then ToDo**
 
+
+
+## The Project
+
+This project consists in an open platform where each user can mint his own NFT and expose it on a marketplace by making an offer or buying NFT from others. It includes:
+
+- A smart contract which represents a collection of NFTs by following the [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) standard
+- A smart contract which represents the NFT Marketplace and contains all the logic to make offers, fill offers...
+- Tests built with JavaScripts to ensure smart contracts are accomplishing the expected functionalities
+- A React.js front-end application as a user interface
+
+
+
 ## Project architecture
+
+## :gear: Built With
+
+This project was developed with the following technologies:
+
+#### **Frontend** <sub><sup>React + JavaScript</sup></sub>
+  - [Node](https://nodejs.org/)
+  - [React](https://pt-br.reactjs.org/)
+  - [Web3.js](https://web3js.readthedocs.io/en/v1.3.4/)
+
+#### **Backend** <sub><sup>Express</sup></sub>
+  - [IPFS](https://ipfs.io/)
+ 
+#### **Blockchain and Smart Contracts** <sub><sup>Solidity</sup></sub>
+  - [Solidity](https://docs.soliditylang.org/)
+  - [Truffle](https://www.trufflesuite.com/)
+  - [Kovan Testnet](https://kovan-testnet.github.io/website/)
+
+
 <p>
   <img src="./ressources/Application_Diagram.png" alt="architecture" width="500">
 </p></center>
@@ -106,13 +113,21 @@ The user can access the application via web-browser, and he must have the Metama
 
 The user can perform the following actions on this NFT Marketplace:
 
+#### Latest Drops
+
+On the “home” page you do not only get introduced to the main features of our marketplace but can also admire the three most recently added NFTs, which means this section shows the three latest NFT mints made by any user of the platform.
+
 #### Mint
 
 The user must input a name, description and upload a file (image) to mint his own NFT. Once minted, a representation of this NFT will be displayed in the marketplace and initially it will be owned by its creator. This is open for everyone, meaning everyone can participate in this NFT creation within this collection. 
 
 #### Make Offer
 
-The user can offer his NFT by specifying its price (in Ether). If someone fulfills this offer, then the ownership is transferred to a new owner. 
+The user can offer his NFT by specifying its price (in Ether). If someone fulfills this offer, then the ownership is transferred to a new owner. If someone fulfils this offer, then the ownership is transferred to a new owner in exchange for the price paid. If the owner of the offered NFT would like to cancel the sale, he can simply cancel the offer and add the NFT back into his collection.
+
+#### Offer NFT in an auction
+
+The user can offer his NFT in an auction by specifying its price (in Ether). As soon as the NFT auction expires after a certain time, the NFT gets transferred to the highest bidding user in exchange for the bid (in ETH). If there is not a single bid for the offered NFT the user can “redeem NFT” to add the unsold NFT back the personal collection.
 
 #### Cancel Offer
 
@@ -124,5 +139,29 @@ A user can buy those NFT which someone else offered. This will require paying th
 
 #### Claim Funds
 
-If a user sold an NFT, he can claim his funds by clicking the button in the top-right.
+If a user sold an NFT, he can claim his funds by clicking the "withdraw" button in the top-right corner.
+
+#### See transaction history
+
+The user can have a look at his transaction history by clicking on "transactions" in the top-right corner.
+
+#### See user collection
+
+If you click on the private key of an NFT owner, you can access his/her showroom and have a look at the users NFT collection. You can also have a look at your own collection (see “make offer”).
+
+#### Resources
+
+
+- Ethereum: [https://ethereum.org/en/]
+- IPFS: [https://ipfs.io/] 
+- ReactJS: [https://reactjs.org/] 
+- Kovan Testnet: [https://kovan-testnet.github.io/website/]  
+- Web3.js: [https://web3js.readthedocs.io/en/v1.7.3/] 
+- Node.js: [https://nodejs.org/en/] 
+- Metamask: [https://metamask.io/] 
+- Infura: [https://infura.io/] 
+- Solidity: [https://docs.soliditylang.org/en/v0.8.13/] 
+- TruffleSuite: [https://trufflesuite.com/] 
+- Cryptozombies: [https://cryptozombies.io/en/course] 
+
 
