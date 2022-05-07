@@ -65,7 +65,7 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 - Scroll down and toggle the Button "show test networks" to on
 - Open the Network Configuration panel
 - Select the "Kovan Test Network"
-- Get Free Kovan Ether by copying your account address and posting it into the “faucet” Gitter channel on: https://gitter.im/kovan-testnet/faucet 
+- Get Free Kovan Ether on https://faucets.chain.link/
 
 
 
@@ -91,14 +91,14 @@ This project was developed with the following technologies:
   - [React](https://pt-br.reactjs.org/)
   - [Web3.js](https://web3js.readthedocs.io/en/v1.3.4/)
 
-#### **Backend** <sub><sup>Express</sup></sub>
+#### **Backend** 
   - [IPFS](https://ipfs.io/)
  
 #### **Blockchain and Smart Contracts** <sub><sup>Solidity</sup></sub>
   - [Solidity](https://docs.soliditylang.org/)
   - [Truffle](https://www.trufflesuite.com/)
   - [Kovan Testnet](https://kovan-testnet.github.io/website/)
-  - [Infura]([https://infura.io/)
+  - [Infura](https://infura.io/)
 
 
 <p>

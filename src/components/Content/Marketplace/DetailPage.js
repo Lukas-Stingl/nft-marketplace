@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import web3 from '../../../connection/web3';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
-
 import React from 'react';
 import "./Detail.css"
 import { useEffect, useState } from 'react';
@@ -32,7 +31,6 @@ const Details = () => {
     })
 
     //set initial state
-
 
     useEffect(async () => {
         const updatedData = await getNFTs();
@@ -68,7 +66,6 @@ const Details = () => {
         const nftContract = collectionCtx.loadContract(web3, NFTCollection, nftDeployedNetwork);
 
 
-
         //get tokenId from URL
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -86,20 +83,11 @@ const Details = () => {
         }
         console.log("name " + JSON.stringify(metadata.properties));
         return metadata
-
-
-
-        //copied todo: anpassen
-        // const NFTCollectionContract = new web3.eth.Contract(NFTCollection.abi, NFTCollectionNetwork);
-        // NFTCollectionContract.options.address = "0x61Af658E4CE2fFf7ff925e62e58421AE4FD01a06"
-
     }
 
     var url = "/collection?owner=" + accountId.accountId
 
-    //{this.nftMetadata.name}
-    //{this.nftMetadata.description}
-
+//visual template for the detailpage filled with metadata that gets returned to App.js
     return (
         <div className="slide-container">
             <div className="wrapper">
@@ -111,17 +99,10 @@ const Details = () => {
                     <div className="clash-card__unit-description">
                         {metadata.properties.description.description}
                     </div>
-                    {/* <button className="detailButton" type="button">Sell</button> */}
-
-
-
                 </div>
-
             </div>
         </div>
-
     );
-
 };
 
 export default Details;

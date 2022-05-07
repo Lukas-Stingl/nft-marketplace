@@ -1,6 +1,3 @@
-//toDo: Diese Seite nur anzeigen, wenn Nutzer sein Wallet verbunden hat!!! 
-
-
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import selectImage from '../../../img/select-image.svg';
@@ -9,11 +6,9 @@ import React, { useState, useContext } from 'react';
 import "./Create.css"
 
 
-
 const ipfsClient = require('ipfs-http-client');
 const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 const fs = require("fs");
-
 
 
 async function makeBuffer(file, name, description) {
@@ -123,8 +118,8 @@ const Create = () => {
         inputFileRef.current.click();
     };
 
+    //returns the input form with name, description and picture to App.js
     return (
-        
         <form className="createform" onSubmit={onSubmit}>
         <div className="loadingSpinner" >
         <Spinner></Spinner>
