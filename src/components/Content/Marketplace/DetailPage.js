@@ -87,7 +87,7 @@ const Details = () => {
 
     var url = "/collection?owner=" + accountId.accountId
 
-//visual template for the detailpage filled with metadata that gets returned to App.js
+    //visual template for the detailpage filled with metadata that gets returned to App.js
     return (
         <div className="slide-container">
             <div className="wrapper">

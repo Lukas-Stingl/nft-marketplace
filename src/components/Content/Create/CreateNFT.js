@@ -81,7 +81,6 @@ const Create = () => {
         collectionCtx.contract.methods.safeMint(metadataAdded.path).send({ from: web3Ctx.account })
             .on('transactionHash', (hash) => {
                 document.querySelector('.loadingSpinner').style.display = 'none';
-                //NFTCollectionContract.setNftIsLoading(true);
                 let options = {
                     filter: {
                         address: collectionCtx.address

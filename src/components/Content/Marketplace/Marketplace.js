@@ -29,21 +29,14 @@ const Marketplace = () => {
   };
 
   const bidHandler = (price, index, id) => {
-    //do we first have to set up an button to make a bid - because right now we don´t have the amount of the bid
     const enteredPrice = web3.utils.toWei(price, 'ether');
-    // collectionCtx.contract.methods.approve(marketplaceCtx.contract.options.address, id).send({ from: web3Ctx.account })
-    // .on('transactionHash', (hash) => {
-    //   marketplaceCtx.setMktIsLoading(true);
-    // })
-    // .on('receipt', (receipt) => {
     marketplaceCtx.contract.methods.fillBid(marketplaceCtx.auctions[index].auctionId/*, enteredPrice*/).send({ from: web3Ctx.account, value: enteredPrice })
       .on('error', (error) => {
         window.alert('Something went wrong when pushing to the blockchain');
         marketplaceCtx.setMktIsLoading(false);
-      });
-    // });
-  
+      });  
   };
+  
   const cancelHandler = (index) => {
     document.querySelector('.loadingSpinner').style.display = 'flex';
     marketplaceCtx.contract.methods.cancelOffer(marketplaceCtx.offers[index].offerId).send({ from: web3Ctx.account })
