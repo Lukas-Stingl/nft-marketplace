@@ -450,6 +450,12 @@
 				"ownerOf(uint256)": {
 					"details": "See {IERC721-ownerOf}."
 				},
+				"safeMint(string)": {
+					"details": "token URI consists of the unique hash value, returned from IPFS, when uploading a file",
+					"params": {
+						"_tokenURI": "URI of a token"
+					}
+				},
 				"safeTransferFrom(address,address,uint256)": {
 					"details": "See {IERC721-safeTransferFrom}."
 				},
@@ -469,7 +475,12 @@
 					"details": "See {IERC721Enumerable-tokenOfOwnerByIndex}."
 				},
 				"tokenURI(uint256)": {
-					"details": "See {IERC721Metadata-tokenURI}."
+					"params": {
+						"tokenId": "ID of a token"
+					},
+					"returns": {
+						"_0": "string IPFS hahs string from the blockchain"
+					}
 				},
 				"totalSupply()": {
 					"details": "See {IERC721Enumerable-totalSupply}."
@@ -478,11 +489,20 @@
 					"details": "See {IERC721-transferFrom}."
 				}
 			},
+			"title": "A smart contract which is responsible for mapping and creating an NFT on the blockchain",
 			"version": 1
 		},
 		"userdoc": {
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"safeMint(string)": {
+					"notice": "Saves and stores  the Token URI of the NFT in the blockchain"
+				},
+				"tokenURI(uint256)": {
+					"notice": "Responsible for getting the IPFS hash from the blockchain to a corresponding NFT"
+				}
+			},
+			"notice": "This contract provides you with functionalities regarding Non-Fungible Tokens (NFTs)",
 			"version": 1
 		}
 	},
@@ -591,11 +611,11 @@
 			]
 		},
 		"src/contracts/NFTCollection.sol": {
-			"keccak256": "0xc79f2cbb28e2706d27c82cbe9c2eff01e07b878cf3b2676dc1d10946467c0f73",
+			"keccak256": "0x5d3b586db790e96d93ccde6da8a1d2e1cd294f56421bcac6bc7419ee571ee0dd",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e5e589fbbf487690926f1b9f4fa7642c445f9dd1dbc10ad1b59357b1a793c744",
-				"dweb:/ipfs/Qmb7Miofv6D9Fm9Lkh4eEuN2mfytzW17JX3rY5LNu9aJFB"
+				"bzz-raw://fd2c0dc82d22bc1a1020b2baaa645964e1b12539e50eb9039b898e366efafe2f",
+				"dweb:/ipfs/QmUKZgMyMyPj11SY7sWkczJjUV9hBACTr59rsJDbC5EBTa"
 			]
 		}
 	},

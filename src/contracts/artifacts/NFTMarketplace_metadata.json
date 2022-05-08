@@ -22,19 +22,6 @@
 					{
 						"indexed": false,
 						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					}
-				],
-				"name": "AuctionCancelled",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
 						"name": "auctionId",
 						"type": "uint256"
 					},
@@ -78,7 +65,7 @@
 					{
 						"indexed": false,
 						"internalType": "uint256",
-						"name": "totalPrice",
+						"name": "winnersHighestBid",
 						"type": "uint256"
 					},
 					{
@@ -108,25 +95,6 @@
 					}
 				],
 				"name": "ClaimFunds",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "auctionId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "user",
-						"type": "address"
-					}
-				],
-				"name": "GotOverbidden",
 				"type": "event"
 			},
 			{
@@ -390,55 +358,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_auctionId",
-						"type": "uint256"
-					}
-				],
-				"name": "getAuction",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					},
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "_nftId",
 						"type": "uint256"
 					}
@@ -541,80 +460,159 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_auctionId",
-						"type": "uint256"
-					}
-				],
-				"name": "withdraw",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
-			"kind": "dev",
-			"methods": {
-				"cancelOffer(uint256)": {
+			"details": "There are currently hardcoded attributes, e.g. duration of an auction, which later can be implemented so that an user can set his desired duration for the auction",
+			"events": {
+				"AuctionCreated(uint256,uint256,uint256,uint256)": {
 					"params": {
-						"_offerId": "The id of the offer which the user wants to cancel."
+						"auctionId": "The unique ID of the auction",
+						"duration": "The duration of the auction",
+						"startingPrice": "Currently not implemented. For future use: the Seller can set his own minimum starting price for the auction",
+						"tokenId": "The unique ID of the NFT"
 					}
 				},
-				"claimFunds()": {
-					"details": "Not implemented in UI yet."
+				"AuctionSuccessful(uint256,uint256,uint256,address)": {
+					"params": {
+						"auctionId": "The unique ID of the auction",
+						"tokenId": "The unique ID of the NFT",
+						"winner": "The bidder with the highest Bid, thus is the winner of the auction",
+						"winnersHighestBid": "The highest Bid made by an bidder"
+					}
+				},
+				"ClaimFunds(address,uint256)": {
+					"params": {
+						"amount": "The amount of Ether, the user has earned through his sales",
+						"user": "The address of the user who claims the funds"
+					}
+				},
+				"OfferCancelled(uint256,uint256,address)": {
+					"params": {
+						"id": "The unique ID of the NFT",
+						"offerId": "The unique ID of the offer",
+						"owner": "The seller of the NFT, which decided to not sell his NFT anymore"
+					}
+				},
+				"OfferFilled(uint256,uint256,address)": {
+					"params": {
+						"id": "The unique ID of the NFT",
+						"newOwner": "The buyer of the NFT, which is set as the new owner",
+						"offerId": "The unique ID of the offer"
+					}
+				}
+			},
+			"kind": "dev",
+			"methods": {
+				"autoBookBack(uint256,uint256)": {
+					"params": {
+						"_auctionId": "Refers to a certain auction ID",
+						"amount": "The amount placed in the highest bid, before it got overbidden"
+					}
+				},
+				"cancelOffer(uint256)": {
+					"params": {
+						"_offerId": "The ID of the offer which the user wants to cancel"
+					}
+				},
+				"constructor": {
+					"params": {
+						"_nftCollection": "Consists of every NFT ever minted using our application"
+					}
+				},
+				"end(uint256)": {
+					"details": "because there is currently no option to call this funcition automatically when the auction countdown reaches 0, this function is connected to a \"Redeem NFT\"-Button in the front-end.further automated functionality could be implemented as Ethereum introduces this possibiliy to call a function from external at a specific time",
+					"params": {
+						"_auctionId": "Refers to a certain auction ID"
+					},
+					"returns": {
+						"_0": "auction Returns the auction struct behind the given auction ID"
+					}
+				},
+				"fillBid(uint256)": {
+					"params": {
+						"_auctionId": "Refers to a certain auction ID"
+					}
 				},
 				"fillOffer(uint256)": {
 					"params": {
-						"_offerId": "The id of the offer which the user wants to buy."
+						"_offerId": "The ID of the offer matched with the NFT which the user wants to buy"
+					}
+				},
+				"makeAuction(uint256)": {
+					"details": "the _auction.startingPrice is currently is without any functionality, but can be used for further implementations",
+					"params": {
+						"_nftId": "Refers to the NFT which is placed on the market by this auction"
 					}
 				},
 				"makeOffer(uint256,uint256)": {
 					"params": {
-						"_id": "The token id of the NFT.",
-						"_price": "The price at which the NFT can be bought."
+						"_id": "The token id of the NFT",
+						"_price": "The price at which the NFT can be bought"
 					}
 				}
 			},
+			"title": "A marketplace where users can buy/sell their NFT by auction or offer",
 			"version": 1
 		},
 		"userdoc": {
-			"kind": "user",
-			"methods": {
-				"autoBookBack(uint256,uint256)": {
-					"notice": "autoBookBack books back all transfered ether of previous bids in case a new bid is made "
+			"events": {
+				"AuctionCreated(uint256,uint256,uint256,uint256)": {
+					"notice": "Is emitted once an aution is made"
 				},
-				"cancelOffer(uint256)": {
-					"notice": "Cancel an offer from the offers list. Only available to the owner of the offer."
+				"AuctionSuccessful(uint256,uint256,uint256,address)": {
+					"notice": "Is emitted once an aution has ended successfully"
 				},
-				"claimFunds()": {
-					"notice": "The user can withdraw their funds made by selling NFT."
+				"ClaimFunds(address,uint256)": {
+					"notice": "Is emitted once a user claims its available funds"
 				},
-				"end(uint256)": {
-					"notice": "end is called after the auction has ended → if someone bid on the NFT, it is transferred to the highest bidder, else transferred back to the seller "
+				"OfferCancelled(uint256,uint256,address)": {
+					"notice": "Is emitted once an offer is cancelled"
 				},
-				"fillBid(uint256)": {
-					"notice": "fillBid is used to update the auction struct, if someone overbid the current bid "
-				},
-				"fillOffer(uint256)": {
-					"notice": "The sender buys a NFT from the offers list."
-				},
-				"getAuction(uint256)": {
-					"notice": "getAuction is used to get details about the auction and check if the current user has been overbidden (if true emit Event) "
-				},
-				"makeAuction(uint256)": {
-					"notice": "make auction creates the auction struct and starts the timer "
-				},
-				"makeOffer(uint256,uint256)": {
-					"notice": "Sets the price at which the NFT can be bought from other users."
-				},
-				"withdraw(uint256)": {
-					"notice": "withdraw allows overbidden users to withdraw their cumulated bids  "
+				"OfferFilled(uint256,uint256,address)": {
+					"notice": "Is emitted once an offer is made"
 				}
 			},
+			"kind": "user",
+			"methods": {
+				"auctions(uint256)": {
+					"notice": "Number of total created auctions"
+				},
+				"autoBookBack(uint256,uint256)": {
+					"notice": "Books back all transfered ether of previous bids in case a new highest bid was submitted "
+				},
+				"cancelOffer(uint256)": {
+					"notice": "Cancel an offer from the offers list. Only available to the owner of the offer"
+				},
+				"claimFunds()": {
+					"notice": "The user can withdraw their funds made by selling a NFT"
+				},
+				"constructor": {
+					"notice": "Passes every NFT stored in the collection for making them accessible for every type of market interactions"
+				},
+				"end(uint256)": {
+					"notice": "Is called after the auction has ended → if someone bid on the NFT, it is transferred to the highest bidder, else transferred back to the seller"
+				},
+				"fillBid(uint256)": {
+					"notice": "Places a bid on a certain running NFT with a determined amount entered by the user, thus making him the highest bidder"
+				},
+				"fillOffer(uint256)": {
+					"notice": "The sender buys a NFT from the offers list"
+				},
+				"makeAuction(uint256)": {
+					"notice": "Transfers the NFT from seller to smart contract and emits Auction Event, thus starting the timer based on the duration"
+				},
+				"makeOffer(uint256,uint256)": {
+					"notice": "Sets the price at which the NFT can be bought from other users and puts the NFT for sale on the market"
+				},
+				"offers(uint256)": {
+					"notice": "Number of total created offers"
+				},
+				"userFunds(address)": {
+					"notice": "Maps an offer struct to an specific offer ID"
+				}
+			},
+			"notice": "This contract provides you with every business logic behind the different market mechanisms",
 			"version": 1
 		}
 	},
@@ -723,19 +721,19 @@
 			]
 		},
 		"src/contracts/NFTCollection.sol": {
-			"keccak256": "0xc79f2cbb28e2706d27c82cbe9c2eff01e07b878cf3b2676dc1d10946467c0f73",
+			"keccak256": "0x5d3b586db790e96d93ccde6da8a1d2e1cd294f56421bcac6bc7419ee571ee0dd",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e5e589fbbf487690926f1b9f4fa7642c445f9dd1dbc10ad1b59357b1a793c744",
-				"dweb:/ipfs/Qmb7Miofv6D9Fm9Lkh4eEuN2mfytzW17JX3rY5LNu9aJFB"
+				"bzz-raw://fd2c0dc82d22bc1a1020b2baaa645964e1b12539e50eb9039b898e366efafe2f",
+				"dweb:/ipfs/QmUKZgMyMyPj11SY7sWkczJjUV9hBACTr59rsJDbC5EBTa"
 			]
 		},
 		"src/contracts/NFTMarketplace.sol": {
-			"keccak256": "0x01ea45fa9fabc1e5e04e3f15990757fa3e1a49ccddee4030e446ccd2649e340d",
+			"keccak256": "0x8ff54cc163b3d0474bf4d4f0b8cd7ea8d4816de5fff0f22adc6f99b8891201d5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bb02a75063a4bba19d6e4b3a870c211bc2cc0900555301c40760fd1510a89efa",
-				"dweb:/ipfs/QmRxgcqGED7TCu87qyzA8JDQdsWE2MBgWEK9pwg7hbsyez"
+				"bzz-raw://a318192c4baf2c0b3be5df9c17df814d67335c71dc4203ce27cc33f84e15ea3f",
+				"dweb:/ipfs/QmWKfc2RBYHZuUk6oheAkTHyZiLrNTbaApoX4eizKqxCke"
 			]
 		}
 	},
