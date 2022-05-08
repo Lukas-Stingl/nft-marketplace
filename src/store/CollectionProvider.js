@@ -11,7 +11,6 @@ const defaultCollectionState = {
 };
 
 const collectionReducer = (state, action) => {
-  console.log(`reached collectionreducer code`)
 
   if (action.type === 'CONTRACT') {
     return {
@@ -61,6 +60,7 @@ const collectionReducer = (state, action) => {
   if (action.type === 'UPDATEOWNER') {
     const index = state.collection.findIndex(NFT => NFT.id === parseInt(action.id));
     let collection = [...state.collection];
+    console.log("NewOwner:" +action.newOwner);
     collection[index].owner = action.newOwner;
 
     return {
@@ -87,7 +87,6 @@ const CollectionProvider = props => {
   const [CollectionState, dispatchCollectionAction] = useReducer(collectionReducer, defaultCollectionState);
 
   const loadContractHandler = (web3, NFTCollection, deployedNetwork) => {
-    console.log(`Reached Load Contract Handler. deployednetwork: ${deployedNetwork}`)
     const contract = deployedNetwork ? new web3.eth.Contract(NFTCollection.abi, deployedNetwork.address) : '';
     dispatchCollectionAction({ type: 'CONTRACT', contract: contract });
     return contract;
@@ -129,7 +128,6 @@ const CollectionProvider = props => {
 
   const loadCollectionHandler = async (contract, totalSupply) => {
     let collection = [];
-    console.log(`reached load collection handler`)
 
     for (let i = 0; i < totalSupply; i++) {
       const hash = await contract.methods.tokenURIs(i).call();

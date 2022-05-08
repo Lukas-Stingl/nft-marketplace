@@ -6,8 +6,6 @@ import web3 from '../../../connection/web3';
 import Web3Context from '../../../store/web3-context';
 import CollectionContext from '../../../store/collection-context';
 import MarketplaceContext from '../../../store/marketplace-context';
-import { formatPrice } from '../../../helpers/utils';
-import eth from '../../../img/ethereum.svg';
 import NFTCard from '../../Layout/NftCard';
 
 const Collection = () => {
@@ -80,7 +78,6 @@ const Collection = () => {
   };
 
   const userIsOwner = owner === web3Ctx.account;
-  console.log(userIsOwner);
   return (
 
     <div style={{ textAlign: "left", padding: "1rem 3rem 1rem 3rem" }} >
@@ -92,11 +89,8 @@ const Collection = () => {
         <div className="row gy-4" >
           {collection.map((NFT, key) => {
             return (
-              // TODO: make offer go through
               <NFTCard NFT={NFT} key={key} index={NFT.id} makeOfferHandler={makeOfferHandler} makeAuctionHandler={makeAuctionHandler}userIsOwner={userIsOwner} ></NFTCard>
             );
-
-            // TODO: show NFTs on sale from this person 
           })}
         </div>
       </div>

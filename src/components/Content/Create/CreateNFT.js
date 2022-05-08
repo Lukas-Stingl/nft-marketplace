@@ -68,7 +68,6 @@ const Create = () => {
         const ipfs = ipfsClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
         for await (const chunk of ipfs.cat(path)) {
             aBuffer.push(chunk);
-            //fs.writeFile('downloaded.jpg', picture[1], err => {console.log(err) });
         }
         var picture = Buffer.concat(aBuffer)
         fs.writeFile('downloaded.jpg', picture, err => { console.log(err) });
@@ -104,17 +103,14 @@ const Create = () => {
             })
             .on('error', (e) => {
                 window.alert('Something went wrong when pushing to the blockchain');
-                //NFTCollectionContract.setNftIsLoading(false);
                 console.log("failure")
                 document.querySelector('.loadingSpinner').style.display = 'none';
-
-                // Show in UI that createion was unsuccessful
             })
     }
 
     const inputFileRef = React.useRef();
     const onBtnClick = () => {
-        /*Collecting node-element and performing click*/
+        // Collecting node-element and performing click
         inputFileRef.current.click();
     };
 

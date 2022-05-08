@@ -5,21 +5,21 @@ import eth from '../../img/ethereum.svg';
 import './NFTCard.css';
 
 
-const NFTCard = ({ NFT, 
-    price, 
-    owner, 
-    index, 
-    buyHandler, 
-    cancelHandler, 
-    makeOfferHandler, 
-    bidHandler, 
-    makeAuctionHandler, 
-    endedAt, 
-    endAuction, 
-    isWinner, 
-    auctionExpired, 
-    isAuction, 
-    userIsOwner, 
+const NFTCard = ({ NFT,
+    price,
+    owner,
+    index,
+    buyHandler,
+    cancelHandler,
+    makeOfferHandler,
+    bidHandler,
+    makeAuctionHandler,
+    endedAt,
+    endAuction,
+    isWinner,
+    auctionExpired,
+    isAuction,
+    userIsOwner,
     isUserTheOwner }) => {
     const [hovered, setHovered] = useToggle(false);
     const [offerPrice, setOfferPrice] = useState("0.001");
@@ -49,13 +49,15 @@ const NFTCard = ({ NFT,
         if (distance < 0) {
             clearInterval(x);
             if (document.getElementById(NFT.title)) {
-            document.getElementById(NFT.title).innerHTML = "EXPIRED";
-            
+                document.getElementById(NFT.title).innerHTML = "EXPIRED";
+
             }
         }
     }, 1000);
 
-    //standardized Layout of a NFT card that is used in the collection and on the marketplace as a template
+    /** Standardized Layout of a NFT card that is used in the collection and on the marketplace as a template.
+    The following code also implements the buttons and there corresponding appearance dependent on many factors (e.g. owner, buyer, auction mechanism, etc) 
+      */
     return (
         <div className="col-sm-4 col-md-4 col-lg-3 col-xl-2">
             <div onClick={() => { window.location.replace(`../details?value=${NFT.id}`) }} style={{}}>
@@ -75,29 +77,36 @@ const NFTCard = ({ NFT,
                         <Card.Title>{NFT.title}</Card.Title>
                         {owner && <p style={{ whiteSpace: "nowrap", color: "#BABABA", fontWeight: 600, fontSize: "0.8em" }}>by <a href={`/collection?owner=${owner}`} className="link">{`${owner}`}</a></p>}
                         {isAuction && <div><p id={NFT.title} >Verbleibende Dauer</p></div>}
-                        {!isAuction && <div style={{minHeight: "1.5em", marginBottom: "15px"}}><p> </p></div>}
+                        {!isAuction && <div style={{ minHeight: "1.5em", marginBottom: "15px" }}><p> </p></div>}
+
                         <div style={{ display: "flex", justifyContent: "space-between", alignContent: "center" }}>
                             {!isAuction && buyHandler && <div style={{ display: "flex" }}><img alt="Ethereum Logo" src={eth} style={{ height: "1.4em", marginRight: "0.3em" }}></img><p>{` ${price}`}</p></div>}
-                            {isAuction && <div style={{ display: "flex" }}><p>Highest Bid:</p> <img alt="Ethereum Logo" src={eth} style={{ height: "1.4em", marginRight: "0.3em", marginLeft: "0.5em"  }}></img> <p>{` ${price}`}</p></div>}
-                            {userIsOwner && makeOfferHandler && <div style={{ display: "flex" }}><img alt="Ethereum Logo" src={eth} style={{ height: "2.5em", marginRight: "0.6em", paddingTop: "0.5rem", paddingBottom: "0.5rem"}}></img><input type="number" min="0.001" max="1000" step="0.001" value={offerPrice} onChange={e => {
+                            {isAuction && <div style={{ display: "flex" }}><p>Highest Bid:</p> <img alt="Ethereum Logo" src={eth} style={{ height: "1.4em", marginRight: "0.3em", marginLeft: "0.5em" }}></img> <p>{` ${price}`}</p></div>}
+
+                            {userIsOwner && makeOfferHandler && <div style={{ display: "flex" }}><img alt="Ethereum Logo" src={eth} style={{ height: "2.5em", marginRight: "0.6em", paddingTop: "0.5rem", paddingBottom: "0.5rem" }}></img><input type="number" min="0.001" max="1000" step="0.001" value={offerPrice} onChange={e => {
                                 setOfferPrice(e.target.value);
-                            }} onClick={e => { e.stopPropagation(); }}></input></div>}
+                            }} onClick={e => {
+                                e.stopPropagation();
+                            }}>
+                            </input>
+                            </div>}
+
                             {isUserTheOwner && !isAuction && cancelHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
                                 cancelHandler(index)
                             }}>
                                 <span>cancel</span>
                             </button>}
+
                             {!isUserTheOwner && !userIsOwner && !isAuction && buyHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
                                 buyHandler(index);
                             }}>
                                 <span>buy now</span>
                             </button>}
-                            
+
                             {userIsOwner && makeOfferHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
-
                                 makeOfferHandler(offerPrice, index)
                             }}>
                                 <span>offer</span>
@@ -106,8 +115,8 @@ const NFTCard = ({ NFT,
                             {!isUserTheOwner && !userIsOwner && isAuction && !auctionExpired && bidHandler && <input type="number" min="0.001" max="1000" step="0.001" value={bidPrice} onChange={e => {
                                 e.preventDefault();
                                 setBidPrice(e.target.value);
-
                             }} onClick={e => { e.stopPropagation(); }}></input>}
+
                             {!isUserTheOwner && !userIsOwner && isAuction && !auctionExpired && !isWinner && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
                                 bidHandler(bidPrice, index, NFT.id);
@@ -121,6 +130,7 @@ const NFTCard = ({ NFT,
                             }}>
                                 <span>Redeem NFT</span>
                             </button>}
+
                             {userIsOwner && !isWinner && makeAuctionHandler && <button className="bbtn hover-slide-right" onClick={(e) => {
                                 e.stopPropagation();
                                 makeAuctionHandler(offerPrice, index)
