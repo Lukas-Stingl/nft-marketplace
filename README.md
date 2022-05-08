@@ -52,7 +52,7 @@ $ npm install
 # install truffle
 $ npm install truffle -g
 
-# deploy de contracts on the kovan testchain
+# deploy the contracts on the kovan testchain
 $ truffle migrate --reset --network kovan
 
 # start the application 
@@ -73,7 +73,7 @@ Then you should configure Metamask to connect to the Kovan testchain. This requi
 
 ## The Project
 
-This project consists in an open platform where each user can mint his own NFT and expose it on a marketplace by making an offer or buying NFT from others. It includes:
+Our project is an open platform where each user can mint his own NFT and expose it on a marketplace by making an offer or buying NFT from others. It includes:
 
 - A smart contract which represents a collection of NFTs by following the [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/erc-721/) standard
 - A smart contract which represents the NFT Marketplace and contains all the logic to make offers, fill offers, the auction...
