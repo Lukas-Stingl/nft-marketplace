@@ -146,13 +146,6 @@ const App = () => {
             console.log(error);
           });
 
-       // Event GotOverbidden subscription
-       mktContract.events.GotOverbidden()
-       .on('data', (event) => {
-         marketplaceCtx.loadAuctions(event.returnValues.auctionId); //is that right?
-         marketplaceCtx.setMktIsLoading(false);
-       })
-
       } else {
         window.alert('NFTMarketplace contract not deployed to detected network.')
       }
