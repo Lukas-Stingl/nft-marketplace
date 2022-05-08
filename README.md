@@ -8,7 +8,7 @@ This is an open decentralized NFT Marketplace built with smart contracts powered
 
 - [Getting Started](#getting-started)
 - [The Project](#the-project)
-- [NFT-Marketplace-features](# Features of the NFT Marketplace)
+- [ Features of the NFT Marketplace](# Features of the NFT Marketplace)
 - [Resources](#resources)
 
 
@@ -131,7 +131,7 @@ The user must input a name, description and upload a file (image) to mint his ow
 
 #### Make Offer
 
-The user can offer his NFT by specifying its price (in Ether). If someone fulfills this offer, then the ownership is transferred to a new owner. If someone fulfils this offer, then the ownership is transferred to a new owner in exchange for the price paid. If the owner of the offered NFT would like to cancel the sale, he can simply cancel the offer and add the NFT back into his collection.
+The user can offer his NFT by specifying its price (in Ether). If someone fulfils this offer, then the ownership is transferred to a new owner in exchange for the price paid. If the owner of the offered NFT would like to cancel the sale, he can simply cancel the offer and add the NFT back into his collection.
 
 #### Offer NFT in an auction
 
