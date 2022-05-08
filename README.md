@@ -32,6 +32,8 @@ https://git.scc.kit.edu/uflgi/nft-marketplace/
 
 To run the application you'll need to install the following (_click links_):
 * [Git](https://git-scm.com)
+* [Python 3](https://www.python.org/downloads/)
+* [Visual Studio 2022 with C++ Extension](https://visualstudio.microsoft.com/de/downloads/)
 * [Node](https://nodejs.org/)
 * [Truffle](https://trufflesuite.com/truffle/)
 * Clone the repository:
