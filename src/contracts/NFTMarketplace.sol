@@ -155,14 +155,6 @@ contract NFTMarketplace {
         address winner
     );
 
-    /// @notice Makes the current highestBid made by any bidder in a specific auction accessible
-    /// @param auction Refers to the desired auction
-    /// @param bidder Refers to the bidder who placed a bid on this auction
-    /// @return uint256 The amount of the last bid this specific user has bidden 
-    function getBids(_Auction storage auction, address bidder) internal returns (uint256) {
-        return auction.bids[bidder];
-    }
-
     /// @notice Sets bid of a bidder to his amount placed in his bid
     /// @param auction Refers to the desired auction
     /// @param bidder Refers to the bidder who placed a bid on this auction
@@ -199,15 +191,13 @@ contract NFTMarketplace {
     /// @param _auctionId Refers to a certain auction ID
     function fillBid(uint256 _auctionId) public payable {
         _Auction storage _auction = auctions[_auctionId];
-        require(_auction.auctionId == _auctionId, "The auction does not exist!"); ///Checks that there is a valid auction
-        require(block.timestamp < _auction.endedAt, "The Auction has already ended!"); //Checks that the auction is still running
-        require(_auction.seller != msg.sender, "The seller can not place a bid on his own NFT!"); ///Checks that the seller cannot bid on his own NFT
+        require(_auction.auctionId == _auctionId, "The auction does not exist!"); /// Checks that there is a valid auction
+        require(block.timestamp < _auction.endedAt, "The Auction has already ended!"); /// Checks that the auction is still running
+        require(_auction.seller != msg.sender, "The seller can not place a bid on his own NFT!"); /// Checks that the seller cannot bid on his own NFT
         uint256 newBid = msg.value;
-        require(newBid > _auction.highestBid, "value < highest"); //Checks that bid is higher than previous highest bid (see autoBookBack)
-        uint256 cumulatedBids = getBids(_auction, _auction.highestBidder); 
-        setBids(_auction,  _auction.highestBidder, 0); //Set current Bids of the user on 0 to counter re-entry attacks
-        autoBookBack(cumulatedBids, _auctionId); //Book back older bids in case
-        setBids(_auction, msg.sender, newBid); //Set current Bids on new Bid
+        require(newBid > _auction.highestBid, "value < highest"); /// Checks that bid is higher than previous highest bid (see autoBookBack)
+        autoBookBack(_auction.bids[_auction.highestBidder], _auctionId); /// Book back older bids in case
+        setBids(_auction, msg.sender, newBid); /// Set current Bids on new Bid
         _auction.highestBidder = msg.sender;
         _auction.highestBid = newBid;
     }
@@ -255,7 +245,7 @@ contract NFTMarketplace {
     /// @param _auctionId Refers to a certain auction ID
     function autoBookBack(uint256 amount, uint256 _auctionId) public {
         _Auction storage _auction = auctions[_auctionId];
-        setBids(_auction, _auction.highestBidder, 0); ///Again set Bids on 0 in case of re-entry attack
+        setBids(_auction, _auction.highestBidder, 0); /// Set Bids on 0 in case of re-entry attack
         payable(_auction.highestBidder).transfer(amount);
     }
 
