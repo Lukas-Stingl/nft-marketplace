@@ -215,6 +215,8 @@ contract NFTMarketplace {
 
     /// @notice Is called after the auction has ended → if someone bid on the NFT, it is transferred to the highest bidder, else transferred back to the seller
     /// @param _auctionId Refers to a certain auction ID
+    /// @dev because there is currently no option to call this funcition automatically when the auction countdown reaches 0, this function is connected to a "Redeem NFT"-Button in the front-end.
+    /// @dev further automated functionality could be implemented as Ethereum introduces this possibiliy to call a function from external at a specific time
     /// @return auction Returns the auction struct behind the given auction ID
     function end(uint256 _auctionId) public payable returns (string memory){
         _Auction storage _auction = auctions[_auctionId];
