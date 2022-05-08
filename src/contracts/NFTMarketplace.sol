@@ -104,9 +104,11 @@ contract NFTMarketplace {
             userFunds[msg.sender] > 0,
             "This user has no funds to be claimed"
         );
-        payable(msg.sender).transfer(userFunds[msg.sender]);
-        emit ClaimFunds(msg.sender, userFunds[msg.sender]);
+        uint256 currentBalance = userFunds[msg.sender];
         userFunds[msg.sender] = 0; /// Sets the balance back to 0
+        payable(msg.sender).transfer(currentBalance);
+        emit ClaimFunds(msg.sender, currentBalance);
+        
     }
 
     //<-------------------------Implementing Auction mechnanism---------------------------------------->
@@ -131,7 +133,7 @@ contract NFTMarketplace {
 
     /// @notice Is emitted once an aution is made
     /// @param auctionId The unique ID of the auction
-    /// @param tokenID The unique ID of the NFT
+    /// @param tokenId The unique ID of the NFT
     /// @param startingPrice Currently not implemented. For future use: the Seller can set his own minimum starting price for the auction
     /// @param duration The duration of the auction
     event AuctionCreated(
@@ -143,7 +145,7 @@ contract NFTMarketplace {
 
     /// @notice Is emitted once an aution has ended successfully
     /// @param auctionId The unique ID of the auction
-    /// @param tokenID The unique ID of the NFT
+    /// @param tokenId The unique ID of the NFT
     /// @param winnersHighestBid The highest Bid made by an bidder
     /// @param winner The bidder with the highest Bid, thus is the winner of the auction
     event AuctionSuccessful(
@@ -195,18 +197,15 @@ contract NFTMarketplace {
 
     /// @notice Places a bid on a certain running NFT with a determined amount entered by the user, thus making him the highest bidder
     /// @param _auctionId Refers to a certain auction ID
-    /// @return auction Returns the auction struct behind the given auction ID
-    
     function fillBid(uint256 _auctionId) public payable {
         _Auction storage _auction = auctions[_auctionId];
         require(_auction.auctionId == _auctionId, "The auction does not exist!"); ///Checks that there is a valid auction
         require(block.timestamp < _auction.endedAt, "The Auction has already ended!"); //Checks that the auction is still running
         require(_auction.seller != msg.sender, "The seller can not place a bid on his own NFT!"); ///Checks that the seller cannot bid on his own NFT
-
         uint256 newBid = msg.value;
         require(newBid > _auction.highestBid, "value < highest"); //Checks that bid is higher than previous highest bid (see autoBookBack)
-        uint256 cumulatedBids = getBids(_auction, msg.sender); 
-        setBids(_auction, msg.sender, 0); //Set current Bids of the user on 0 to counter re-entry attacks
+        uint256 cumulatedBids = getBids(_auction, _auction.highestBidder); 
+        setBids(_auction,  _auction.highestBidder, 0); //Set current Bids of the user on 0 to counter re-entry attacks
         autoBookBack(cumulatedBids, _auctionId); //Book back older bids in case
         setBids(_auction, msg.sender, newBid); //Set current Bids on new Bid
         _auction.highestBidder = msg.sender;
@@ -255,8 +254,9 @@ contract NFTMarketplace {
     /// @param amount The amount placed in the highest bid, before it got overbidden
     /// @param _auctionId Refers to a certain auction ID
     function autoBookBack(uint256 amount, uint256 _auctionId) public {
-        setBids(auctions[_auctionId], msg.sender, 0); ///Again set Bids on 0 in case of re-entry attack
-        payable(msg.sender).transfer(amount);
+        _Auction storage _auction = auctions[_auctionId];
+        setBids(_auction, _auction.highestBidder, 0); ///Again set Bids on 0 in case of re-entry attack
+        payable(_auction.highestBidder).transfer(amount);
     }
 
     /// Fallback: reverts if Ether is sent to this smart-contract by mistake
