@@ -8,7 +8,7 @@ This is an open decentralized NFT Marketplace built with smart contracts powered
 
 - [Getting Started](#getting-started)
 - [The Project](#the-project)
-- [ Features of the NFT Marketplace](# Features of the NFT Marketplace)
+- [Features of the NFT Marketplace](#features-of-the-nft-marketplace)
 - [Resources](#resources)
 
 
@@ -16,11 +16,7 @@ This is an open decentralized NFT Marketplace built with smart contracts powered
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Just follow the instructions below:
 
-First, you will need to `clone` the repository into your Github account:
-
-```
-https://git.scc.kit.edu/uflgi/nft-marketplace/
-```
+First, you will need to `clone` the repository into your Github account
 <a id='technologies'/>
 
 
@@ -36,11 +32,8 @@ To run the application you'll need to install the following (_click links_):
 * [Visual Studio 2022 with C++ Extension](https://visualstudio.microsoft.com/de/downloads/)
 * [Node](https://nodejs.org/)
 * [Truffle](https://trufflesuite.com/truffle/)
-* Clone the repository:
-  * ```$ git clone https://git.scc.kit.edu/uflgi/nft-marketplace.git ```
 
-
-Now go to project folder and run:
+Go to project folder and run:
 
 
 ```bash
@@ -117,7 +110,7 @@ The user can access the application via web-browser, and he must have the Metama
   <img src="./ressources/basic_architecture.png" alt="architecture">
 </p></center>
 
-# Features of the NFT Marketplace
+## Features of the NFT Marketplace
 
 The user can perform the following actions on this NFT Marketplace:
 
